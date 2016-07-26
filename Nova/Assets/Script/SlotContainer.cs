@@ -1,45 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SlotContainer : MonoBehaviour {
 
-    Item item;
-    ItemValues itemValues;
+    [SerializeField]
+    private ItemBase _Item;
+    [SerializeField]
+    public int _Stack;
+    [SerializeField]
+    private Text Text;
+    [SerializeField]
+    private Image Image;
 
-    public Item getItem()
-    {
-        if (item != null)
-        {
-            refreshTile();
+    public ItemBase Item{
+        get {
+            return _Item;
         }
-        return item;
+        set {
+                _Item = value;
+                this.Image.sprite = _Item.Icon;
+        }
     }
 
-    public void setItem(Item item)
-    {
-        this.item = item;
-        refreshTile();
+    public int Stack{
+        get {
+            return _Stack;
+        }
+        set {
+            _Stack = value;
+            this.Text.text = Stack.ToString();
+        }
     }
 
-    public void refreshTile()
-    {
-        //transform.GetChild(0).GetComponent<Image>().sprite = item.Icon;
-        //transform.GetChild(1).GetComponent<Text>().text = itemValues
-    }
-
-    public void destroyObject()
-    {
-        Destroy(gameObject);
-    }
-
-
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
