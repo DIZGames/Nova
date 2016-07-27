@@ -11,6 +11,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2624fe256f02d4b9bd6940554a1ba1, type: 3}
   m_Name: ItemDataBase
   m_EditorClassIdentifier: 
-  itemList:
-  - {fileID: 11400000, guid: bed6a3e7b2673a74596f88a1344ade29, type: 2}
-  - {fileID: 11400000, guid: b361f847c1972964db10da7978372482, type: 2}
+  toolList:
+  - itemName: RocketLauncher
+    maxStack: 1
+    type: 0
+    icon: {fileID: 21300030, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
+    prefab: {fileID: 127868, guid: 05c41d2fc0036534497808e14fff26a2, type: 2}
+    BulletSpeed: 50
+    FireRate: 3
+    Ammo:
+      itemName: 
+      maxStack: 0
+      type: 0
+      icon: {fileID: 0}
+      prefab: {fileID: 0}
+      ClipSize: 0
+      Damage: 0
+  ammoList:
+  - itemName: Rocket
+    maxStack: 10
+    type: 0
+    icon: {fileID: 21300046, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
+    prefab: {fileID: 113178, guid: 1734e5fedc4a12744bca9cbce806d7ad, type: 2}
+    ClipSize: 5
+    Damage: 100

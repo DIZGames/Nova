@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 497910}
   - 212: {fileID: 21252836}
-  - 114: {fileID: 11481532}
+  - 114: {fileID: 11437096}
   m_Layer: 0
   m_Name: RocketLauncher
   m_TagString: Untagged
@@ -58,7 +58,7 @@ Transform:
   - {fileID: 417074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11481532
+--- !u!114 &11437096
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0867cfac0985df14fabac0cc636f9257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 417074}
+  firePoint: {fileID: 0}
   currentDamage: 0
 --- !u!212 &21226944
 SpriteRenderer:
