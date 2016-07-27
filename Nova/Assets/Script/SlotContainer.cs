@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class SlotContainer : MonoBehaviour {
 
     [SerializeField]
-    private ItemBase _Item;
+    private GameObject _ItemPrefab;
     [SerializeField]
     public int _Stack;
 
@@ -14,13 +14,14 @@ public class SlotContainer : MonoBehaviour {
     [SerializeField]
     private Image Image;
 
-    public ItemBase Item{
+    ItemData _ItemData;
+
+    public GameObject prefab{
         get {
-            return _Item;
+            return _ItemPrefab;
         }
         set {
-                _Item = value;
-                this.Image.sprite = _Item.icon;
+            _ItemPrefab = value;
         }
     }
 
@@ -33,5 +34,16 @@ public class SlotContainer : MonoBehaviour {
             this.Text.text = Stack.ToString();
         }
     }
+
+    public ItemData ItemData{
+        get {
+            return _ItemData;
+        }
+        set {
+            _ItemData = value;
+            this.Image.sprite = _ItemData.icon;
+        }
+    }
+
 
 }

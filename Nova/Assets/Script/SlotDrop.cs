@@ -16,10 +16,10 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
                 SlotContainer draggedContainer = eventData.pointerDrag.GetComponent<SlotContainer>();
                 SlotContainer slotContainer = transform.GetChild(0).GetComponent<SlotContainer>();
 
-                if (draggedContainer.Item.name == slotContainer.Item.name && (slotContainer.Stack != slotContainer.Item.maxStack)) {
+                if (draggedContainer.prefab.name == slotContainer.prefab.name && (slotContainer.Stack != slotContainer.ItemData.maxStack)) {
                     //Wenn beide Items den gleichen Namen haben und der Container auf dem Slot nicht MaxStack hat
 
-                    int freeStackOnSlot = slotContainer.Item.maxStack - slotContainer.Stack;
+                    int freeStackOnSlot = slotContainer.ItemData.maxStack - slotContainer.Stack;
 
                      if (draggedContainer.Stack <= freeStackOnSlot) {
                         slotContainer.Stack += draggedContainer.Stack;
@@ -32,14 +32,14 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
                 }
                 else { //SWAP
       
-                    ItemBase itemBase = slotContainer.Item;
-                    int Stack = slotContainer.Stack;
+                    //ItemBase itemBase = slotContainer.prefab;
+                    //int Stack = slotContainer.Stack;
 
-                    slotContainer.Item = draggedContainer.Item;
-                    slotContainer.Stack = draggedContainer.Stack;
+                    //slotContainer.prefab = draggedContainer.prefab;
+                    //slotContainer.Stack = draggedContainer.Stack;
 
-                    draggedContainer.Item = itemBase;
-                    draggedContainer.Stack = Stack;
+                    //draggedContainer.prefab = itemBase;
+                    //draggedContainer.Stack = Stack;
 
 
                 }

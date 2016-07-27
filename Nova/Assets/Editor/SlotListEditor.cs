@@ -29,11 +29,17 @@ public class SlotListEditor : Editor {
         //ItemDataBaseList inventoryItemList = (ItemDatabase)Resources.Load("ItemDatabase");                            //loading the itemdatabase
         string[] items = new string[itemDataBase.getCount()];
 
+        int totalIndex = 0;
+        //create a string array in length of the itemcount
+         for (int i = 0; i < itemDataBase.getToolsCount(); i++, totalIndex++)                                                                              //go through the item array
+        {
+            items[totalIndex] = itemDataBase.getToolByIndex(i).itemName;
+        }
 
         //create a string array in length of the itemcount
-        for (int i = 0; i < items.Length; i++)                                                                              //go through the item array
+        for (int i = 0; i < + itemDataBase.getAmmoCount(); i++, totalIndex++)                                                                              //go through the item array
         {
-            items[i] = itemDataBase.getItemByIndex(i).name;
+            items[totalIndex] = itemDataBase.getAmmoByIndex(i).itemName;
         }
 
 
@@ -42,7 +48,7 @@ public class SlotListEditor : Editor {
         GUI.color = Color.yellow;                                                                                            //set the color of all following guielements to green
         if (GUILayout.Button("Add Item"))                                                                                   //creating button with name "AddItem"
         {
-            ItemBase item = itemDataBase.getItemByIndex(itemIndex);
+            ItemBase item = itemDataBase.getItemByName(items[itemIndex]);
 
             slScript.addItemToNextFreeSlot(item, itemValue);
 

@@ -5,18 +5,16 @@ using Assets.Script.ItemSystem;
 public class ToolLogic : MonoBehaviour {
 
     public Transform firePoint;
-    private ItemTool itemTool;
+    private ToolData toolData;
+
     public int currentDamage;
 
 	void Start () {
         transform.position = transform.parent.position;
         transform.rotation = transform.parent.rotation;
 
-        ItemList itemDataBase = (ItemList)Resources.Load("ItemDataBase");
+        firePoint = gameObject.transform.FindChild("FirePoint");
 
-        itemTool = (ItemTool)itemDataBase.getItemByName(gameObject.name);
-
-        currentDamage = itemTool.Ammo.Damage;
         
     }
 
@@ -39,12 +37,18 @@ public class ToolLogic : MonoBehaviour {
         // Normalisiert den Vektor
         vectornew.Normalize();
 
-        GameObject t = GameObject.Instantiate(itemTool.Ammo.prefab);
+        GameObject t = GameObject.Instantiate(toolData.Ammo.prefab);
         t.transform.position = firePoint.position;
         t.transform.rotation = firePoint.rotation;
         t.name = "Rocket";
 
-        t.GetComponent<Rigidbody2D>().AddForce(vectornew * itemTool.BulletSpeed * Time.deltaTime, ForceMode2D.Impulse);
+        t.GetComponent<Rigidbody2D>().AddForce(vectornew * toolData.BulletSpeed * Time.deltaTime, ForceMode2D.Impulse);
         t.GetComponent<Projectile>().damage = currentDamage;
+    }
+
+    public ToolData ToolData
+    {
+        get { return toolData; }
+        set { toolData = value; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Script.ItemSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Assets.Script {
     public class SlotList : MonoBehaviour {
 
         private GameObject SlotContainer;
-
+        
         public void addItemToNextFreeSlot(ItemBase item, int stack) {
             SlotContainer = (GameObject)Resources.Load("Prefab/SlotContainer");
 
@@ -22,8 +23,25 @@ namespace Assets.Script {
 
                     SlotContainer slotContainer = gObject.GetComponent<SlotContainer>();
 
-                    slotContainer.Item = item;
+                    slotContainer.prefab = item.prefab;
                     slotContainer.Stack = stack;
+
+                    ItemList itemDataBase = (ItemList)Resources.Load("ItemDataBase");
+
+
+                    ItemTool itemTool = (ItemTool)item;
+                    ItemAmmo itemAmmo = (ItemAmmo)itemDataBase.getItemByName("Rocket");
+
+                    ToolData toolData = new ToolData();
+                    toolData.Ammo = itemAmmo;
+                    toolData.BulletSpeed = itemTool.BulletSpeed;
+                    toolData.FireRate = itemTool.FireRate;
+                    toolData.icon = itemTool.icon;
+                    toolData.maxStack = itemTool.maxStack;
+                    toolData.name = itemTool.itemName;
+                    toolData.type = itemTool.type;
+
+                    slotContainer.ItemData = toolData;
 
                     break;
 

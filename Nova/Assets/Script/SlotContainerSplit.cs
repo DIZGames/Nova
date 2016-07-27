@@ -22,7 +22,7 @@ public class SlotContainerSplit : MonoBehaviour, IPointerDownHandler {
                 SlotContainer.Stack = result + modulo;
 
                 GameObject gObject = Instantiate(gameObject);
-                gObject.GetComponent<SlotContainer>().Item = SlotContainer.Item;
+                gObject.GetComponent<SlotContainer>().prefab = SlotContainer.prefab;
                 gObject.GetComponent<SlotContainer>().Stack = result;
 
 

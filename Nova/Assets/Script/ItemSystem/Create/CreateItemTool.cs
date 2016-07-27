@@ -11,14 +11,14 @@ namespace Assets.Script.ItemSystem.Create {
         [MenuItem("Assets/Create/ItemTool")]
         public static void CreateMyAsset()
         {
-            ItemTool asset = ScriptableObject.CreateInstance<ItemTool>();
+            //ItemTool asset = ScriptableObject.CreateInstance<ItemTool>();
 
-            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/ItemTool.asset");
-            AssetDatabase.SaveAssets();
+            //AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/ItemTool.asset");
+            //AssetDatabase.SaveAssets();
 
-            EditorUtility.FocusProjectWindow();
+            //EditorUtility.FocusProjectWindow();
 
-            Selection.activeObject = asset;
+            //Selection.activeObject = asset;
         }
     }
 }
