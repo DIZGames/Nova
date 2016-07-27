@@ -9,7 +9,8 @@ namespace Assets.Script.ItemSystem.Create {
     public class CreateItemAmmo {
 
         [MenuItem("Assets/Create/ItemAmmo")]
-        public static void CreateMyAsset() {
+        public static void CreateMyAsset()
+        {
             ItemAmmo asset = ScriptableObject.CreateInstance<ItemAmmo>();
 
             AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/ItemAmmo.asset");

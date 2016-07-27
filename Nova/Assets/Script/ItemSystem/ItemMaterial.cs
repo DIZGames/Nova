@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Script.ItemSystem {
-    public class ItemMaterial : ItemBase{
+    public class ItemMaterial : MonoBehaviour{
     }
 }

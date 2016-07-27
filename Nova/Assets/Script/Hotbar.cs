@@ -63,10 +63,11 @@ public class Hotbar : MonoBehaviour, IHasChanged {
 
         if (slotContainer != null) {
 
-            GameObject go = Instantiate(slotContainer.Item.Prefab);
+            GameObject go = Instantiate(slotContainer.Item.prefab);
 
             //go.transform.position = transform.position;
             //go.transform.rotation = transform.rotation;
+            go.name = slotContainer.Item.prefab.name;
             go.transform.SetParent(player.EquipmentPoint.transform);
 
         }

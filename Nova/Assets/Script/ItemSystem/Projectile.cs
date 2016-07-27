@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemValues : MonoBehaviour {
+public class Projectile : MonoBehaviour {
 
-
-
+    public int damage;
 
 	// Use this for initialization
 	void Start () {

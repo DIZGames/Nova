@@ -9,17 +9,17 @@ namespace Assets.Script.ItemSystem.Create
 {
     public class CreateItem
     {
-        [MenuItem("Assets/Create/Item")]
-        public static void CreateMyAsset()
-        {
-            ItemBase asset = ScriptableObject.CreateInstance<ItemBase>();
+        //[MenuItem("Assets/Create/Item")]
+        //public static void CreateMyAsset()
+        //{
+        //    ItemBase asset = ScriptableObject.CreateInstance<ItemBase>();
 
-            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/Item.asset");
-            AssetDatabase.SaveAssets();
+        //    AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/Item.asset");
+        //    AssetDatabase.SaveAssets();
 
-            EditorUtility.FocusProjectWindow();
+        //    EditorUtility.FocusProjectWindow();
 
-            Selection.activeObject = asset;
-        }
+        //    Selection.activeObject = asset;
+        //}
     }
 }

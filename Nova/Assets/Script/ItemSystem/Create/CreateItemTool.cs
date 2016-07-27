@@ -6,9 +6,11 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Script.ItemSystem.Create {
-    public class CreateItemTool {
+    public class CreateItemTool
+    {
         [MenuItem("Assets/Create/ItemTool")]
-        public static void CreateMyAsset() {
+        public static void CreateMyAsset()
+        {
             ItemTool asset = ScriptableObject.CreateInstance<ItemTool>();
 
             AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/ItemTool.asset");

@@ -11,11 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc0f11de17ca514184c12168d0bc1db, type: 3}
   m_Name: RocketLauncher
   m_EditorClassIdentifier: 
-  Name: RocketLauncher
-  MaxStack: 60
-  Type: 0
-  Icon: {fileID: 21300030, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
-  Prefab: {fileID: 140144, guid: 05c41d2fc0036534497808e14fff26a2, type: 2}
-  BulletSpeed: 40
-  FireRate: 10
-  Ammo: {fileID: 11400000, guid: 9789e8f78a5a937448c0c96fa4989c77, type: 2}
+  name: RocketLauncher
+  maxStack: 1
+  type: 0
+  icon: {fileID: 21300030, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
+  prefab: {fileID: 127868, guid: 05c41d2fc0036534497808e14fff26a2, type: 2}
+  BulletSpeed: 23
+  FireRate: 34
+  Ammo: {fileID: 11400000, guid: b361f847c1972964db10da7978372482, type: 2}

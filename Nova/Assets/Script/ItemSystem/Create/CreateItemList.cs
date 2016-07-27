@@ -9,7 +9,7 @@ public class CreateItemList {
     {
         ItemList asset = ScriptableObject.CreateInstance<ItemList>();
 
-        AssetDatabase.CreateAsset(asset, "Assets/Resources/ItemList.asset");
+        AssetDatabase.CreateAsset(asset, "Assets/Resources/ItemDataBase.asset");
         AssetDatabase.SaveAssets();
 
         EditorUtility.FocusProjectWindow();

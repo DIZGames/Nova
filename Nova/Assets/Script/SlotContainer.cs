@@ -8,6 +8,7 @@ public class SlotContainer : MonoBehaviour {
     private ItemBase _Item;
     [SerializeField]
     public int _Stack;
+
     [SerializeField]
     private Text Text;
     [SerializeField]
@@ -19,7 +20,7 @@ public class SlotContainer : MonoBehaviour {
         }
         set {
                 _Item = value;
-                this.Image.sprite = _Item.Icon;
+                this.Image.sprite = _Item.icon;
         }
     }
 

@@ -29,11 +29,13 @@ public class SlotListEditor : Editor {
         //ItemDataBaseList inventoryItemList = (ItemDatabase)Resources.Load("ItemDatabase");                            //loading the itemdatabase
         string[] items = new string[itemDataBase.getCount()];
 
+
         //create a string array in length of the itemcount
         for (int i = 0; i < items.Length; i++)                                                                              //go through the item array
         {
-            items[i] = itemDataBase.getItemByIndex(i).Name;                                                            //and paste all names into the array
+            items[i] = itemDataBase.getItemByIndex(i).name;
         }
+
 
         itemIndex = EditorGUILayout.Popup("", itemIndex, items, EditorStyles.popup);                                              //create a popout with all itemnames in it and save the itemID of it
         itemValue = EditorGUILayout.IntField("", itemValue, GUILayout.Width(40));

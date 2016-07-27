@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Script.ItemSystem;
 
-public abstract class ItemBase : ScriptableObject{
+[System.Serializable]
+public class ItemBase : ScriptableObject{
 
-    public string Name;
-    public int MaxStack;
-    public ItemType Type;
-    public Sprite Icon;
-    public GameObject Prefab;
+    public string name;
+    public int maxStack;
+    public ItemType type;
+    public Sprite icon;
+    public GameObject prefab;
 }

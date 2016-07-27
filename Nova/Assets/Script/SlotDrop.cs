@@ -16,12 +16,12 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
                 SlotContainer draggedContainer = eventData.pointerDrag.GetComponent<SlotContainer>();
                 SlotContainer slotContainer = transform.GetChild(0).GetComponent<SlotContainer>();
 
-                if (draggedContainer.Item.Name == slotContainer.Item.Name && (slotContainer.Stack != slotContainer.Item.MaxStack)) {
+                if (draggedContainer.Item.name == slotContainer.Item.name && (slotContainer.Stack != slotContainer.Item.maxStack)) {
                     //Wenn beide Items den gleichen Namen haben und der Container auf dem Slot nicht MaxStack hat
 
-                    int freeStackOnSlot = slotContainer.Item.MaxStack - slotContainer.Stack;
+                    int freeStackOnSlot = slotContainer.Item.maxStack - slotContainer.Stack;
 
-                    if (draggedContainer.Stack <= freeStackOnSlot) {
+                     if (draggedContainer.Stack <= freeStackOnSlot) {
                         slotContainer.Stack += draggedContainer.Stack;
                         Destroy(eventData.pointerDrag);
                     }
