@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Script.ItemSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +23,24 @@ namespace Assets.Script {
 
                     SlotContainer slotContainer = gObject.GetComponent<SlotContainer>();
 
-                    slotContainer.Item = item;
-                    slotContainer.Stack = stack;
+                    ItemValues itemValues = null; 
+
+                    switch (item.type)
+                    {
+                        case ItemType.Ammo:
+                            itemValues = new ItemAmmoValues(item);
+                            break;
+                        case ItemType.Tool:
+                            itemValues = new ItemToolValues(item);
+                            break;
+
+                    }
+
+                    if (itemValues == null)
+                        Debug.Log("ItemValues == NULL");
+
+                    slotContainer.Item = itemValues;
+                    slotContainer.Item.stack = stack;
 
                     break;
 

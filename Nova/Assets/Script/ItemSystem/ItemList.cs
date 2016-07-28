@@ -9,8 +9,10 @@ public class ItemList : ScriptableObject {
     private List<ItemBase> itemList;
 
     public ItemBase getItemByName(string Name) {
-        for (int i = 0; i < itemList.Count; i++) {
-            if (Name == itemList[i].name) {
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            if (Name == itemList[i].name)
+            {
                 return itemList[i];
             }
         }

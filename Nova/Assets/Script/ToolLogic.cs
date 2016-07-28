@@ -2,31 +2,26 @@
 using System.Collections;
 using Assets.Script.ItemSystem;
 
+[System.Serializable]
 public class ToolLogic : MonoBehaviour {
 
     public Transform firePoint;
-    private ItemTool itemTool;
-    public int currentDamage;
+
+    private ItemToolValues itemToolValues;
 
 	void Start () {
-        transform.position = transform.parent.position;
-        transform.rotation = transform.parent.rotation;
+   
+    }
 
-        ItemList itemDataBase = (ItemList)Resources.Load("ItemDataBase");
-
-        itemTool = (ItemTool)itemDataBase.getItemByName(gameObject.name);
-
-        currentDamage = itemTool.Ammo.Damage;
-        
+    public void setItemValues(ItemValues itemValues) {
+        itemToolValues = (ItemToolValues)itemValues;
     }
 
 	void Update () {
 
         if (Input.GetButtonDown("Fire1")) {
             PrimaryFire();
-
         }
-
 	}
 
     public void PrimaryFire() {
@@ -39,12 +34,12 @@ public class ToolLogic : MonoBehaviour {
         // Normalisiert den Vektor
         vectornew.Normalize();
 
-        GameObject t = GameObject.Instantiate(itemTool.Ammo.prefab);
+        GameObject t = GameObject.Instantiate(itemToolValues.Ammo.prefab);
         t.transform.position = firePoint.position;
         t.transform.rotation = firePoint.rotation;
         t.name = "Rocket";
 
-        t.GetComponent<Rigidbody2D>().AddForce(vectornew * itemTool.BulletSpeed * Time.deltaTime, ForceMode2D.Impulse);
-        t.GetComponent<Projectile>().damage = currentDamage;
+        t.GetComponent<Rigidbody2D>().AddForce(vectornew * itemToolValues.BulletSpeed * Time.deltaTime, ForceMode2D.Impulse);
+        //t.GetComponent<Projectile>().damage = currentDamage;
     }
 }

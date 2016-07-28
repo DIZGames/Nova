@@ -2,6 +2,7 @@
 using System.Collections;
 using Assets.Script;
 using System;
+using Assets.Script.ItemSystem;
 
 public class Hotbar : MonoBehaviour, IHasChanged {
 
@@ -61,32 +62,33 @@ public class Hotbar : MonoBehaviour, IHasChanged {
 
         SlotContainer slotContainer = getSlotContainer(HotbarID);
 
-        if (slotContainer != null) {
+        if (player.EquipmentPoint.transform.childCount != 0)
+            Destroy(player.EquipmentPoint.transform.GetChild(0).gameObject);
 
-            GameObject go = Instantiate(slotContainer.Item.prefab);
+        if (slotContainer != null && slotContainer.Item != null) {
 
-            //go.transform.position = transform.position;
-            //go.transform.rotation = transform.rotation;
-            go.name = slotContainer.Item.prefab.name;
+
+            GameObject go = Instantiate(slotContainer.Item.Prefab);
+
+            go.transform.position = player.EquipmentPoint.transform.position;
+            go.transform.rotation = player.EquipmentPoint.transform.rotation;
+
+            go.name = slotContainer.Item.Name;
+
             go.transform.SetParent(player.EquipmentPoint.transform);
+            go.GetComponent<ToolLogic>().setItemValues(slotContainer.Item);
 
         }
 
     }
 
-    private SlotContainer getSlotContainer(int HotbarID) {
+    private SlotContainer getSlotContainer(int hotbarID) {
 
-        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
-            if (transform.GetChild(0).GetChild(i).childCount != 0) {
-
-                SlotContainer slotContainer = transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainer>();
-                return slotContainer;
-            }
-            else {
-                return null;
-            }
-        }
-        return null;
+        Transform slot = transform.GetChild(0).GetChild(hotbarID);
+        if (slot.childCount > 0)
+            return slot.GetChild(0).GetComponent<SlotContainer>();
+        else
+            return null;
     }
 
 

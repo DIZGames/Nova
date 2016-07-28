@@ -11,19 +11,19 @@ public class SlotContainerSplit : MonoBehaviour, IPointerDownHandler {
 
             SlotContainer SlotContainer = transform.GetComponent<SlotContainer>();
 
-            if (SlotContainer.Stack > 1) {
+            if (SlotContainer.Item.stack > 1) {
                 int modulo = 0;
 
-                if (SlotContainer.Stack % 2 == 1) {
+                if (SlotContainer.Item.stack % 2 == 1) {
                     modulo = 1;
                 }
 
-                int result = SlotContainer.Stack / 2;
-                SlotContainer.Stack = result + modulo;
+                int result = SlotContainer.Item.stack / 2;
+                SlotContainer.Item.stack = result + modulo;
 
                 GameObject gObject = Instantiate(gameObject);
                 gObject.GetComponent<SlotContainer>().Item = SlotContainer.Item;
-                gObject.GetComponent<SlotContainer>().Stack = result;
+                gObject.GetComponent<SlotContainer>().Item.stack = result;
 
 
                 ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject,null,(x,y) => x.AddSlotContainerToList(gObject));

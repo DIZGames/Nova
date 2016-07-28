@@ -1,36 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Assets.Script.ItemSystem;
 
+[System.Serializable]
 public class SlotContainer : MonoBehaviour {
 
     [SerializeField]
-    private ItemBase _Item;
-    [SerializeField]
-    public int _Stack;
+    private ItemValues _ItemValues;
 
     [SerializeField]
     private Text Text;
     [SerializeField]
     private Image Image;
 
-    public ItemBase Item{
+    public ItemValues Item
+    {
         get {
-            return _Item;
+            return _ItemValues;
         }
         set {
-                _Item = value;
-                this.Image.sprite = _Item.icon;
-        }
-    }
-
-    public int Stack{
-        get {
-            return _Stack;
-        }
-        set {
-            _Stack = value;
-            this.Text.text = Stack.ToString();
+            _ItemValues = value;
+            this.Image.sprite = _ItemValues.itemBase.icon;
+            this.Text.text = _ItemValues.stack.ToString();
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 using System;
+using Assets.Script.ItemSystem;
 
 public class SlotDrop : MonoBehaviour, IDropHandler {
 
@@ -16,30 +17,30 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
                 SlotContainer draggedContainer = eventData.pointerDrag.GetComponent<SlotContainer>();
                 SlotContainer slotContainer = transform.GetChild(0).GetComponent<SlotContainer>();
 
-                if (draggedContainer.Item.name == slotContainer.Item.name && (slotContainer.Stack != slotContainer.Item.maxStack)) {
+                if (draggedContainer.Item.Name == slotContainer.Item.Name && (slotContainer.Item.stack != slotContainer.Item.MaxStack)) {
                     //Wenn beide Items den gleichen Namen haben und der Container auf dem Slot nicht MaxStack hat
 
-                    int freeStackOnSlot = slotContainer.Item.maxStack - slotContainer.Stack;
+                    int freeStackOnSlot = slotContainer.Item.MaxStack - slotContainer.Item.stack;
 
-                     if (draggedContainer.Stack <= freeStackOnSlot) {
-                        slotContainer.Stack += draggedContainer.Stack;
+                     if (draggedContainer.Item.stack <= freeStackOnSlot) {
+                        slotContainer.Item.stack += draggedContainer.Item.stack;
                         Destroy(eventData.pointerDrag);
                     }
                     else {
-                        draggedContainer.Stack -= freeStackOnSlot;
-                        slotContainer.Stack += freeStackOnSlot;
+                        draggedContainer.Item.stack -= freeStackOnSlot;
+                        slotContainer.Item.stack += freeStackOnSlot;
                     }
                 }
                 else { //SWAP
       
-                    ItemBase itemBase = slotContainer.Item;
-                    int Stack = slotContainer.Stack;
+                    ItemValues itemValues = slotContainer.Item;
+                    int Stack = slotContainer.Item.stack;
 
                     slotContainer.Item = draggedContainer.Item;
-                    slotContainer.Stack = draggedContainer.Stack;
+                    slotContainer.Item.stack = draggedContainer.Item.stack;
 
-                    draggedContainer.Item = itemBase;
-                    draggedContainer.Stack = Stack;
+                    draggedContainer.Item = itemValues;
+                    draggedContainer.Item.stack = Stack;
 
 
                 }
