@@ -28,17 +28,15 @@ namespace Assets.Script {
                     switch (item.type)
                     {
                         case ItemType.Ammo:
-                            itemValues = new ItemAmmoValues(item);
+                            itemValues = ScriptableObject.CreateInstance<ItemAmmoValues>();
                             break;
                         case ItemType.Tool:
-                            itemValues = new ItemToolValues(item);
+                            itemValues = ScriptableObject.CreateInstance<ItemToolValues>();
                             break;
 
                     }
 
-                    if (itemValues == null)
-                        Debug.Log("ItemValues == NULL");
-
+                    itemValues.itemBase = item;
                     slotContainer.Item = itemValues;
                     slotContainer.Item.stack = stack;
 

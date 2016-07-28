@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace Assets.Script.ItemSystem
 {
-    [System.Serializable]
-    public class ItemValues
+    //[System.Serializable]
+    public class ItemValues : ScriptableObject
     {
         public ItemBase itemBase;
         public int stack;
