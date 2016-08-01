@@ -20,31 +20,40 @@ namespace Assets.Script {
                     GameObject gObject = Instantiate(SlotContainer);
                     gObject.transform.SetParent(transform.GetChild(i));
                     gObject.transform.position = transform.GetChild(i).position;
+                    gObject.name = item.name;
 
                     SlotContainer slotContainer = gObject.GetComponent<SlotContainer>();
 
-                    ItemValues itemValues = null; 
+                    ItemValues itemValues = null;
 
-                    switch (item.type)
-                    {
+                    switch (item.type) {
                         case ItemType.Ammo:
                             itemValues = ScriptableObject.CreateInstance<ItemAmmoValues>();
                             break;
                         case ItemType.Tool:
                             itemValues = ScriptableObject.CreateInstance<ItemToolValues>();
                             break;
-
+                        case ItemType.Clothing:
+                            itemValues = ScriptableObject.CreateInstance<ItemClothingValues>();
+                            break;
+                        case ItemType.Material:
+                            itemValues = ScriptableObject.CreateInstance<ItemMaterialValues>();
+                            break;
+                        case ItemType.Consumable:
+                            itemValues = ScriptableObject.CreateInstance<ItemConsumableValues>();
+                            break;
+                        case ItemType.Block:
+                            itemValues = ScriptableObject.CreateInstance<ItemBlockValues>();
+                            break;
                     }
 
                     itemValues.itemBase = item;
+                    itemValues.stack = stack;
+                    
                     slotContainer.Item = itemValues;
-                    slotContainer.Item.stack = stack;
 
                     break;
-
                 }
-
-
             }
         }
 

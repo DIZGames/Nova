@@ -3,10 +3,12 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using System;
 using Assets.Script;
+using Assets.Script.ItemSystem;
 
 public class SlotContainerSplit : MonoBehaviour, IPointerDownHandler {
 
     public void OnPointerDown(PointerEventData eventData) {
+
         if (eventData.button == PointerEventData.InputButton.Right) {
 
             SlotContainer SlotContainer = transform.GetComponent<SlotContainer>();
@@ -21,18 +23,51 @@ public class SlotContainerSplit : MonoBehaviour, IPointerDownHandler {
                 int result = SlotContainer.Item.stack / 2;
                 SlotContainer.Item.stack = result + modulo;
 
-                GameObject gObject = Instantiate(gameObject);
-                gObject.GetComponent<SlotContainer>().Item = SlotContainer.Item;
-                gObject.GetComponent<SlotContainer>().Item.stack = result;
+                
 
+                ItemValues itemValues = null;
 
-                ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject,null,(x,y) => x.AddSlotContainerToList(gObject));
+                switch (SlotContainer.Item.Type) {
+                    case ItemType.Ammo:
+                        itemValues = ScriptableObject.CreateInstance<ItemAmmoValues>();
+                        break;
+                    case ItemType.Tool:
+                        itemValues = ScriptableObject.CreateInstance<ItemToolValues>();
+                        break;
+                }
+
+                itemValues.itemBase = SlotContainer.Item.itemBase;
+                itemValues.stack = result;
+              
+                Transform newParent = nextFreeSlot();
+
+                if (newParent != null) {
+                    GameObject gObject = Instantiate(gameObject);
+
+                    gObject.name = itemValues.Name;
+                    gObject.GetComponent<SlotContainer>().Item = itemValues;
+                    gObject.transform.SetParent(newParent);
+                    gObject.transform.position = newParent.position;
+                }
+
+                ExecuteEvents.ExecuteHierarchy<InventoryInterface>(gameObject, null, (x, y) => x.UpdateList());
 
             }
         }
-
     }
 
+    private Transform nextFreeSlot() {
+
+        Transform slotList = transform.parent.parent;
+
+        for (int i = 0; i < slotList.childCount; i++) {
+            if (slotList.GetChild(i).childCount == 0) {
+                return slotList.GetChild(i);
+            }
+        }
+        return null;
+
+    }
 
 
 

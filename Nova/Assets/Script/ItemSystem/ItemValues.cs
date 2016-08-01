@@ -39,7 +39,6 @@ namespace Assets.Script.ItemSystem
                 return itemBase.icon;
             }
         }
-
         public ItemType Type
         {
             get

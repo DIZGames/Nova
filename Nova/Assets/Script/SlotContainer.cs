@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using Assets.Script.ItemSystem;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
 public class SlotContainer : MonoBehaviour {
@@ -25,5 +26,15 @@ public class SlotContainer : MonoBehaviour {
             this.Text.text = _ItemValues.stack.ToString();
         }
     }
+
+    void Update() {
+        if(_ItemValues != null)
+            this.Text.text = _ItemValues.stack.ToString();
+
+        if (_ItemValues.stack == 0) {
+            Destroy(gameObject);          
+        }
+    }
+
 
 }

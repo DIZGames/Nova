@@ -23,4 +23,13 @@ public class Player : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void setOnEquipment(GameObject equippedObject) {       
+        equippedObject.transform.SetParent(EquipmentPoint.transform);
+    }
+
+    public void clearOnEquipment() {
+        if (EquipmentPoint.transform.childCount != 0)
+            Destroy(EquipmentPoint.transform.GetChild(0).gameObject);
+    }
 }

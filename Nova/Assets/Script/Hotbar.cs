@@ -3,13 +3,18 @@ using System.Collections;
 using Assets.Script;
 using System;
 using Assets.Script.ItemSystem;
+using System.Collections.Generic;
 
-public class Hotbar : MonoBehaviour, IHasChanged {
+public class Hotbar : MonoBehaviour, InventoryInterface {
 
     public Player player;
+    public InterfaceManager interfaceManager;
+
+    private List<SlotContainer> hotBarList;
 
     void Start() {
-
+        hotBarList = new List<SlotContainer>();
+        UpdateList();
     }
 
     void Update() {
@@ -46,38 +51,37 @@ public class Hotbar : MonoBehaviour, IHasChanged {
         }
     }
 
-    public void AddSlotContainerToList(GameObject slotContainer) {
-        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
-            if (transform.GetChild(0).GetChild(i).childCount == 0) {
-
-                slotContainer.transform.SetParent(transform.GetChild(0).GetChild(i));
-                slotContainer.transform.position = transform.GetChild(0).GetChild(i).position;
-
-                break;
-            }
-        }
-    }
-
     private void selectHotbar(int HotbarID) {
 
         SlotContainer slotContainer = getSlotContainer(HotbarID);
 
-        if (player.EquipmentPoint.transform.childCount != 0)
-            Destroy(player.EquipmentPoint.transform.GetChild(0).gameObject);
+        player.clearOnEquipment();
+        interfaceManager.showWeaponStat(false);
 
         if (slotContainer != null && slotContainer.Item != null) {
 
+            if (slotContainer.Item.Type == ItemType.Tool) {
+                GameObject go = Instantiate(slotContainer.Item.Prefab);
 
-            GameObject go = Instantiate(slotContainer.Item.Prefab);
+                go.transform.position = player.EquipmentPoint.transform.position;
+                go.transform.rotation = player.EquipmentPoint.transform.rotation;
 
-            go.transform.position = player.EquipmentPoint.transform.position;
-            go.transform.rotation = player.EquipmentPoint.transform.rotation;
+                go.name = slotContainer.Item.Name;
 
-            go.name = slotContainer.Item.Name;
+             
+                go.GetComponent<ToolLogic>().setItemValues(slotContainer.Item);
 
-            go.transform.SetParent(player.EquipmentPoint.transform);
-            go.GetComponent<ToolLogic>().setItemValues(slotContainer.Item);
+                player.setOnEquipment(go);
 
+                interfaceManager.setItemToolOnWeaponStat(slotContainer.Item);
+                interfaceManager.showWeaponStat(true);
+            }
+            if (slotContainer.Item.Type == ItemType.Consumable) {
+
+            }
+            if (slotContainer.Item.Type == ItemType.Block) {
+
+            }
         }
 
     }
@@ -91,5 +95,48 @@ public class Hotbar : MonoBehaviour, IHasChanged {
             return null;
     }
 
+    public void UpdateList() {
+        hotBarList.Clear();
 
+        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
+            if (transform.GetChild(0).GetChild(i).childCount != 0) {
+                hotBarList.Add(transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainer>());
+            }
+        }
+
+        Debug.Log("hotbarList "+hotBarList.Count);
+    }
+
+    public int Count(string name) {
+        int count = 0;
+
+        for (int i = 0; i < hotBarList.Count; i++) {
+            if (name == hotBarList[i].Item.Name) {
+                count += hotBarList[i].Item.stack;
+            }
+        }
+        return count;
+    }
+
+    public bool ReduceStackOne(string name) {
+        for (int i = 0; i < hotBarList.Count; i++) {
+            if (name == hotBarList[i].Item.Name && hotBarList[i].Item.stack != 0) {
+                hotBarList[i].Item.stack--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void Add(GameObject gOContainer) {
+        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
+            if (transform.GetChild(0).GetChild(i).childCount == 0) {
+
+                gOContainer.transform.SetParent(transform.GetChild(0).GetChild(i));
+                gOContainer.transform.position = transform.GetChild(0).GetChild(i).position;
+
+                break;
+            }
+        }
+    }
 }
