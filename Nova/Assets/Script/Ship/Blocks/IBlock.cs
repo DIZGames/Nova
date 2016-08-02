@@ -1,6 +1,6 @@
 ﻿
 public interface IBlock{
 
-    BlockPosition position { get; }
-    bool createsNewShip { get; } // if true ShipPartPosiion should be set to Center
+    BlockPosition Position { get; }
+    bool CreatesNewShip { get; } // if true ShipPartPosiion should be set to Center
 }

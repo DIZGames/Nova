@@ -1,8 +1,10 @@
 ﻿public enum BlockPosition { 
     CENTER,
-    CENTER_FLOOR, 
     CENTER_TOP,
+    CENTER_MIDDLE,
+    CENTER_BOTTOM, 
     BETWEEN,
-    BETWEEN_FLOOR, 
-    BETWEEN_TOP
+    BETWEEN_TOP,
+    BETWEEN_MIDDLE,
+    BETWEEN_FLOOR 
 }

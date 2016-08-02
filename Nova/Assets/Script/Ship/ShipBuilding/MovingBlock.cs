@@ -12,6 +12,8 @@ public class MovingBlock : MonoBehaviour {
     bool createsNewShip;
     float boxWidth = 0.2f; // Defines the width of the box in which the mouse position is checked for parts that can be set between Blocks (like Walls)
     int layerMaskBlock = LayerMask.GetMask("Block") | LayerMask.GetMask("BlockFloor");
+    bool isCenterBlock;
+    Vector2 spriteSize = new Vector2();
 
     void Start()
     {
@@ -19,8 +21,11 @@ public class MovingBlock : MonoBehaviour {
         collider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         IBlock iShipPart = GetComponent<IBlock>();
-        blockPosition = iShipPart.position;
-        createsNewShip = iShipPart.createsNewShip;
+        blockPosition = iShipPart.Position;
+        createsNewShip = iShipPart.CreatesNewShip;
+        isCenterBlock = blockPosition.ToString().StartsWith("C"); //is blockPosition starts with C it is a Center block
+        spriteSize.x = spriteRenderer.bounds.size.x;
+        spriteSize.y = spriteRenderer.bounds.size.y;
 
         collider.enabled = false;
         Color color = spriteRenderer.color;
@@ -61,7 +66,7 @@ public class MovingBlock : MonoBehaviour {
             Vector3 mousePosLocal = newParent.InverseTransformPoint(mousePos);
             float x = mousePosLocal.x - (int)mousePosLocal.x;
             float y = mousePosLocal.y - (int)mousePosLocal.y;
-            if (blockPosition == BlockPosition.CENTER_FLOOR || blockPosition == BlockPosition.CENTER_TOP || blockPosition == BlockPosition.CENTER)
+            if (isCenterBlock)
             {
                 // Calculate x Position
                 if (x >= 0)
@@ -95,8 +100,9 @@ public class MovingBlock : MonoBehaviour {
                         y = (int)mousePosLocal.y;
                 }
             }
-            else if (blockPosition == BlockPosition.BETWEEN_TOP || blockPosition == BlockPosition.BETWEEN_FLOOR || blockPosition == BlockPosition.BETWEEN)
+            else
             {
+                // Between
                 if (Mathf.Abs(x) >= (0.5 - boxWidth) && Mathf.Abs(x) <= (0.5 + boxWidth))
                 {
                     if(x >= 0)
@@ -158,85 +164,49 @@ public class MovingBlock : MonoBehaviour {
 
         if (Input.GetButtonDown("Fire1"))
         {
-            bool canBuild = true;
-            if(newParent != null || createsNewShip)
+            Collider2D[] objects = Physics2D.OverlapAreaAll(new Vector2(newPos.x - 0.49f, newPos.y + 0.49f), new Vector2(newPos.x + 0.49f, newPos.y - 0.49f));
+            bool canBuild = newParent != null || createsNewShip;
+
+            foreach (Collider2D c in objects)
             {
-                Collider2D[] objects = Physics2D.OverlapAreaAll(new Vector2(newPos.x - 0.49f, newPos.y + 0.49f), new Vector2(newPos.x + 0.49f, newPos.y - 0.49f));
+                GameObject g = c.gameObject;
 
-                //foreach (Collider2D c in objects)
-                //{
-                //    GameObject g = c.gameObject;
-                //    IBlock gBlock;
+                if (g.layer == LayerMask.GetMask("Player"))
+                    continue;
 
-                //    gBlock = g.GetComponent<IBlock>();
-                //    bool isPlayer = g.layer == LayerMask.GetMask("Player");
-
-                //    if (gBlock != null || isPlayer)
-                //    {
-                //        if (isPlayer && (gBlock.position == BlockPosition.BETWEEN_FLOOR) || gBlock.position == BlockPosition.CENTER_FLOOR)
-                //        {
-                //            canBuild = true;
-                //        }
-                //    }
-
-
-                //    if (g.layer != LayerMask.GetMask("Block") && g.layer != LayerMask.GetMask("BlockFloor") && g.layer != LayerMask.GetMask("Player"))
-                //        canBuild = false;
-                //    else
-                //    {
-                //        switch (blockPosition)
-                //        {
-                //            case BlockPosition.CENTER:
-                //                if (g.layer == LayerMask.GetMask("Block") || g.layer == LayerMask.GetMask("BlockFloor") || g.layer == LayerMask.GetMask("Player"))
-                //                    canBuild = false;
-                //                break;
-                //            case BlockPosition.CENTER_FLOOR:
-                //                if (g.layer == LayerMask.GetMask("Block") || g.layer == LayerMask.GetMask("BlockFloor"))
-                //                    canBuild = false;
-                //                break;
-                //            case BlockPosition.CENTER_TOP:
-                //                if (g.layer == LayerMask.GetMask("Block") || g.layer == LayerMask.GetMask("Player"))
-                //                    canBuild = false;
-                //                break;
-                //            case BlockPosition.BETWEEN:
-                //                break;
-                //            case BlockPosition.BETWEEN_FLOOR:
-                //                break;
-                //            case BlockPosition.BETWEEN_TOP:
-                //                break;
-                //        }
-                //    }
-                //}
-
-
-
-
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                if ((hit.collider == null && (blockPosition == BlockPosition.CENTER || blockPosition == BlockPosition.CENTER_FLOOR)
-                    || (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("BlockFloor") && (blockPosition == BlockPosition.BETWEEN_TOP || blockPosition == BlockPosition.CENTER_TOP))))
-                {
-                    Global.objectToMove = null;
-                    if (newParent == null)
-                    {
-                        GameObject newShip = Instantiate(Global.shipPrefab, transform.position, transform.rotation) as GameObject;
-                        transform.SetParent(newShip.transform);
-                    }
-                    Destroy(this);
-                }
+                IBlock gBlock = g.GetComponent<IBlock>();
+                    
             }
 
-            //if (canBuild)
-            //{
-            //    Global.objectToMove = null;
-            //    if (newParent == null)
-            //    {
-            //        GameObject newShip = Instantiate(Global.shipPrefab, transform.position, transform.rotation) as GameObject;
-            //        transform.SetParent(newShip.transform);
-            //    }
-            //    Destroy(this);
-            //}
 
-        } else if(Input.GetButtonDown("Fire2"))
+
+
+                //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                //if ((hit.collider == null && (blockPosition == BlockPosition.CENTER || blockPosition == BlockPosition.CENTER_FLOOR)
+                //    || (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("BlockFloor") && (blockPosition == BlockPosition.BETWEEN_TOP || blockPosition == BlockPosition.CENTER_TOP))))
+                //{
+                //    Global.objectToMove = null;
+                //    if (newParent == null)
+                //    {
+                //        GameObject newShip = Instantiate(Global.shipPrefab, transform.position, transform.rotation) as GameObject;
+                //        transform.SetParent(newShip.transform);
+                //    }
+                //    Destroy(this);
+                //}
+
+            if (canBuild)
+            {
+                Global.objectToMove = null;
+                if (newParent == null)
+                {
+                    GameObject newShip = Instantiate(Global.shipPrefab, transform.position, transform.rotation) as GameObject;
+                    transform.SetParent(newShip.transform);
+                }
+                Destroy(this);
+            }
+
+        }
+        else if(Input.GetButtonDown("Fire2"))
         {
             Destroy(gameObject);
         }

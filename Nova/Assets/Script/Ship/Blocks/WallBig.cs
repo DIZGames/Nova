@@ -12,7 +12,7 @@ public class WallBig : MonoBehaviour, IBlock {
 	void Update () {
 	
 	}
-    public BlockPosition position
+    public BlockPosition Position
     {
         get { return BlockPosition.CENTER; }
     }
@@ -22,7 +22,7 @@ public class WallBig : MonoBehaviour, IBlock {
         get { return false; }
     }
 
-    public bool createsNewShip
+    public bool CreatesNewShip
     {
         get { return false; }
     }

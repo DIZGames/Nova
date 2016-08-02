@@ -14,12 +14,12 @@ public class Floor : MonoBehaviour, IBlock {
 	
 	}
 
-    public BlockPosition position
+    public BlockPosition Position
     {
-        get { return BlockPosition.CENTER_FLOOR; }
+        get { return BlockPosition.CENTER_BOTTOM; }
     }
 
-    public bool createsNewShip
+    public bool CreatesNewShip
     {
         get { return true; }
     }

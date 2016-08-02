@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/Scene001.unity
+- path: Assets/Scene/ShipBuildingTest.unity
   isLoaded: 1
   isActive: 1

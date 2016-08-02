@@ -14,17 +14,12 @@ public class ThingOnShip: MonoBehaviour, IBlock {
 	
 	}
 
-    public BlockPosition position
+    public BlockPosition Position
     {
         get { return BlockPosition.CENTER_TOP; }
     }
 
-    public bool floorLevel
-    {
-        get { return false; }
-    }
-
-    public bool createsNewShip
+    public bool CreatesNewShip
     {
         get { return false; }
     }

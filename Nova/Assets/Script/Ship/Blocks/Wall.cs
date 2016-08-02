@@ -14,7 +14,7 @@ public class Wall : MonoBehaviour, IBlock{
 	
 	}
 
-    public BlockPosition position
+    public BlockPosition Position
     {
         get { return BlockPosition.BETWEEN_TOP; }
     }
@@ -24,7 +24,7 @@ public class Wall : MonoBehaviour, IBlock{
         get { return false; }
     }
 
-    public bool createsNewShip
+    public bool CreatesNewShip
     {
         get { return false; }
     }
