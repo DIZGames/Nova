@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd72ace5a401a64d9b4eb3b0c911b00, type: 3}
+  m_Name: Body
+  m_EditorClassIdentifier: 
+  name: Body
+  maxStack: 1
+  type: 2
+  icon: {fileID: 21300044, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
+  prefab: {fileID: 192092, guid: b8278434fa24c854f92f78d5fc5fc4d3, type: 2}
+  healthUpgrade: 600
+  armorUpgrade: 700
+  energyUpgrade: 800
+  oxygenUpgrade: 900
+  clothingType: 1

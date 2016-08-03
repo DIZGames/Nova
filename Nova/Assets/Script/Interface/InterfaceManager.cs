@@ -8,12 +8,12 @@ public class InterfaceManager : MonoBehaviour {
 
     public GameObject backPack;
     public GameObject characterScreen;
-    public GameObject craftingSystem;
     public GameObject hotBar;
 
     public GameObject playerStat;
     public GameObject weaponStat;
 
+    public GameObject UIContainer;
 
     // Use this for initialization
     void Start () {
@@ -36,13 +36,6 @@ public class InterfaceManager : MonoBehaviour {
             else
                 characterScreen.SetActive(true);
         }
-        if (Input.GetButtonDown("CraftingSystem")) {
-            if (craftingSystem.activeSelf)
-                craftingSystem.SetActive(false);
-            else
-                craftingSystem.SetActive(true);
-        }
-
     }
 
     public void setItemToolOnWeaponStat(ItemValues itemValues) {
@@ -55,5 +48,7 @@ public class InterfaceManager : MonoBehaviour {
         weaponStat.SetActive(visible);
     }
 
-
+    public void setChildOnUIContainer(Transform child) {
+        UIContainer.GetComponent<UIContainer>().setChild(child);
+    }
 }

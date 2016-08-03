@@ -34,6 +34,18 @@ public class SlotContainerSplit : MonoBehaviour, IPointerDownHandler {
                     case ItemType.Tool:
                         itemValues = ScriptableObject.CreateInstance<ItemToolValues>();
                         break;
+                    case ItemType.Clothing:
+                        itemValues = ScriptableObject.CreateInstance<ItemClothingValues>();
+                        break;
+                    case ItemType.Material:
+                        itemValues = ScriptableObject.CreateInstance<ItemMaterialValues>();
+                        break;
+                    case ItemType.Consumable:
+                        itemValues = ScriptableObject.CreateInstance<ItemConsumableValues>();
+                        break;
+                    case ItemType.Block:
+                        itemValues = ScriptableObject.CreateInstance<ItemBlockValues>();
+                        break;
                 }
 
                 itemValues.itemBase = SlotContainer.Item.itemBase;

@@ -2,12 +2,13 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using Assets.Script.ItemSystem;
 
 public class CharacterScreen : MonoBehaviour, InventoryInterface {
 
     private List<SlotContainer> characterScreenList;
 
-
+    public Player player;
 
     // Use this for initialization
     void Start() {
@@ -22,10 +23,16 @@ public class CharacterScreen : MonoBehaviour, InventoryInterface {
 
     public void UpdateList() {
         characterScreenList.Clear();
+        player.resetMaxValues();
 
         for (int i = 0; i < transform.GetChild(0).childCount; i++) {
             if (transform.GetChild(0).GetChild(i).childCount != 0) {
-                characterScreenList.Add(transform.GetChild(0).GetChild(i).GetComponent<SlotContainer>());
+                SlotContainer slotContainer = transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainer>();
+                ItemClothingValues itemClothingValues = (ItemClothingValues)slotContainer.Item;
+
+                player.addToMaxValues(itemClothingValues.healthUpgrade, itemClothingValues.armorUpgrade, itemClothingValues.energyUpgrade, itemClothingValues.oxygenUpgrade);
+
+                characterScreenList.Add(slotContainer);
             }
         }
         Debug.Log("characterScreenList " + characterScreenList.Count);

@@ -4,11 +4,15 @@ using Assets.Script;
 using System;
 using Assets.Script.ItemSystem;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Hotbar : MonoBehaviour, InventoryInterface {
 
     public Player player;
     public InterfaceManager interfaceManager;
+
+    public IEquippable selectedGameObject;
+
 
     private List<SlotContainer> hotBarList;
 
@@ -49,27 +53,43 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
         if (Input.GetButtonDown("Hotbar0")) {
             selectHotbar(9);
         }
+
+        if (Input.GetButtonDown("Fire1")) {
+            if (selectedGameObject != null)
+                selectedGameObject.Action1();
+        }
+
+        if (Input.GetButtonDown("Fire2")) {
+            if (selectedGameObject != null)
+                selectedGameObject.Action2();
+        }
+
+        if (Input.GetButtonDown("Reload")) {
+            if (selectedGameObject != null)
+                selectedGameObject.Action3();
+        }
     }
 
     private void selectHotbar(int HotbarID) {
 
-        SlotContainer slotContainer = getSlotContainer(HotbarID);
+        SlotContainer slotContainer = selectSlotContainer(HotbarID);
 
         player.clearOnEquipment();
         interfaceManager.showWeaponStat(false);
+        selectedGameObject = null;
 
-        if (slotContainer != null && slotContainer.Item != null) {
+        if (slotContainer != null && slotContainer.Item != null) {        
 
             if (slotContainer.Item.Type == ItemType.Tool) {
                 GameObject go = Instantiate(slotContainer.Item.Prefab);
 
                 go.transform.position = player.EquipmentPoint.transform.position;
                 go.transform.rotation = player.EquipmentPoint.transform.rotation;
-
                 go.name = slotContainer.Item.Name;
 
-             
-                go.GetComponent<ToolLogic>().setItemValues(slotContainer.Item);
+                IEquippable iEquippable = go.GetComponent<IEquippable>();
+                iEquippable.setItemValues(slotContainer.Item);
+                selectedGameObject = iEquippable;
 
                 player.setOnEquipment(go);
 
@@ -77,20 +97,61 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
                 interfaceManager.showWeaponStat(true);
             }
             if (slotContainer.Item.Type == ItemType.Consumable) {
+                GameObject go = Instantiate(slotContainer.Item.Prefab);
+
+                go.transform.position = player.EquipmentPoint.transform.position;
+                go.transform.rotation = player.EquipmentPoint.transform.rotation;
+                go.name = slotContainer.Item.Name;
+
+                IEquippable iEquippable = go.GetComponent<IEquippable>();
+                iEquippable.setItemValues(slotContainer.Item);
+                selectedGameObject = iEquippable;
+
+                player.setOnEquipment(go);
 
             }
             if (slotContainer.Item.Type == ItemType.Block) {
+                GameObject go = Instantiate(slotContainer.Item.Prefab);
+
+                float spawnDistance = 3;
+
+                go.transform.position = player.transform.position + player.transform.up * spawnDistance;
+                go.transform.rotation = player.transform.rotation;
+                go.name = slotContainer.Item.Name;
+
+                IEquippable iEquippable = go.GetComponent<IEquippable>();
+                iEquippable.setItemValues(slotContainer.Item);
+                selectedGameObject = iEquippable;
+
+                player.setOnEquipment(go);
 
             }
         }
-
     }
 
-    private SlotContainer getSlotContainer(int hotbarID) {
+    private SlotContainer selectSlotContainer(int hotbarID) {
+
+        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
+            if (transform.GetChild(0).GetChild(i).childCount > 0) {
+                transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainerDrag>().enabled = true;
+                transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainerSplit>().enabled = true;
+                transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<Image>().color = Color.white;
+            }
+        }
 
         Transform slot = transform.GetChild(0).GetChild(hotbarID);
-        if (slot.childCount > 0)
-            return slot.GetChild(0).GetComponent<SlotContainer>();
+
+        if (slot.childCount > 0) {
+
+            GameObject gameObject = slot.GetChild(0).gameObject;
+
+            gameObject.GetComponent<SlotContainerDrag>().enabled = false;
+            gameObject.GetComponent<SlotContainerSplit>().enabled = false;
+            gameObject.GetComponent<Image>().color = Color.cyan;
+
+            return gameObject.GetComponent<SlotContainer>();
+        }
+            
         else
             return null;
     }

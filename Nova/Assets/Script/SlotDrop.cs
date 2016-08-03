@@ -13,35 +13,37 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
 
     private bool checkAllowedTypes(SlotContainer slotContainer) {
 
-        ItemType type = slotContainer.Item.Type;
+        if (slotContainer != null) {
+            ItemType type = slotContainer.Item.Type;
 
-        if (allowedTypes.Count == 0) {
-            return true;
-        }
-        else {
-            for (int i = 0; i < allowedTypes.Count; i++) {
-                if (allowedTypes[i] == type) {
+            if (allowedTypes.Count == 0) {
+                return true;
+            }
+            else {
+                for (int i = 0; i < allowedTypes.Count; i++) {
+                    if (allowedTypes[i] == type) {
 
-                    //SPEZIALFALL: Clothing
-                    if (type == ItemType.Clothing) {
-                        if (allowedClothingTypes.Count == 0) {
-                            return true;
-                        }
-                        else {
-                            ClothingType clothingType = ((ItemClothingValues)slotContainer.Item).clothingType;
-
-                            for (int j = 0; j < allowedClothingTypes.Count; j++) {
-                                if (allowedClothingTypes[i] == clothingType) {
-                                    return true;
-                                }
+                        //SPEZIALFALL: Clothing
+                        if (type == ItemType.Clothing) {
+                            if (allowedClothingTypes.Count == 0) {
+                                return true;
                             }
-                            return false;
+                            else {
+                                ClothingType clothingType = ((ItemClothingValues)slotContainer.Item).clothingType;
+
+                                for (int j = 0; j < allowedClothingTypes.Count; j++) {
+                                    if (allowedClothingTypes[i] == clothingType) {
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            }
                         }
+                        return true;
                     }
-                    return true;
                 }
             }
-        }
+        }   
         return false;
     }
 
