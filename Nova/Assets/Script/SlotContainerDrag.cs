@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using System;
 using UnityEngine.UI;
+using Assets.Script;
 
 public class SlotContainerDrag : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler {
 
@@ -19,8 +20,11 @@ public class SlotContainerDrag : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
         GetComponent<CanvasGroup>().blocksRaycasts = false;
         GetComponent<LayoutElement>().ignoreLayout = true;
-
+ 
         itemBeingDragged.transform.SetParent(transform.parent.parent.parent.parent);
+
+
+        ExecuteEvents.ExecuteHierarchy<InventoryInterface>(startParent.gameObject, null, (x, y) => x.UpdateList());
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -38,5 +42,7 @@ public class SlotContainerDrag : MonoBehaviour, IBeginDragHandler, IDragHandler,
         }
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         GetComponent<LayoutElement>().ignoreLayout = false;
+
+        ExecuteEvents.ExecuteHierarchy<InventoryInterface>(gameObject, null, (x, y) => x.UpdateList());
     }
 }

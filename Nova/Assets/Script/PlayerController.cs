@@ -10,18 +10,16 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         rb2d = GetComponent<Rigidbody2D>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     void FixedUpdate() {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         //Rotation
         Quaternion rot = Quaternion.LookRotation(transform.position - mousePos, Vector3.forward);
-        transform.rotation = rot;
+
+        Quaternion rotationnew = new Quaternion(0, 0, rot.z, rot.w);
+
+        transform.rotation = rotationnew;
         
 
         // Berechnet Vektor vom Spieler zur Maus

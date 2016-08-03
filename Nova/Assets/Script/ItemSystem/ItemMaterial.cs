@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Script.ItemSystem {
-    public class ItemMaterial : MonoBehaviour{
+    public class ItemMaterial : ItemBase{
+
     }
 }
