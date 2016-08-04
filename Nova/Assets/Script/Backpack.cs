@@ -13,6 +13,7 @@ public class Backpack : MonoBehaviour, InventoryInterface {
     void Start () {
         backPackList = new List<SlotContainer>();
         UpdateList();
+        Debug.Log("start called");
     }
 
     public void UpdateList() {

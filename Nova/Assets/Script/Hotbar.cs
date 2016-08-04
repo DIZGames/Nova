@@ -10,6 +10,7 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
 
     public Player player;
     public InterfaceManager interfaceManager;
+    public GameObject ColliderCheckPrefab;
 
     public IEquippable selectedGameObject;
 
@@ -96,7 +97,7 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
                 interfaceManager.setItemToolOnWeaponStat(slotContainer.Item);
                 interfaceManager.showWeaponStat(true);
             }
-            if (slotContainer.Item.Type == ItemType.Consumable) {
+            else if (slotContainer.Item.Type == ItemType.Consumable) {
                 GameObject go = Instantiate(slotContainer.Item.Prefab);
 
                 go.transform.position = player.EquipmentPoint.transform.position;
@@ -110,20 +111,27 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
                 player.setOnEquipment(go);
 
             }
-            if (slotContainer.Item.Type == ItemType.Block) {
-                GameObject go = Instantiate(slotContainer.Item.Prefab);
+            else if (slotContainer.Item.Type == ItemType.Block) {
+                GameObject colliderCheckPoint = Instantiate(ColliderCheckPrefab);
+                GameObject dummyBlock = colliderCheckPoint.transform.FindChild("DummyBlock").gameObject;
 
-                float spawnDistance = 3;
+                float spawnDistance = 1.5f;
 
-                go.transform.position = player.transform.position + player.transform.up * spawnDistance;
-                go.transform.rotation = player.transform.rotation;
-                go.name = slotContainer.Item.Name;
+                colliderCheckPoint.transform.position = player.transform.position + player.transform.up * spawnDistance;
+                colliderCheckPoint.transform.rotation = player.transform.rotation;
 
-                IEquippable iEquippable = go.GetComponent<IEquippable>();
+                IEquippable iEquippable = dummyBlock.GetComponent<EquippedBlockLogic>();
                 iEquippable.setItemValues(slotContainer.Item);
+
+                ItemBlockValues itemBlockValues = (ItemBlockValues)slotContainer.Item;
+                itemBlockValues.currentHitPoints = itemBlockValues.MaxHitPoints;
+
                 selectedGameObject = iEquippable;
 
-                player.setOnEquipment(go);
+                SpriteRenderer sr = dummyBlock.GetComponent<SpriteRenderer>();
+                sr.sprite = slotContainer.Item.Prefab.GetComponent<SpriteRenderer>().sprite;
+
+                player.setOnEquipment(colliderCheckPoint);
 
             }
         }
