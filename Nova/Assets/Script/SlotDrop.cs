@@ -9,6 +9,7 @@ using System.Collections.Generic;
 public class SlotDrop : MonoBehaviour, IDropHandler {
 
     public List<ItemType> allowedTypes;
+    public List<MaterialType> allowedMaterial;
     public List<ClothingType> allowedClothingTypes;
 
     private bool checkAllowedTypes(SlotContainer slotContainer) {
@@ -33,6 +34,27 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
 
                                 for (int j = 0; j < allowedClothingTypes.Count; j++) {
                                     if (allowedClothingTypes[i] == clothingType) {
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            }
+                        }
+                        //SPEZIALFALL: Material
+                        if (type == ItemType.Clothing)
+                        {
+                            if (allowedMaterial.Count == 0)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                MaterialType materialType = ((ItemMaterialValues)slotContainer.Item).MaterialType;
+
+                                for (int j = 0; j < allowedMaterial.Count; j++)
+                                {
+                                    if (allowedMaterial[i] == materialType)
+                                    {
                                         return true;
                                     }
                                 }

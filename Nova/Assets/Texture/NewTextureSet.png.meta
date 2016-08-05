@@ -1,0 +1,764 @@
+fileFormatVersion: 2
+guid: 382d44e828fb38c4d82a328622bd3676
+timeCreated: 1470397767
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Eisenerz
+    21300002: Kupfererz
+    21300004: Golderz
+    21300006: Eis
+    21300008: Mais
+    21300010: Zucker
+    21300012: Plutonium
+    21300014: Wasser
+    21300016: Luftflasche
+    21300018: Iridium
+    21300020: Eisenbarren
+    21300022: Kupferbarren
+    21300024: Goldbarren
+    21300026: Holz
+    21300028: Popcorn
+    21300030: Body1
+    21300032: Mod1
+    21300034: "K\xFCche"
+    21300036: Terminal
+    21300038: Mod2
+    21300040: Stahl
+    21300042: Wand
+    21300044: Solarpanel
+    21300046: Baterie
+    21300048: OxygenGenerator
+    21300050: Reaktor
+    21300052: Raffinerie
+    21300054: Assembler
+    21300056: Mod3
+    21300058: BoxReaktor
+    21300060: BoxNormal
+    21300062: BoxRohmaterialien
+    21300064: BoxOrganisches
+    21300066: BoxEis
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 64
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Eisenerz
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -29, y: 10}
+        - {x: -29, y: -27}
+        - {x: -13, y: -29}
+        - {x: 29, y: -29}
+        - {x: 29, y: 10}
+    - name: Kupfererz
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -30, y: 10}
+        - {x: -30, y: -27}
+        - {x: -14, y: -29}
+        - {x: 28, y: -29}
+        - {x: 28, y: 10}
+    - name: Golderz
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 13, y: 9}
+        - {x: -6, y: 9}
+        - {x: -30, y: 0}
+        - {x: -30, y: -22}
+        - {x: -17, y: -30}
+        - {x: 23, y: -30}
+        - {x: 28, y: -28}
+        - {x: 28, y: -15}
+        - {x: 26, y: -8}
+    - name: Eis
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: -8}
+        - {x: -9, y: -10}
+        - {x: -9, y: -25}
+        - {x: -7, y: -27}
+        - {x: 9, y: -27}
+        - {x: 9, y: -8}
+      - - {x: -26, y: 0}
+        - {x: -28, y: -2}
+        - {x: -28, y: -17}
+        - {x: -26, y: -19}
+        - {x: -12, y: -19}
+        - {x: -10, y: -17}
+        - {x: -10, y: -2}
+        - {x: -12, y: 0}
+      - - {x: 9, y: 1}
+        - {x: 9, y: -18}
+        - {x: 27, y: -18}
+        - {x: 27, y: 1}
+      - - {x: -7, y: 10}
+        - {x: -4, y: 11}
+        - {x: -4, y: 14}
+        - {x: -7, y: 15}
+        - {x: -9, y: 13}
+    - name: Mais
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: 6}
+        - {x: -21, y: -4}
+        - {x: -21, y: -19}
+        - {x: -13, y: -23}
+        - {x: 2, y: -23}
+        - {x: 12, y: -5}
+        - {x: 12, y: 6}
+    - name: Zucker
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: 2}
+        - {x: -21, y: -17}
+        - {x: -20, y: -20}
+        - {x: 16, y: -20}
+        - {x: 18, y: -18}
+        - {x: 10, y: 0}
+        - {x: 5, y: 2}
+    - name: Plutonium
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9, y: 24}
+        - {x: -13, y: 19}
+        - {x: -13, y: -16}
+        - {x: -10, y: -21}
+        - {x: 10, y: -21}
+        - {x: 12, y: -20}
+        - {x: 12, y: 20}
+        - {x: 11, y: 24}
+    - name: Wasser
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9, y: 24}
+        - {x: -13, y: 19}
+        - {x: -13, y: -16}
+        - {x: -10, y: -21}
+        - {x: 10, y: -21}
+        - {x: 12, y: -20}
+        - {x: 12, y: 20}
+        - {x: 11, y: 24}
+    - name: Luftflasche
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9, y: 24}
+        - {x: -13, y: 19}
+        - {x: -13, y: -16}
+        - {x: -10, y: -21}
+        - {x: 10, y: -21}
+        - {x: 12, y: -20}
+        - {x: 12, y: 20}
+        - {x: 11, y: 24}
+    - name: Iridium
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9, y: 24}
+        - {x: -13, y: 19}
+        - {x: -13, y: -16}
+        - {x: -10, y: -21}
+        - {x: 10, y: -21}
+        - {x: 12, y: -20}
+        - {x: 12, y: 20}
+        - {x: 11, y: 24}
+    - name: Eisenbarren
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 0}
+        - {x: -23, y: -12}
+        - {x: -30, y: -23}
+        - {x: -30, y: -27}
+        - {x: -1, y: -27}
+        - {x: 16, y: -23}
+        - {x: 19, y: -15}
+        - {x: 19, y: -2}
+        - {x: 13, y: 0}
+    - name: Kupferbarren
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -5, y: -1}
+        - {x: -20, y: -13}
+        - {x: -27, y: -24}
+        - {x: -27, y: -28}
+        - {x: 1, y: -28}
+        - {x: 22, y: -13}
+        - {x: 22, y: -3}
+        - {x: 16, y: -1}
+    - name: Goldbarren
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -5, y: 0}
+        - {x: -20, y: -12}
+        - {x: -27, y: -23}
+        - {x: -27, y: -27}
+        - {x: 2, y: -27}
+        - {x: 19, y: -23}
+        - {x: 22, y: -15}
+        - {x: 22, y: -2}
+        - {x: 16, y: 0}
+    - name: Holz
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 13, y: 4}
+        - {x: 1, y: -5}
+        - {x: -3, y: -10}
+        - {x: 4, y: -2}
+        - {x: 5, y: -2}
+        - {x: 8, y: 1}
+        - {x: 8, y: 4}
+        - {x: 0, y: 8}
+        - {x: -4, y: 8}
+        - {x: -28, y: -15}
+        - {x: -28, y: -18}
+        - {x: -27, y: -23}
+        - {x: -18, y: -27}
+        - {x: 3, y: -27}
+        - {x: 24, y: -4}
+        - {x: 24, y: 0}
+        - {x: 16, y: 5}
+    - name: Popcorn
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -28, y: 11}
+        - {x: -28, y: -22}
+        - {x: -24, y: -26}
+        - {x: 16, y: -26}
+        - {x: 19, y: -21}
+        - {x: 19, y: 11}
+    - name: Body1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -15, y: 25}
+        - {x: -25, y: 22}
+        - {x: -31, y: 11}
+        - {x: -31, y: -1}
+        - {x: -23, y: -12}
+        - {x: 19, y: -12}
+        - {x: 27, y: -10}
+        - {x: 27, y: 11}
+        - {x: 10, y: 25}
+    - name: Mod1
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12, y: 3}
+        - {x: 10, y: 2}
+        - {x: -24, y: 3}
+        - {x: -29, y: 3}
+        - {x: -30, y: 0}
+        - {x: -30, y: -9}
+        - {x: -22, y: -22}
+        - {x: 13, y: -22}
+        - {x: 20, y: -8}
+        - {x: 20, y: 3}
+      - - {x: -15, y: 18}
+        - {x: -19, y: 15}
+        - {x: -19, y: 4}
+        - {x: -15, y: -3}
+        - {x: -13, y: -5}
+        - {x: 4, y: -5}
+        - {x: 8, y: -3}
+        - {x: 8, y: 15}
+        - {x: 0, y: 18}
+    - name: "K\xFCche"
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 32}
+        - {x: -3, y: 30}
+        - {x: -17, y: 20}
+        - {x: -20, y: 17}
+        - {x: -20, y: -13}
+        - {x: -17, y: -16}
+        - {x: 20, y: -16}
+        - {x: 20, y: 32}
+    - name: Terminal
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 20}
+        - {x: -21, y: -13}
+        - {x: -18, y: -16}
+        - {x: 16, y: -16}
+        - {x: 19, y: -13}
+        - {x: 19, y: 20}
+    - name: Mod2
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12, y: 3}
+        - {x: 10, y: 2}
+        - {x: -24, y: 3}
+        - {x: -29, y: 3}
+        - {x: -30, y: 0}
+        - {x: -30, y: -9}
+        - {x: -22, y: -22}
+        - {x: 13, y: -22}
+        - {x: 20, y: -8}
+        - {x: 20, y: 3}
+      - - {x: -15, y: 18}
+        - {x: -19, y: 15}
+        - {x: -19, y: 4}
+        - {x: -15, y: -3}
+        - {x: -13, y: -5}
+        - {x: 4, y: -5}
+        - {x: 8, y: -3}
+        - {x: 8, y: 15}
+        - {x: 0, y: 18}
+    - name: Stahl
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 2, y: 1}
+        - {x: -3, y: 1}
+        - {x: -26, y: -21}
+        - {x: -26, y: -25}
+        - {x: -24, y: -30}
+        - {x: -12, y: -30}
+        - {x: 10, y: -8}
+        - {x: 10, y: -1}
+    - name: Wand
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 25, y: 1}
+        - {x: 20, y: 14}
+        - {x: 5, y: 14}
+        - {x: -26, y: 9}
+        - {x: -29, y: 7}
+        - {x: -29, y: -12}
+        - {x: -28, y: -32}
+        - {x: -15, y: -32}
+        - {x: 18, y: -26}
+        - {x: 25, y: -22}
+    - name: Solarpanel
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -25, y: 21}
+        - {x: -27, y: 18}
+        - {x: -27, y: -14}
+        - {x: -24, y: -17}
+        - {x: 25, y: -17}
+        - {x: 25, y: 21}
+    - name: Baterie
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20, y: 20}
+        - {x: -20, y: -13}
+        - {x: -17, y: -16}
+        - {x: 17, y: -16}
+        - {x: 20, y: -13}
+        - {x: 20, y: 20}
+    - name: OxygenGenerator
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 32}
+        - {x: -3, y: 30}
+        - {x: -17, y: 20}
+        - {x: -20, y: 17}
+        - {x: -20, y: -13}
+        - {x: -17, y: -16}
+        - {x: 20, y: -16}
+        - {x: 20, y: 32}
+    - name: Reaktor
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 32}
+        - {x: -3, y: 30}
+        - {x: -17, y: 20}
+        - {x: -20, y: 17}
+        - {x: -20, y: -13}
+        - {x: -17, y: -16}
+        - {x: 20, y: -16}
+        - {x: 20, y: 32}
+    - name: Raffinerie
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 32}
+        - {x: -3, y: 30}
+        - {x: -17, y: 20}
+        - {x: -20, y: 17}
+        - {x: -20, y: -13}
+        - {x: -17, y: -16}
+        - {x: 20, y: -16}
+        - {x: 20, y: 32}
+    - name: Assembler
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 32}
+        - {x: -3, y: 30}
+        - {x: -17, y: 20}
+        - {x: -20, y: 17}
+        - {x: -20, y: -13}
+        - {x: -17, y: -16}
+        - {x: 20, y: -16}
+        - {x: 20, y: 32}
+    - name: Mod3
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12, y: 3}
+        - {x: 10, y: 2}
+        - {x: -24, y: 3}
+        - {x: -29, y: 3}
+        - {x: -30, y: 0}
+        - {x: -30, y: -9}
+        - {x: -22, y: -22}
+        - {x: 13, y: -22}
+        - {x: 20, y: -8}
+        - {x: 20, y: 3}
+      - - {x: -15, y: 18}
+        - {x: -19, y: 15}
+        - {x: -19, y: 4}
+        - {x: -15, y: -3}
+        - {x: -13, y: -5}
+        - {x: 4, y: -5}
+        - {x: 8, y: -3}
+        - {x: 8, y: 15}
+        - {x: 0, y: 18}
+    - name: BoxReaktor
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+    - name: BoxNormal
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+    - name: BoxRohmaterialien
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+    - name: BoxOrganisches
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+    - name: BoxEis
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

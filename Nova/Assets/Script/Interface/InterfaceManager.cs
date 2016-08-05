@@ -15,6 +15,8 @@ public class InterfaceManager : MonoBehaviour {
 
     public GameObject UIContainer;
 
+    public GameObject reactorBox;
+
     // Use this for initialization
     void Start () {
 	
@@ -50,5 +52,13 @@ public class InterfaceManager : MonoBehaviour {
 
     public void setChildOnUIContainer(Transform child) {
         UIContainer.GetComponent<UIContainer>().setChild(child);
+    }
+
+    public void SetOnReactorBox(Transform slotList) {
+
+        slotList.SetParent(reactorBox.transform);
+        slotList.SetAsFirstSibling();
+
+        reactorBox.SetActive(true);
     }
 }
