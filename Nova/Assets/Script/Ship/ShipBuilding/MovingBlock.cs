@@ -20,7 +20,7 @@ public class MovingBlock : MonoBehaviour {
         transform = gameObject.transform;
         collider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        IBlock iShipPart = GetComponent<IBlock>();
+        Block iShipPart = GetComponent<Block>();
         blockPosition = iShipPart.Position;
         createsNewShip = iShipPart.CreatesNewShip;
         isCenterBlock = blockPosition.ToString().StartsWith("C"); //is blockPosition starts with C it is a Center block
@@ -174,7 +174,7 @@ public class MovingBlock : MonoBehaviour {
                 if (g.layer == LayerMask.GetMask("Player"))
                     continue;
 
-                IBlock gBlock = g.GetComponent<IBlock>();
+                Block gBlock = g.GetComponent<Block>();
                     
             }
 

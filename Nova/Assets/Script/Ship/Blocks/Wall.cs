@@ -1,30 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Wall : MonoBehaviour, IBlock{
+public class Wall : Block{
 
     
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    public BlockPosition Position
+    public override BlockPosition Position
     {
         get { return BlockPosition.BETWEEN_TOP; }
     }
 
-    public bool floorLevel
-    {
-        get { return false; }
-    }
-
-    public bool CreatesNewShip
+    public override bool CreatesNewShip
     {
         get { return false; }
     }

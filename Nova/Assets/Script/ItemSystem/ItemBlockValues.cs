@@ -14,9 +14,17 @@ namespace Assets.Script.ItemSystem {
         {
         }
         
-
         public BlockPosition BlockPosition { get { return ((ItemBlock)itemBase).position; } }
         public bool CreatesNewShip { get { return ((ItemBlock)itemBase).createsNewShip; } }
         public int MaxHitPoints { get { return ((ItemBlock)itemBase).maxHitPoints; } }
+
+        /// <summary>
+        /// Übernimmt die Werte aus der übergebenen ItemBlockValues Instanz
+        /// </summary>
+        /// <param name="itemBlockValues"></param>
+        public void CopyValues(ItemBlockValues itemBlockValues)
+        {
+
+        }
     }
 }

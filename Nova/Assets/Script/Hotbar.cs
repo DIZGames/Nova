@@ -10,7 +10,7 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
 
     public Player player;
     public InterfaceManager interfaceManager;
-    public GameObject ColliderCheckPrefab;
+    public GameObject blockBuilderPrefab;
 
     public IEquippable selectedGameObject;
 
@@ -112,15 +112,16 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
 
             }
             else if (slotContainer.Item.Type == ItemType.Block) {
-                GameObject colliderCheckPoint = Instantiate(ColliderCheckPrefab);
-                GameObject dummyBlock = colliderCheckPoint.transform.FindChild("DummyBlock").gameObject;
+                GameObject blockBuilder = Instantiate(blockBuilderPrefab);
+                GameObject buildingPoint = blockBuilder.transform.FindChild("BlockBuildingPoint").gameObject;
 
-                float spawnDistance = 1.5f;
+                float spawnDistance = 1f;
 
-                colliderCheckPoint.transform.position = player.transform.position + player.transform.up * spawnDistance;
-                colliderCheckPoint.transform.rotation = player.transform.rotation;
+                blockBuilder.transform.position = player.transform.position + player.transform.up * spawnDistance;
+                blockBuilder.transform.rotation = player.transform.rotation;
 
-                IEquippable iEquippable = dummyBlock.GetComponent<EquippedBlockLogic>();
+                EquippedBlockLogic iEquippable = buildingPoint.GetComponent<EquippedBlockLogic>();
+                iEquippable.init();
                 iEquippable.setItemValues(slotContainer.Item);
 
                 ItemBlockValues itemBlockValues = (ItemBlockValues)slotContainer.Item;
@@ -128,10 +129,10 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
 
                 selectedGameObject = iEquippable;
 
-                SpriteRenderer sr = dummyBlock.GetComponent<SpriteRenderer>();
+                SpriteRenderer sr = iEquippable.dummyBlock.GetComponent<SpriteRenderer>();
                 sr.sprite = slotContainer.Item.Prefab.GetComponent<SpriteRenderer>().sprite;
 
-                player.setOnEquipment(colliderCheckPoint);
+                player.setOnEquipment(blockBuilder);
 
             }
         }

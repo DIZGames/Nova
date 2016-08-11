@@ -1,28 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WallBig : MonoBehaviour, IBlock {
+public class WallBig : Block {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-    public BlockPosition Position
+    public override BlockPosition Position
     {
         get { return BlockPosition.CENTER; }
     }
 
-    public bool floorLevel
-    {
-        get { return false; }
-    }
-
-    public bool CreatesNewShip
+    public override bool CreatesNewShip
     {
         get { return false; }
     }

@@ -1,26 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Floor : MonoBehaviour, IBlock {
+public class Floor : Block {
 
     
-	// Use this for initialization
-	void Start () {
-	    
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public override bool CreatesNewShip
+    {
+        get { return true; }
+    }
 
-    public BlockPosition Position
+    public override BlockPosition Position
     {
         get { return BlockPosition.CENTER_BOTTOM; }
     }
 
-    public bool CreatesNewShip
-    {
-        get { return true; }
-    }
 }

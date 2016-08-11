@@ -6,46 +6,52 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Script {
+    
     public class EquippedBlockLogic : MonoBehaviour, IEquippable {
 
+        Transform player;
+        new Transform transform;
         ItemBlockValues itemBlockValues;
-        new Collider2D collider;
         float boxWidth = 0.2f; // Defines the width of the box in which the mouse position is checked for parts that can be set between Blocks (like Walls)
         int layerMaskBlock;
-        Vector2 spriteSize;
         Transform shipTransform;
-        Vector3 localBlockSpawnPos;
+        public Transform dummyBlock;
+        Vector2 spriteSize;
+        float rayCastLength = 2f;
+        
 
         void Start() {
+            transform = GetComponent<Transform>();
             layerMaskBlock = LayerMask.GetMask("Block") | LayerMask.GetMask("BlockFloor");
-            collider = GetComponent<Collider2D>();
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            // Muss irgendwann gegen eine bessere Möglichkeit ausgetauscht werden, wie man an den Player kommt
+            player = GameObject.Find("Player").transform;
+        }
+
+        public void init()
+        {
+            //Kann nicht in die Start Methode, da der Sprite dann noch nicht gesetzt ist
+            SpriteRenderer spriteRenderer = dummyBlock.GetComponent<SpriteRenderer>();
             spriteSize = new Vector2(spriteRenderer.bounds.size.x, spriteRenderer.bounds.size.y);
-            localBlockSpawnPos = transform.localPosition;
-            collider.enabled = false;
+            Color color = spriteRenderer.color;
+            color.a = 0.5f;
+            spriteRenderer.color = color;
+
+            //TODO: Collider Punkte für komplexere Formen setzen (z.B. T Form)
+            //collider.points = new[] {new Vector2()};
+            //TODO: rayCastLength abhängig vom Sprite berechnen
+            //rayCastLength = 
         }
 
         void Update()
         {
-            Vector3 currentPosition = gameObject.transform.position;
-            Collider2D[] collidersAtPos = Physics2D.OverlapAreaAll(new Vector2(currentPosition.x - 0.5f, currentPosition.y + 0.5f), new Vector2(currentPosition.x + 0.5f, currentPosition.y - 0.5f), layerMaskBlock);
-            shipTransform = null;
-            foreach (Collider2D c in collidersAtPos)
+
+            RaycastHit2D hit2D = Physics2D.Raycast(player.position, player.up, rayCastLength, layerMaskBlock);
+            if (hit2D.collider != null)
             {
-                if (c.gameObject != gameObject && c.gameObject.GetComponent(typeof(IBlock)))
-                {
-                    shipTransform = c.transform.parent;
-                }
-            }
-
-            Vector3 newPos;
-
-            if (shipTransform != null)
-            {
-                Quaternion newRotation = new Quaternion(0f, 0f, shipTransform.rotation.z, shipTransform.rotation.w);
-                transform.rotation = newRotation;
-
-                Vector3 currentPosLocal = shipTransform.InverseTransformPoint(currentPosition);
+                shipTransform = hit2D.transform;
+                dummyBlock.rotation = shipTransform.rotation;
+                dummyBlock.parent = shipTransform;
+                Vector3 currentPosLocal = shipTransform.InverseTransformPoint(transform.position);
                 float x = currentPosLocal.x - (int)currentPosLocal.x;
                 float y = currentPosLocal.y - (int)currentPosLocal.y;
                 if (IsCenterBlock())
@@ -132,16 +138,16 @@ namespace Assets.Script {
                     }
                 }
 
-                newPos = new Vector3(x, y, transform.position.z);
-                transform.localPosition = newPos;
+                Vector3 newPos = new Vector3(x, y, transform.position.z);
+                dummyBlock.localPosition = newPos;
+                
             }
             else
             {
-                //if (transform.parent != null)
-                //    transform.SetParent(null);
-                //newPos = new Vector3(currentPosition.x, currentPosition.y, transform.position.z);
-                ////transform.position = newPos;
-                //transform.rotation = Quaternion.identity;
+                shipTransform = null;
+                dummyBlock.parent = transform.parent;
+                dummyBlock.rotation = transform.rotation;
+                dummyBlock.localPosition = Vector3.zero;
             }
         }
 
@@ -152,21 +158,36 @@ namespace Assets.Script {
         public void Action1() {
             if (itemBlockValues.stack > 0) {
 
-                //GameObject go = Instantiate(itemBlockValues.Prefab);
+                GameObject blockGObject = Instantiate(itemBlockValues.Prefab);
+                Transform blockTransform = blockGObject.transform;
 
-                //go.transform.position = transform.position;
-                //go.transform.rotation = transform.rotation;
+                blockTransform.position = dummyBlock.position;
+                blockTransform.transform.rotation = dummyBlock.rotation;
+                blockTransform.parent = dummyBlock.parent;
 
-                //go.name = itemBlockValues.Name;
+                blockGObject.name = itemBlockValues.Name;
 
-                //go.GetComponent<EquippedBlockLogic>().setItemValues(itemBlockValues); // Problem??
+                ItemBlockValues newItemBlockValues = ScriptableObject.CreateInstance<ItemBlockValues>();
+                newItemBlockValues.CopyValues(itemBlockValues);
 
-                //RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, Vector2.zero);
-                //if ((hit.collider == null && (itemBlockValues.BlockPosition == BlockPosition.CENTER || itemBlockValues.BlockPosition == BlockPosition.CENTER_BOTTOM)
-                //    || (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("BlockFloor") && (itemBlockValues.BlockPosition == BlockPosition.BETWEEN_TOP
-                //    || itemBlockValues.BlockPosition == BlockPosition.CENTER_TOP))))
+                blockGObject.GetComponent<Block>().ItemBlockValues = newItemBlockValues;
+
+                //Collider2D[] objects = Physics2D.OverlapAreaAll(new Vector2(newPos.x - 0.49f, newPos.y + 0.49f), new Vector2(newPos.x + 0.49f, newPos.y - 0.49f));
+                //bool canBuild = newParent != null || createsNewShip;
+
+                //foreach (Collider2D c in objects)
                 //{
-                //    Global.objectToMove = null;
+                //    GameObject g = c.gameObject;
+
+                //    if (g.layer == LayerMask.GetMask("Player"))
+                //        continue;
+
+                //    IBlock gBlock = g.GetComponent<IBlock>();
+
+                //}
+
+                //if (canBuild)
+                //{
                 //    if (newParent == null)
                 //    {
                 //        GameObject newShip = Instantiate(Global.shipPrefab, transform.position, transform.rotation) as GameObject;
@@ -175,11 +196,12 @@ namespace Assets.Script {
                 //    Destroy(this);
                 //}
 
-                //if (itemBlockValues.stack == 1) {
-                //    Destroy(gameObject);
-                //}
+                itemBlockValues.stack--;
 
-                //itemBlockValues.stack--;
+                if (itemBlockValues.stack <= 0) {
+                    Destroy(transform.parent.gameObject);
+                    Destroy(dummyBlock.gameObject);
+                }
 
             }
         }
@@ -204,6 +226,12 @@ namespace Assets.Script {
             BlockPosition bPosition = itemBlockValues.BlockPosition;
             return bPosition == BlockPosition.BETWEEN || bPosition == BlockPosition.BETWEEN_FLOOR || bPosition == BlockPosition.BETWEEN_MIDDLE
                 || bPosition == BlockPosition.BETWEEN_TOP;
+        }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(player.position, player.up * rayCastLength);
         }
 
     }
