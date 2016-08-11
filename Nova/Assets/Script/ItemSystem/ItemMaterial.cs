@@ -6,6 +6,6 @@ using UnityEngine;
 
 namespace Assets.Script.ItemSystem {
     public class ItemMaterial : ItemBase{
-
+        public MaterialType materialType;
     }
 }
