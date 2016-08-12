@@ -10301,6 +10301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 168361737}
   interfaceManager: {fileID: 878875370}
+  blockBuilderPrefab: {fileID: 0}
   slotList: {fileID: 1305976865}
 --- !u!1001 &1164444930
 Prefab:
@@ -16122,6 +16123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemBase: {fileID: 11400000, guid: ae47e82a61690d54383806670ee6cb16, type: 2}
   stack: 4
+  currentHitPoints: 0
 --- !u!1 &1839676542
 GameObject:
   m_ObjectHideFlags: 0
