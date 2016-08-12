@@ -5,15 +5,19 @@ using System;
 using Assets.Script.ItemSystem;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Assets.Script.Interface;
 
-public class Hotbar : MonoBehaviour, InventoryInterface {
+public class Hotbar : MonoBehaviour, ISlotContainerList {
 
     public Player player;
     public InterfaceManager interfaceManager;
+
     public GameObject blockBuilderPrefab;
 
-    public IEquippable selectedGameObject;
+    public Transform slotList;
 
+
+    public IEquippable selectedGameObject;
 
     private List<SlotContainer> hotBarList;
 
@@ -140,15 +144,15 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
 
     private SlotContainer selectSlotContainer(int hotbarID) {
 
-        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
-            if (transform.GetChild(0).GetChild(i).childCount > 0) {
-                transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainerDrag>().enabled = true;
-                transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainerSplit>().enabled = true;
-                transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<Image>().color = Color.white;
+        for (int i = 0; i < slotList.childCount; i++) {
+            if (slotList.GetChild(i).childCount > 0) {
+                slotList.GetChild(i).GetChild(0).GetComponent<SlotContainerDrag>().enabled = true;
+                slotList.GetChild(i).GetChild(0).GetComponent<SlotContainerSplit>().enabled = true;
+                slotList.GetChild(i).GetChild(0).GetComponent<Image>().color = Color.white;
             }
         }
 
-        Transform slot = transform.GetChild(0).GetChild(hotbarID);
+        Transform slot = slotList.GetChild(hotbarID);
 
         if (slot.childCount > 0) {
 
@@ -168,45 +172,39 @@ public class Hotbar : MonoBehaviour, InventoryInterface {
     public void UpdateList() {
         hotBarList.Clear();
 
-        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
-            if (transform.GetChild(0).GetChild(i).childCount != 0) {
-                hotBarList.Add(transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainer>());
+        for (int i = 0; i < slotList.childCount; i++) {
+            if (slotList.GetChild(i).childCount != 0) {
+                hotBarList.Add(slotList.GetChild(i).GetChild(0).GetComponent<SlotContainer>());
             }
         }
 
-        Debug.Log("hotbarList "+hotBarList.Count);
+        Debug.Log("hotBarList " + hotBarList.Count);
     }
 
-    public int Count(string name) {
+    public int Count(string itemName) {
         int count = 0;
 
         for (int i = 0; i < hotBarList.Count; i++) {
-            if (name == hotBarList[i].Item.Name) {
+            if (itemName == hotBarList[i].Item.Name) {
                 count += hotBarList[i].Item.stack;
             }
         }
         return count;
     }
 
-    public bool ReduceStackOne(string name) {
+    public int Decrease(string itemName, int count) {
         for (int i = 0; i < hotBarList.Count; i++) {
-            if (name == hotBarList[i].Item.Name && hotBarList[i].Item.stack != 0) {
-                hotBarList[i].Item.stack--;
-                return true;
+            if (itemName == hotBarList[i].Item.Name && hotBarList[i].Item.stack != 0) {
+                if (hotBarList[i].Item.stack >= count) {
+                    hotBarList[i].Item.stack -= count;
+                    return 0;
+                }
+                else {
+                    count = count - hotBarList[i].Item.stack;
+                    hotBarList[i].Item.stack = 0;
+                }
             }
         }
-        return false;
-    }
-
-    public void Add(GameObject gOContainer) {
-        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
-            if (transform.GetChild(0).GetChild(i).childCount == 0) {
-
-                gOContainer.transform.SetParent(transform.GetChild(0).GetChild(i));
-                gOContainer.transform.position = transform.GetChild(0).GetChild(i).position;
-
-                break;
-            }
-        }
+        return count;
     }
 }

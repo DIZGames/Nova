@@ -5,10 +5,12 @@ using UnityEngine.EventSystems;
 using System;
 using Assets.Script;
 using System.Collections.Generic;
+using Assets.Script.Interface;
 
-public class Backpack : MonoBehaviour, InventoryInterface {
+public class Backpack : MonoBehaviour, ISlotContainerList {
 
-    private List<SlotContainer> backPackList;
+    private List<SlotContainer> backPackList = new List<SlotContainer>();
+    public Transform slotList;
 
     void Start () {
         backPackList = new List<SlotContainer>();
@@ -18,46 +20,41 @@ public class Backpack : MonoBehaviour, InventoryInterface {
     public void UpdateList() {
         backPackList.Clear();
 
-        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
-            if (transform.GetChild(0).GetChild(i).childCount != 0) {
-                backPackList.Add(transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainer>());
+        for (int i = 0; i < slotList.childCount; i++) {
+            if (slotList.GetChild(i).childCount != 0) {
+                backPackList.Add(slotList.GetChild(i).GetChild(0).GetComponent<SlotContainer>());
             }
         }
 
         Debug.Log("backPackList " + backPackList.Count);
     }
 
-    public int Count(string name) {
+    public int Count(string itemName) {
         int count = 0;
 
         for (int i = 0; i < backPackList.Count; i++) {
-            if (name == backPackList[i].Item.Name) {
+            if (itemName == backPackList[i].Item.Name) {
                 count += backPackList[i].Item.stack;
             }
         }
         return count;
     }
 
-    public bool ReduceStackOne(string name) {
+    public int Decrease(string itemName, int count) {
+
         for (int i = 0; i < backPackList.Count; i++) {
-            if (name == backPackList[i].Item.Name && backPackList[i].Item.stack != 0) {
-                backPackList[i].Item.stack--;
-                return true;
+            if (itemName == backPackList[i].Item.Name && backPackList[i].Item.stack != 0) {
+                if (backPackList[i].Item.stack >= count) {
+                    backPackList[i].Item.stack -= count;
+                    return 0;
+                }
+                else {
+                    count = count - backPackList[i].Item.stack;
+                    backPackList[i].Item.stack = 0;
+                }
             }
         }
-        return false;
-    }
-
-    public void Add(GameObject gOContainer) {
-        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
-            if (transform.GetChild(0).GetChild(i).childCount == 0) {
-
-                gOContainer.transform.SetParent(transform.GetChild(0).GetChild(i));
-                gOContainer.transform.position = transform.GetChild(0).GetChild(i).position;
-
-                break;
-            }
-        }
+        return count;
     }
 }
 

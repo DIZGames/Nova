@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using System;
 using Assets.Script;
 using Assets.Script.ItemSystem;
+using Assets.Script.Interface;
 
 public class SlotContainerSplit : MonoBehaviour, IPointerDownHandler {
 
@@ -62,7 +63,7 @@ public class SlotContainerSplit : MonoBehaviour, IPointerDownHandler {
                     gObject.transform.position = newParent.position;
                 }
 
-                ExecuteEvents.ExecuteHierarchy<InventoryInterface>(gameObject, null, (x, y) => x.UpdateList());
+                ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(gameObject, null, (x, y) => x.UpdateList());
 
             }
         }

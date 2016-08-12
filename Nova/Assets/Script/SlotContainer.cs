@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using Assets.Script.ItemSystem;
 using UnityEngine.EventSystems;
+using System;
 
 [System.Serializable]
 public class SlotContainer : MonoBehaviour {
@@ -35,6 +36,5 @@ public class SlotContainer : MonoBehaviour {
             Destroy(gameObject);          
         }
     }
-
 
 }

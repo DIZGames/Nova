@@ -3,10 +3,12 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using Assets.Script.ItemSystem;
+using Assets.Script.Interface;
 
-public class CharacterScreen : MonoBehaviour, InventoryInterface {
+public class CharacterScreen : MonoBehaviour, ISlotContainerList {
 
     private List<SlotContainer> characterScreenList;
+    public Transform slotList;
 
     public Player player;
 
@@ -25,9 +27,9 @@ public class CharacterScreen : MonoBehaviour, InventoryInterface {
         characterScreenList.Clear();
         player.resetMaxValues();
 
-        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
-            if (transform.GetChild(0).GetChild(i).childCount != 0) {
-                SlotContainer slotContainer = transform.GetChild(0).GetChild(i).GetChild(0).GetComponent<SlotContainer>();
+        for (int i = 0; i < slotList.childCount; i++) {
+            if (slotList.GetChild(i).childCount != 0) {
+                SlotContainer slotContainer = slotList.GetChild(i).GetChild(0).GetComponent<SlotContainer>();
                 ItemClothingValues itemClothingValues = (ItemClothingValues)slotContainer.Item;
 
                 player.addToMaxValues(itemClothingValues.healthUpgrade, itemClothingValues.armorUpgrade, itemClothingValues.energyUpgrade, itemClothingValues.oxygenUpgrade);
@@ -38,36 +40,30 @@ public class CharacterScreen : MonoBehaviour, InventoryInterface {
         Debug.Log("characterScreenList " + characterScreenList.Count);
     }
 
-    public int Count(string name) {
+    public int Count(string itemName) {
         int count = 0;
 
         for (int i = 0; i < characterScreenList.Count; i++) {
-            if (name == characterScreenList[i].Item.Name) {
+            if (itemName == characterScreenList[i].Item.Name) {
                 count += characterScreenList[i].Item.stack;
             }
         }
         return count;
     }
 
-    public bool ReduceStackOne(string name) {
+    public int Decrease(string itemName, int count) {
         for (int i = 0; i < characterScreenList.Count; i++) {
-            if (name == characterScreenList[i].Item.Name && characterScreenList[i].Item.stack != 0) {
-                characterScreenList[i].Item.stack--;
-                return true;
+            if (itemName == characterScreenList[i].Item.Name && characterScreenList[i].Item.stack != 0) {
+                if (characterScreenList[i].Item.stack >= count) {
+                    characterScreenList[i].Item.stack -= count;
+                    return 0;
+                }
+                else {
+                    count = count - characterScreenList[i].Item.stack;
+                    characterScreenList[i].Item.stack = 0;
+                }
             }
         }
-        return false;
-    }
-
-    public void Add(GameObject gOContainer) {
-        for (int i = 0; i < transform.GetChild(0).childCount; i++) {
-            if (transform.GetChild(0).GetChild(i).childCount == 0) {
-
-                gOContainer.transform.SetParent(transform.GetChild(0).GetChild(i));
-                gOContainer.transform.position = transform.GetChild(0).GetChild(i).position;
-
-                break;
-            }
-        }
+        return count;
     }
 }
