@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 382d44e828fb38c4d82a328622bd3676
-timeCreated: 1470397767
+timeCreated: 1470911592
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,7 +12,7 @@ TextureImporter:
     21300010: Zucker
     21300012: Plutonium
     21300014: Wasser
-    21300016: Luftflasche
+    21300016: LuftTank
     21300018: Iridium
     21300020: Eisenbarren
     21300022: Kupferbarren
@@ -244,7 +244,7 @@ TextureImporter:
         - {x: 12, y: -20}
         - {x: 12, y: 20}
         - {x: 11, y: 24}
-    - name: Luftflasche
+    - name: LuftTank
       rect:
         serializedVersion: 2
         x: 512

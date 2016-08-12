@@ -16,7 +16,9 @@ namespace Assets.Script {
             startPosition = transform.position;
             startParent = transform.parent;
 
-            transform.parent.SetAsLastSibling();
+            transform.parent.parent.SetAsLastSibling();
+
+            //transform.SetParent(transform.root);
 
             //transform.SetAsLastSibling();
         }

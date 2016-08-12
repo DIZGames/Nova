@@ -10,11 +10,11 @@ public class ToolLogic : MonoBehaviour, IEquippable {
     [SerializeField]
     private Transform firePoint;
     private ItemToolValues itemToolValues;
-    private Inventory inventory;
+    private PlayerInventory inventory;
 
     public void setItemValues(ItemValues itemValues) {
         itemToolValues = (ItemToolValues)itemValues;
-        inventory = GameObject.FindGameObjectWithTag("PlayerInventory").GetComponent<Inventory>();
+        inventory = GameObject.FindGameObjectWithTag("PlayerInventory").GetComponent<PlayerInventory>();
 
         itemToolValues.inStock = inventory.Count(itemToolValues.Ammo.name);
     }
@@ -53,7 +53,7 @@ public class ToolLogic : MonoBehaviour, IEquippable {
             if (count > 0) {
                 itemToolValues.loadedProjectiles = itemToolValues.Ammo.ClipSize;
 
-                inventory.ReduceStackOne(itemToolValues.Ammo.name);
+                inventory.Decrease(itemToolValues.Ammo.name,1);
                 inventory.UpdateLists();
 
                 itemToolValues.inStock = count - 1;

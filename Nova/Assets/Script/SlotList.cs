@@ -10,6 +10,15 @@ namespace Assets.Script {
 
         private GameObject SlotContainer;
 
+        public bool CheckNextFreeSlot() {
+            for (int i = 0; i < transform.childCount; i++) {
+                if (transform.GetChild(i).childCount == 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void addItemToNextFreeSlot(ItemBase item, int stack) {
             SlotContainer = (GameObject)Resources.Load("Prefab/SlotContainer");
 
@@ -48,13 +57,60 @@ namespace Assets.Script {
                     }
 
                     itemValues.itemBase = item;
-                    itemValues.stack = stack;
-                    
+
+                    if (stack > item.maxStack) {
+                        itemValues.stack = item.maxStack;
+                        stack -= item.maxStack;
+                    }
+                    else {
+                        itemValues.stack = stack;
+                        stack = 0;
+                    }
+     
                     slotContainer.Item = itemValues;
 
+                    if (stack == 0) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void addItemToItemStack(ItemBase item, int stack) {
+            SlotContainer = (GameObject)Resources.Load("Prefab/SlotContainer");
+
+            for (int i = 0; i < transform.childCount; i++) {
+                if (transform.GetChild(i).childCount != 0) {
+                    SlotContainer slotContainer1 = transform.GetChild(i).GetChild(0).GetComponent<SlotContainer>();
+
+                    if (slotContainer1.Item.Name == item.name) {
+                        if (item.maxStack > (slotContainer1.Item.stack + stack)) {
+                            slotContainer1.Item.stack += stack;
+                            stack = 0;
+                        }
+                        else {
+                            int a = item.maxStack - slotContainer1.Item.stack;
+                            stack -= a;
+                            slotContainer1.Item.stack = item.maxStack;
+                        }
+                        
+                        
+
+                    }
+
+                }
+
+                if (stack == 0) {
                     break;
                 }
             }
+            
+            if (stack > 0) {
+
+                addItemToNextFreeSlot(item, stack);
+            }
+                  
+            
         }
 
         public Transform getNextFreeSlot() {

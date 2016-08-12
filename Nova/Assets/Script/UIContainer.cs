@@ -18,16 +18,18 @@ public class UIContainer : MonoBehaviour {
 
     public void setChild(Transform newchildTransform) {
 
-        if (newchildTransform.gameObject.activeSelf) {
+        if (newchildTransform.GetChild(0).gameObject.activeSelf) {
             if (parentTransform != null) {
-                childTransform.gameObject.SetActive(false);
+                childTransform.GetChild(0).gameObject.SetActive(false);
+                //childTransform.gameObject.SetActive(false);
                 childTransform.SetParent(parentTransform);
             }
 
         }
         else {
             if (parentTransform != null) {
-                childTransform.gameObject.SetActive(false);
+                childTransform.GetChild(0).gameObject.SetActive(false);
+                //childTransform.gameObject.SetActive(false);
                 childTransform.SetParent(parentTransform);
             }
 
@@ -39,13 +41,9 @@ public class UIContainer : MonoBehaviour {
             newchildTransform.position = transform.position;
             newchildTransform.rotation = transform.rotation;
             newchildTransform.SetParent(transform);
-            newchildTransform.gameObject.SetActive(true);
+            newchildTransform.GetChild(0).gameObject.SetActive(true);
+            //newchildTransform.gameObject.SetActive(true);
+  
         }
-
-
-      
-
-
-
     }
 }

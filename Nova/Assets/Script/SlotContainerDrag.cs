@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using System;
 using UnityEngine.UI;
 using Assets.Script;
+using Assets.Script.Interface;
 
 public class SlotContainerDrag : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler {
 
@@ -20,11 +21,12 @@ public class SlotContainerDrag : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
         GetComponent<CanvasGroup>().blocksRaycasts = false;
         GetComponent<LayoutElement>().ignoreLayout = true;
- 
-        itemBeingDragged.transform.SetParent(transform.parent.parent.parent.parent);
 
+        itemBeingDragged.transform.SetParent(transform.root);
 
-        ExecuteEvents.ExecuteHierarchy<InventoryInterface>(startParent.gameObject, null, (x, y) => x.UpdateList());
+        //itemBeingDragged.transform.SetParent(transform.parent.parent.parent.parent);
+
+        ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(startParent.gameObject, null, (x, y) => x.UpdateList());
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -34,7 +36,7 @@ public class SlotContainerDrag : MonoBehaviour, IBeginDragHandler, IDragHandler,
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (transform.parent == startParent || transform.parent == startParent.parent.parent.parent) {
+        if (transform.parent == startParent || transform.parent == transform.root) {
             transform.position = startPosition;
             transform.SetParent(startParent);
         }
@@ -43,6 +45,6 @@ public class SlotContainerDrag : MonoBehaviour, IBeginDragHandler, IDragHandler,
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         GetComponent<LayoutElement>().ignoreLayout = false;
 
-        ExecuteEvents.ExecuteHierarchy<InventoryInterface>(gameObject, null, (x, y) => x.UpdateList());
+        ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(gameObject, null, (x, y) => x.UpdateList());
     }
 }

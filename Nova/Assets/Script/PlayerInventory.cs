@@ -1,23 +1,22 @@
-﻿using System;
+﻿using Assets.Script.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 
 namespace Assets.Script {
-
-    public class Inventory : MonoBehaviour {
+    public class PlayerInventory : MonoBehaviour{
 
         public List<GameObject> List;
-
-        private List<InventoryInterface> interfaceList;
+        private List<ISlotContainerList> interfaceList;
 
         void Start() {
 
-            interfaceList = new List<InventoryInterface>();
+            interfaceList = new List<ISlotContainerList>();
 
             for (int i = 0; i < List.Count; i++) {
-                interfaceList.Add(List[i].GetComponent<InventoryInterface>());
+                interfaceList.Add(List[i].GetComponent<ISlotContainerList>());
             }
 
         }
@@ -33,11 +32,20 @@ namespace Assets.Script {
 
         }
 
-        public void ReduceStackOne(string name) {
-            for (int i = 0; i < interfaceList.Count; i++) {
-                if (interfaceList[i].ReduceStackOne(name))
-                    break;               
+        public bool Decrease(string name, int count) {
+            if (count > Count(name)){
+                return false;
             }
+
+            int tempCount = 0;
+
+            for (int i = 0; i < interfaceList.Count; i++) {
+                tempCount = interfaceList[i].Decrease(name, count);
+                if (tempCount == 0) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void UpdateLists() {
@@ -45,6 +53,5 @@ namespace Assets.Script {
                 interfaceList[i].UpdateList();
             }
         }
-
     }
 }
