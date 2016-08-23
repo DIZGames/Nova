@@ -12,13 +12,9 @@ namespace Assets.Script.RecipeSystem {
         public string description;
 
         public int energycosts;
+        public int ticksToBuild;
 
-        [SerializeField]
-        public Ingredient ingredient1;
-        public Ingredient ingredient2;
-        public Ingredient ingredient3;
-        public Ingredient ingredient4;
-        public Ingredient ingredient5;
+        public List<Ingredient> ingredients;
      
         public Ingredient result;
     }

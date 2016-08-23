@@ -7,10 +7,10 @@ using System.Text;
 namespace Assets.Script {
     public interface IEquippable {
 
-        void Action1();
-        void Action2();
-        void Action3();
-        void setItemValues(ItemValues itemValues);
+        void RaycastAction1();
+        void RaycastAction2();
+        void RaycastAction3();
+        void SetItem(ItemBase itemBase);
 
     }
 }

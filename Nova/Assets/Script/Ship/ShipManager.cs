@@ -7,37 +7,87 @@ using UnityEngine.Events;
 
 public class ShipManager : MonoBehaviour {
 
+    void Start() {
+        InvokeRepeating("Ping", 2, 2);
+    }
+
+    #region Energy and Oxygen Management
+
     private UnityEvent unityEventPing = new UnityEvent();
 
-    public void AddToPing(UnityAction pingAction) {
-        unityEventPing.AddListener(pingAction);
+    public void AddToPing(UnityAction unityActionPing) {
+        unityEventPing.AddListener(unityActionPing);
     }
 
-    private int energy = 0;
-    private int oxygen = 0;
-    private int maxEnergy = 0;
-    private int maxOxygen = 0;
+    void Ping() {
 
-    public int Energy {
-        get {
-            return energy;
+        Energy = producedEnergy;
+        showProducedEnergy = producedEnergy;
+        producedEnergy = 0;
+
+        showConsumedEnergy = consumedEnergy;
+        consumedEnergy = 0;
+
+        Oxygen = producedOxygen;
+        showProducedOxygen = producedOxygen;
+        producedOxygen = 0;
+
+        showConsumedOxygen = consumedOxygen;
+        consumedOxygen = 0;
+
+        unityEventPing.Invoke();
+
+        Debug.Log("ProducedEnergy: "+ showProducedEnergy + " ConsumedEnergy: "+ showConsumedEnergy + " ProducedOxygen: "+ showProducedOxygen + " ConsumedOxygen: "+ showConsumedOxygen);
+
+    }
+
+    private int Energy;
+    private int producedEnergy;    
+    private int consumedEnergy; 
+     
+    public int showProducedEnergy;
+    public int showConsumedEnergy;
+
+    private int Oxygen;
+    private int producedOxygen;
+    private int consumedOxygen;
+
+    public int showProducedOxygen;
+    public int showConsumedOxygen;
+
+    public void AddEnergy(int energy) {
+        producedEnergy += energy;
+    }
+
+    public bool RemoveEnergy(int energy) {
+        if (this.Energy >= energy) {
+            this.Energy -= energy;
+            consumedEnergy += energy;
+            return true;
+        }
+        else {
+            return false;       
         }
     }
-    public int Oxygen {
-        get {
-            return oxygen;
+
+    public void AddOxygen(int oxygen) {
+        producedOxygen += oxygen;
+    }
+
+    public bool RemoveOxygen(int oxygen) {
+        if (this.Oxygen>= oxygen) {
+            this.Oxygen -= oxygen;
+            consumedOxygen += oxygen;
+            return true;
+        }
+        else {
+            return false;
         }
     }
-    public int MaxEnergy {
-        get {
-            return maxEnergy;
-        }
-    }
-    public int MaxOxygen {
-        get {
-            return maxOxygen;
-        }
-    }
+
+    #endregion
+
+    #region SlotContainerList
 
     List<ISlotContainerList> iceContainerList = new List<ISlotContainerList>();
     List<ISlotContainerList> organicContainerList = new List<ISlotContainerList>();
@@ -47,19 +97,12 @@ public class ShipManager : MonoBehaviour {
     List<ISlotContainerList> ammoContainerList = new List<ISlotContainerList>();
     List<ISlotContainerList> generalContainerList = new List<ISlotContainerList>();
 
-    void Start () {
-        InvokeRepeating("Ping", 2, 2);
-    }
-
-    void Ping() {
-        unityEventPing.Invoke();
-    }
-
-    public void addContainer(ISlotContainerList container, ShipManagerUnitType shipManagerUnitType)
-    {
+    public void addContainer(ISlotContainerList container, ShipManagerUnitType shipManagerUnitType) {
         List<ISlotContainerList> iSlotContainerList = ChooseContainerList(shipManagerUnitType);
 
-        iSlotContainerList.Add(container);          
+        iSlotContainerList.Add(container);
+
+        Debug.Log("Add List");
     }
     public int Count(string itemName, ShipManagerUnitType shipManagerUnitType) {
 
@@ -123,61 +166,6 @@ public class ShipManager : MonoBehaviour {
         return iSlotContainerList;
     }
 
-    public void AddEnergy(int energy) {
-        if (maxEnergy <= (this.energy + energy)) {
-            this.energy = maxEnergy;
-        }
-        else {
-            this.energy += energy;
-        }
-    }
-    public void AddOxygen(int oxygen) {
-        if (maxOxygen <= (this.oxygen + oxygen)) {
-            this.oxygen = maxOxygen;
-        }
-        else {
-            this.oxygen += oxygen;
-        }
-    }
-    public bool RemoveEnergy(int energy) {
-        if (this.energy >= energy) {
-            this.energy -= energy;
-            return true;
-        }
-        return false;
-        
-    }
-    public bool RemoveOxygen(int oxygen) {
-        if (this.oxygen >= oxygen) {
-            this.oxygen -= oxygen;
-            return true;
-        }
-        return false;
-    }
-    public bool EnergyFull() {
-        if (this.energy == this.maxEnergy) {
-            return false;
-        }
-        return true;
-    }
-    public bool OxygenFull() {
-        if (this.oxygen == this.maxOxygen) {
-            return false;
-        }
-        return true;
-    }
-
-    public void AddMaxOxygen(int maxOxygen) {
-        this.maxOxygen += maxOxygen;
-    }
-    public void AddMaxEnergy(int maxEnergy) {
-        this.maxEnergy += maxEnergy;
-    }
-    public void RemoveMaxOxygen(int maxOxygen) {
-        this.maxOxygen -= maxOxygen;
-    }
-    public void RemoveMaxEnergy(int maxEnergy) {
-        this.maxEnergy -= maxEnergy;
-    }
+    #endregion
 
 }

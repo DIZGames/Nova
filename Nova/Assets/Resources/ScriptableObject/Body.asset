@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd72ace5a401a64d9b4eb3b0c911b00, type: 3}
   m_Name: Body
   m_EditorClassIdentifier: 
-  name: Body
+  itemName: Body
+  stack: 0
   maxStack: 1
   type: 2
-  icon: {fileID: 21300044, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
+  icon: {fileID: 21300030, guid: 382d44e828fb38c4d82a328622bd3676, type: 3}
   prefab: {fileID: 192092, guid: b8278434fa24c854f92f78d5fc5fc4d3, type: 2}
+  description: zjrethet
   healthUpgrade: 600
   armorUpgrade: 700
   energyUpgrade: 800

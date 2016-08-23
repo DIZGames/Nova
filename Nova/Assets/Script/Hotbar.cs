@@ -6,16 +6,24 @@ using Assets.Script.ItemSystem;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Assets.Script.Interface;
+using UnityEngine.EventSystems;
 
-public class Hotbar : MonoBehaviour, ISlotContainerList {
+public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
 
     public Player player;
     public InterfaceManager interfaceManager;
 
     public GameObject blockBuilderPrefab;
+    private Transform standardParent;
 
-    public Transform slotList;
+    [SerializeField]
+    private Transform slotList;
+    [SerializeField]
+    private GameObject uiObject;
 
+    private Transform selectedSlot;
+
+    private int hotbarID;
 
     public IEquippable selectedGameObject;
 
@@ -24,98 +32,99 @@ public class Hotbar : MonoBehaviour, ISlotContainerList {
     void Start() {
         hotBarList = new List<SlotContainer>();
         UpdateList();
-    }
+
+        standardParent = transform.parent;
+}
 
     void Update() {
        
         if (Input.GetButtonDown("Hotbar1")) {
-            selectHotbar(0);
+            selectHotbarID(0);
         }
         if (Input.GetButtonDown("Hotbar2")) {
-            selectHotbar(1);
+            selectHotbarID(1);
         }
         if (Input.GetButtonDown("Hotbar3")) {
-            selectHotbar(2);
+            selectHotbarID(2);
         }
         if (Input.GetButtonDown("Hotbar4")) {
-            selectHotbar(3);
+            selectHotbarID(3);
         }
         if (Input.GetButtonDown("Hotbar5")) {
-            selectHotbar(4);
+            selectHotbarID(4);
         }
         if (Input.GetButtonDown("Hotbar6")) {
-            selectHotbar(5);
+            selectHotbarID(5);
         }
         if (Input.GetButtonDown("Hotbar7")) {
-            selectHotbar(6);
+            selectHotbarID(6);
         }
         if (Input.GetButtonDown("Hotbar8")) {
-            selectHotbar(7);
+            selectHotbarID(7);
         }
         if (Input.GetButtonDown("Hotbar9")) {
-            selectHotbar(8);
+            selectHotbarID(8);
         }
         if (Input.GetButtonDown("Hotbar0")) {
-            selectHotbar(9);
+            selectHotbarID(9);
         }
 
-        if (Input.GetButtonDown("Fire1")) {
-            if (selectedGameObject != null)
-                selectedGameObject.Action1();
-        }
+        if (!EventSystem.current.IsPointerOverGameObject()) {
+            if (Input.GetButtonDown("Fire1")) {
+                if (selectedGameObject != null)
+                    selectedGameObject.RaycastAction1();
+            }
 
-        if (Input.GetButtonDown("Fire2")) {
-            if (selectedGameObject != null)
-                selectedGameObject.Action2();
+            if (Input.GetButtonDown("Fire2")) {
+                if (selectedGameObject != null)
+                    selectedGameObject.RaycastAction2();
+            }
         }
 
         if (Input.GetButtonDown("Reload")) {
             if (selectedGameObject != null)
-                selectedGameObject.Action3();
+                selectedGameObject.RaycastAction3();
         }
     }
 
-    private void selectHotbar(int HotbarID) {
-
-        SlotContainer slotContainer = selectSlotContainer(HotbarID);
-
+    private void EquipSlotContainer(SlotContainer slotContainer) {
         player.clearOnEquipment();
         interfaceManager.showWeaponStat(false);
         selectedGameObject = null;
 
-        if (slotContainer != null && slotContainer.Item != null) {        
+        if (slotContainer != null && slotContainer.ItemBase != null) {
 
-            if (slotContainer.Item.Type == ItemType.Tool) {
-                GameObject go = Instantiate(slotContainer.Item.Prefab);
+            if (slotContainer.ItemBase.type == ItemType.Tool) {
+                GameObject go = Instantiate(slotContainer.ItemBase.prefab);
 
                 go.transform.position = player.EquipmentPoint.transform.position;
                 go.transform.rotation = player.EquipmentPoint.transform.rotation;
-                go.name = slotContainer.Item.Name;
+                go.name = slotContainer.ItemBase.itemName;
 
                 IEquippable iEquippable = go.GetComponent<IEquippable>();
-                iEquippable.setItemValues(slotContainer.Item);
+                iEquippable.SetItem(slotContainer.ItemBase);
                 selectedGameObject = iEquippable;
 
                 player.setOnEquipment(go);
 
-                interfaceManager.setItemToolOnWeaponStat(slotContainer.Item);
+                interfaceManager.SetItemTool(slotContainer.ItemBase);
                 interfaceManager.showWeaponStat(true);
             }
-            else if (slotContainer.Item.Type == ItemType.Consumable) {
-                GameObject go = Instantiate(slotContainer.Item.Prefab);
+            else if (slotContainer.ItemBase.type == ItemType.Consumable) {
+                GameObject go = Instantiate(slotContainer.ItemBase.prefab);
 
                 go.transform.position = player.EquipmentPoint.transform.position;
                 go.transform.rotation = player.EquipmentPoint.transform.rotation;
-                go.name = slotContainer.Item.Name;
+                go.name = slotContainer.ItemBase.itemName;
 
                 IEquippable iEquippable = go.GetComponent<IEquippable>();
-                iEquippable.setItemValues(slotContainer.Item);
+                iEquippable.SetItem(slotContainer.ItemBase);
                 selectedGameObject = iEquippable;
 
                 player.setOnEquipment(go);
 
             }
-            else if (slotContainer.Item.Type == ItemType.Block) {
+            else if (slotContainer.ItemBase.type == ItemType.Block) {
                 GameObject blockBuilder = Instantiate(blockBuilderPrefab);
                 GameObject buildingPoint = blockBuilder.transform.FindChild("BlockBuildingPoint").gameObject;
 
@@ -126,15 +135,15 @@ public class Hotbar : MonoBehaviour, ISlotContainerList {
 
                 EquippedBlockLogic iEquippable = buildingPoint.GetComponent<EquippedBlockLogic>();
                 iEquippable.init();
-                iEquippable.setItemValues(slotContainer.Item);
+                iEquippable.SetItem(slotContainer.ItemBase);
 
-                ItemBlockValues itemBlockValues = (ItemBlockValues)slotContainer.Item;
-                itemBlockValues.currentHitPoints = itemBlockValues.MaxHitPoints;
+                ItemBlock itemBlock = (ItemBlock)slotContainer.ItemBase;
+                itemBlock.currentHitPoints = itemBlock.maxHitPoints;
 
                 selectedGameObject = iEquippable;
 
                 SpriteRenderer sr = iEquippable.dummyBlock.GetComponent<SpriteRenderer>();
-                sr.sprite = slotContainer.Item.Prefab.GetComponent<SpriteRenderer>().sprite;
+                sr.sprite = slotContainer.ItemBase.prefab.GetComponent<SpriteRenderer>().sprite;
 
                 player.setOnEquipment(blockBuilder);
 
@@ -142,31 +151,45 @@ public class Hotbar : MonoBehaviour, ISlotContainerList {
         }
     }
 
-    private SlotContainer selectSlotContainer(int hotbarID) {
+    private void selectHotbarID(int HotbarID) {
+        Transform slot = GetSlot(HotbarID);
+        selectedSlot = slot;
+        SlotContainer slotContainer = selectSlotContainer(slot);
+        EquipSlotContainer(slotContainer);
+    }
+
+    public Transform GetSlot(int hotbarID) {        
+        return slotList.GetChild(hotbarID);
+    }
+
+    private SlotContainer selectSlotContainer(Transform slot) {     
 
         for (int i = 0; i < slotList.childCount; i++) {
-            if (slotList.GetChild(i).childCount > 0) {
-                slotList.GetChild(i).GetChild(0).GetComponent<SlotContainerDrag>().enabled = true;
-                slotList.GetChild(i).GetChild(0).GetComponent<SlotContainerSplit>().enabled = true;
-                slotList.GetChild(i).GetChild(0).GetComponent<Image>().color = Color.white;
+            if (slotList.GetChild(i).childCount != 0) {
+                ToggleScriptOfSlotContainer(slotList.GetChild(i).GetChild(0), true);
             }
+            slotList.GetChild(i).GetComponent<Image>().color = Color.white;
         }
 
-        Transform slot = slotList.GetChild(hotbarID);
+        slot.GetComponent<Image>().color = Color.cyan;
 
-        if (slot.childCount > 0) {
+        if (slot.childCount != 0) {
 
             GameObject gameObject = slot.GetChild(0).gameObject;
 
-            gameObject.GetComponent<SlotContainerDrag>().enabled = false;
-            gameObject.GetComponent<SlotContainerSplit>().enabled = false;
-            gameObject.GetComponent<Image>().color = Color.cyan;
+            ToggleScriptOfSlotContainer(gameObject.transform, false);
 
             return gameObject.GetComponent<SlotContainer>();
-        }
-            
+        }           
         else
             return null;
+    }
+
+    private void ToggleScriptOfSlotContainer(Transform slotContainer, bool flag) {
+        slotContainer.GetComponent<SlotContainerDrag>().enabled = flag;
+        slotContainer.GetComponent<SlotContainerSplit>().enabled = flag;
+        slotContainer.GetComponent<SlotLefftClick>().enabled = flag;
+        slotContainer.GetComponent<SlotContainerTooltip>().enabled = flag;
     }
 
     public void UpdateList() {
@@ -185,8 +208,8 @@ public class Hotbar : MonoBehaviour, ISlotContainerList {
         int count = 0;
 
         for (int i = 0; i < hotBarList.Count; i++) {
-            if (itemName == hotBarList[i].Item.Name) {
-                count += hotBarList[i].Item.stack;
+            if (itemName == hotBarList[i].ItemBase.itemName) {
+                count += hotBarList[i].ItemBase.stack;
             }
         }
         return count;
@@ -194,17 +217,74 @@ public class Hotbar : MonoBehaviour, ISlotContainerList {
 
     public int Decrease(string itemName, int count) {
         for (int i = 0; i < hotBarList.Count; i++) {
-            if (itemName == hotBarList[i].Item.Name && hotBarList[i].Item.stack != 0) {
-                if (hotBarList[i].Item.stack >= count) {
-                    hotBarList[i].Item.stack -= count;
+            if (itemName == hotBarList[i].ItemBase.itemName && hotBarList[i].ItemBase.stack != 0) {
+                if (hotBarList[i].ItemBase.stack >= count) {
+                    hotBarList[i].ItemBase.stack -= count;
                     return 0;
                 }
                 else {
-                    count = count - hotBarList[i].Item.stack;
-                    hotBarList[i].Item.stack = 0;
+                    count = count - hotBarList[i].ItemBase.stack;
+                    hotBarList[i].ItemBase.stack = 0;
                 }
             }
         }
         return count;
+    }
+
+    public void Add(SlotContainer slotContainer) {
+
+        if (selectedSlot != null) {
+            SlotDrop slotDrop = selectedSlot.GetComponent<SlotDrop>();
+
+            if (slotDrop.checkAllowedTypes(slotContainer)) {
+                Transform slotContainerParent = slotContainer.transform.parent;
+                Transform currentContainer;
+
+                if (slotDrop.transform.childCount != 0) {
+                    currentContainer = slotDrop.transform.GetChild(0);
+                    ToggleScriptOfSlotContainer(currentContainer,true);
+                    currentContainer.SetParent(slotContainerParent);
+                }
+
+
+                slotContainer.transform.SetParent(slotDrop.transform);
+                ToggleScriptOfSlotContainer(slotContainer.transform, false);
+                EquipSlotContainer(slotContainer);
+            }
+        }     
+    }
+
+    public void Hide() {
+
+    }
+
+    public bool IsActive() {
+        return uiObject.activeSelf;
+    }
+
+    public void Move(Transform transform) {
+        this.transform.SetParent(transform);
+
+    }
+
+    public void Show() {
+
+    }
+
+    public void ResetPosition() {
+        Move(standardParent);
+    }
+
+    public bool FreeSlot() {
+        for (int i = 0; i < slotList.childCount; i++) {
+            if (slotList.GetChild(i).childCount == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void AddToShipManager(ShipManager shipManager) {
+        throw new NotImplementedException();
     }
 }

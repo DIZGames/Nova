@@ -24,5 +24,11 @@ namespace Assets.Script.Interface {
         /// <param name="itemname"></param>
         int Decrease(string itemName, int count);
 
+        /// <summary>
+        /// Fügt die SlotContainerList zum Shipmanagement hinzu
+        /// </summary>
+        /// <param name=""></param>
+        void AddToShipManager(ShipManager shipManager);
+
     }
 }

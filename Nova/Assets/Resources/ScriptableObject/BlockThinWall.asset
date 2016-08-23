@@ -11,11 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf7856508d8a864792baca854008678, type: 3}
   m_Name: BlockThinWall
   m_EditorClassIdentifier: 
-  name: BlockThinWall
+  itemName: BlockThinWall
+  stack: 0
   maxStack: 99
   type: 3
   icon: {fileID: 21300000, guid: 9c5033376dd777042a3d118646e80a0e, type: 3}
   prefab: {fileID: 142982, guid: 5bc64a5c1eb045047b49b01831910afd, type: 2}
+  description: 
   position: 4
   createsNewShip: 0
   maxHitPoints: 100
+  currentHitPoints: 0

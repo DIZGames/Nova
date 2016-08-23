@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd72ace5a401a64d9b4eb3b0c911b00, type: 3}
+  m_Name: Mod2
+  m_EditorClassIdentifier: 
+  itemName: Mod2
+  stack: 0
+  maxStack: 1
+  type: 2
+  icon: {fileID: 21300038, guid: 382d44e828fb38c4d82a328622bd3676, type: 3}
+  prefab: {fileID: 147376, guid: 7d52e42cfc8e3cd4f910865aa434fe53, type: 2}
+  description: 
+  healthUpgrade: 0
+  armorUpgrade: 150
+  energyUpgrade: 0
+  oxygenUpgrade: 0
+  clothingType: 3

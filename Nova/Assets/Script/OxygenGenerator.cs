@@ -7,7 +7,7 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Script {
-    public class OxygenGenerator : MonoBehaviour, IOpenUI{
+    public class OxygenGenerator : MonoBehaviour, IInteractWithPlayerRaycast{
 
         public ShipManagerUnitType unitType;
 
@@ -25,39 +25,31 @@ namespace Assets.Script {
             interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
             shipManager = transform.root.GetComponent<ShipManager>();
             shipManager.AddToPing(ProduceOxygen);
+
         }
 
         public void Toggle() {
             if (isPing) {
                 isPing = false;
-                shipManager.RemoveMaxOxygen(1);
             }          
             else{
                 isPing = true;
-                shipManager.AddMaxOxygen(1);
-            }
-                
+            }          
         }
 
         private void ProduceOxygen() {
-            if (isPing && shipManager.OxygenFull()) {
+            if (isPing) {
                 if (shipManager.RemoveEnergy(1)) {
                     if (shipManager.Decrease("Ice", unitType, 1)) {
-                        shipManager.AddOxygen(1);
+                        shipManager.AddOxygen(2);
                     }
                 }
             }
         }
 
-        void OnMouseDown() {
-
-            int count = shipManager.Count("Plutonium", unitType);
-            Debug.Log("Plutonium " + count);
-
-        }
-
-        public void OpenUI() {
-            interfaceManager.setChildOnUIContainer(this.transform);
+        public void RaycastAction() {
+            //interfaceManager.setChildOnUIContainer(this.transform);
+            interfaceManager.ShowUI(GetComponent<IUI>(), "Oxygen Generator");
         }
     }
 }

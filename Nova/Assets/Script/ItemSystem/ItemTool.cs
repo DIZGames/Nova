@@ -13,5 +13,12 @@ namespace Assets.Script.ItemSystem {
         public int BulletSpeed;
         public int FireRate;
         public ItemAmmo Ammo;
+        //Changeable
+        public int loadedProjectiles;
+        public int inStock;
+
+        public override ItemBase Clone() {
+            return Instantiate(this) as ItemTool;
+        }
     }
 }

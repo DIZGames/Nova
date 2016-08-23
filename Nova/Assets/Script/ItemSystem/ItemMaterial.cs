@@ -7,5 +7,9 @@ using UnityEngine;
 namespace Assets.Script.ItemSystem {
     public class ItemMaterial : ItemBase{
         public MaterialType materialType;
+
+        public override ItemBase Clone() {
+            return Instantiate(this) as ItemMaterial;
+        }
     }
 }

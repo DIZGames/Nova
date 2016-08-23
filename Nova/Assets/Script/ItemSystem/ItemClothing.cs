@@ -13,5 +13,8 @@ namespace Assets.Script.ItemSystem {
 
         public ClothingType clothingType;
 
+        public override ItemBase Clone() {
+            return Instantiate(this) as ItemClothing;
+        }
     }
 }

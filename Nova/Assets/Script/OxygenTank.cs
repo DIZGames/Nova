@@ -4,38 +4,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Script {
-    public class OxygenTank : MonoBehaviour, IOpenUI{
+    public class OxygenTank : MonoBehaviour, IInteractWithPlayerRaycast{
+
         private ShipManager shipManager;
         private InterfaceManager interfaceManager;
         private TerminalManager terminalManager;
 
-        private bool isPing;
+        [SerializeField]
+        private Text textStoredOxygen;
+        [SerializeField]
+        private Text textStoredOxygenMax;
 
-        // Use this for initialization
+        [SerializeField]
+        private Toggle toggleLoad;
+        [SerializeField]
+        private Toggle toggleUnLoad;
+
+        private int storedOxygen = 0;
+        private int storedOxygenMax = 20;
+
         void Start() {
             shipManager = transform.root.GetComponent<ShipManager>();
+            shipManager.AddToPing(Ping);
 
             terminalManager = transform.root.GetComponent<TerminalManager>();
             terminalManager.Add("OxygenTank", transform.parent.GetComponent<SpriteRenderer>().sprite, this.transform);
 
             interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
+
+            textStoredOxygenMax.text = storedOxygenMax.ToString();
         }
 
-        public void Toggle() {
-            if (isPing) {
-                isPing = false;
-                shipManager.RemoveMaxOxygen(40);
+        void Update() {
+            textStoredOxygen.text = storedOxygen.ToString();
+        }
+
+        private void Ping() {
+            if (toggleLoad.isOn) {
+                if (shipManager.RemoveOxygen(2)) {
+                    if ((storedOxygen + 2) >= storedOxygenMax) {
+                        storedOxygen = storedOxygenMax;
+                        toggleLoad.isOn = false;
+                    }
+                    else {
+                        storedOxygen += 2;
+                    }
+                }
             }
-            else {
-                isPing = true;
-                shipManager.AddMaxOxygen(40);
+
+            if (toggleUnLoad.isOn) {
+                if (storedOxygen >= 2) {
+                    shipManager.AddOxygen(2);
+                    storedOxygen -= 2;
+                }
+                else {
+                    if (storedOxygen == 1) {
+                        shipManager.AddOxygen(1);
+                        storedOxygen -= 1;
+                    }
+                    else {
+                        //0
+                        toggleUnLoad.isOn = false;
+                    }
+                }
+
             }
         }
 
-        public void OpenUI() {
-            interfaceManager.setChildOnUIContainer(this.transform);
+        public void RaycastAction() {
+            interfaceManager.ShowUI(GetComponent<IUI>(), "Oxygen Tank");
         }
     }
 }

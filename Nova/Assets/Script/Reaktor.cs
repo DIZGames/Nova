@@ -5,7 +5,7 @@ using Assets.Script.Interface;
 using System;
 using Assets.Script;
 
-public class Reaktor : MonoBehaviour, IOpenUI {
+public class Reaktor : MonoBehaviour, IInteractWithPlayerRaycast {
 
     public ShipManagerUnitType unitType;
     private ShipManager shipManager;
@@ -13,14 +13,16 @@ public class Reaktor : MonoBehaviour, IOpenUI {
     private TerminalManager terminalManager;
 
     private bool isPing;
+    private int ticksForProcessing = 0;
+
 
     // Use this for initialization
     void Start () {
-        shipManager = transform.root.GetComponent<ShipManager>();
-        terminalManager = transform.root.GetComponent<TerminalManager>();
+        shipManager = transform.root.GetComponent<ShipManager>();       
         shipManager.AddToPing(ProduceEnergy);
 
-        terminalManager.Add("Reactor", transform.parent.GetComponent<SpriteRenderer>().sprite, this.transform);
+        //terminalManager = transform.root.GetComponent<TerminalManager>();
+        //terminalManager.Add("Reactor", transform.parent.GetComponent<SpriteRenderer>().sprite, this.transform);
 
         interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
     }
@@ -28,31 +30,31 @@ public class Reaktor : MonoBehaviour, IOpenUI {
     public void Toggle() {
         if (isPing) {
             isPing = false;
-            shipManager.RemoveMaxEnergy(2);
-        }
-         
+        }      
         else{
-            isPing = true;
-            shipManager.AddMaxEnergy(2);        
+            isPing = true;   
         }  
     }
 
     private void ProduceEnergy() {
-        if (isPing && shipManager.EnergyFull()) {
-            if (shipManager.Decrease("Plutonium", unitType, 1)) {
+        if (isPing) {
+            if (ticksForProcessing != 0) {
+                ticksForProcessing++;
                 shipManager.AddEnergy(2);
+
+                if (ticksForProcessing == 5)
+                    ticksForProcessing = 0;
             }
-        }
+            else {
+                if (shipManager.Decrease("Plutonium", unitType, 1)) {
+                    ticksForProcessing++;
+                    shipManager.AddEnergy(2);
+                }         
+            } 
+        } 
     }
 
-    void OnMouseDown() {
-
-        int count = shipManager.Count("Plutonium", unitType);
-        Debug.Log("Plutonium "+count);
-
-    }
-
-    public void OpenUI() {
-        interfaceManager.setChildOnUIContainer(this.transform);
+    public void RaycastAction() {
+        interfaceManager.ShowUI(GetComponent<IUI>(), "Reaktor");
     }
 }

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Assets.Script.ItemSystem
 {
-    [System.Serializable]
-    public class ItemAmmoValues : ItemValues
-    {
-        public ItemAmmoValues(ItemBase itemBase) : base(itemBase)
-        {
-        }
-    }
+    //[System.Serializable]
+    //public class ItemAmmoValues : ItemValues
+    //{
+    //    public ItemAmmoValues(ItemBase itemBase) : base(itemBase)
+    //    {
+    //    }
+    //}
 }

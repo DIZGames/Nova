@@ -11,7 +11,7 @@ namespace Assets.Script {
 
         Transform player;
         new Transform transform;
-        ItemBlockValues itemBlockValues;
+        ItemBlock itemBlock;
         float boxWidth = 0.2f; // Defines the width of the box in which the mouse position is checked for parts that can be set between Blocks (like Walls)
         int layerMaskBlock;
         Transform shipTransform;
@@ -151,26 +151,28 @@ namespace Assets.Script {
             }
         }
 
-        public void setItemValues(ItemValues itemValues) {
-            itemBlockValues = (ItemBlockValues)itemValues;
+        public void SetItem(ItemBase itemBase) {
+            itemBlock = (ItemBlock)itemBase;
         }
 
-        public void Action1() {
-            if (itemBlockValues.stack > 0) {
+        public void RaycastAction1() {
+            if (itemBlock.stack > 0) {
 
-                GameObject blockGObject = Instantiate(itemBlockValues.Prefab);
+                GameObject blockGObject = Instantiate(itemBlock.prefab);
                 Transform blockTransform = blockGObject.transform;
 
                 blockTransform.position = dummyBlock.position;
                 blockTransform.transform.rotation = dummyBlock.rotation;
                 blockTransform.parent = dummyBlock.parent;
 
-                blockGObject.name = itemBlockValues.Name;
+                blockGObject.name = itemBlock.itemName;
 
-                ItemBlockValues newItemBlockValues = ScriptableObject.CreateInstance<ItemBlockValues>();
-                newItemBlockValues.CopyValues(itemBlockValues);
+                ItemBlock newItemBlock = (ItemBlock)itemBlock.Clone();
 
-                blockGObject.GetComponent<Block>().ItemBlockValues = newItemBlockValues;
+                //ItemBlock newItemBlockValues = ScriptableObject.CreateInstance<ItemBlock>();
+                //newItemBlockValues.CopyValues(itemBlockValues);
+
+                blockGObject.GetComponent<Block>().ItemBlock= newItemBlock;
 
                 //Collider2D[] objects = Physics2D.OverlapAreaAll(new Vector2(newPos.x - 0.49f, newPos.y + 0.49f), new Vector2(newPos.x + 0.49f, newPos.y - 0.49f));
                 //bool canBuild = newParent != null || createsNewShip;
@@ -196,9 +198,9 @@ namespace Assets.Script {
                 //    Destroy(this);
                 //}
 
-                itemBlockValues.stack--;
+                itemBlock.stack--;
 
-                if (itemBlockValues.stack <= 0) {
+                if (itemBlock.stack <= 0) {
                     Destroy(transform.parent.gameObject);
                     Destroy(dummyBlock.gameObject);
                 }
@@ -206,24 +208,24 @@ namespace Assets.Script {
             }
         }
 
-        public void Action2() {
+        public void RaycastAction2() {
            
         }
 
-        public void Action3() {
+        public void RaycastAction3() {
             
         }
 
         private bool IsCenterBlock()
         {
-            BlockPosition bPosition = itemBlockValues.BlockPosition;
+            BlockPosition bPosition = itemBlock.position;
             return bPosition == BlockPosition.CENTER || bPosition == BlockPosition.CENTER_BOTTOM || bPosition == BlockPosition.CENTER_MIDDLE
                 || bPosition == BlockPosition.CENTER_TOP;
         }
 
         private bool IsBetweenBlock()
         {
-            BlockPosition bPosition = itemBlockValues.BlockPosition;
+            BlockPosition bPosition = itemBlock.position;
             return bPosition == BlockPosition.BETWEEN || bPosition == BlockPosition.BETWEEN_FLOOR || bPosition == BlockPosition.BETWEEN_MIDDLE
                 || bPosition == BlockPosition.BETWEEN_TOP;
         }

@@ -32,6 +32,8 @@ GameObject:
   - 114: {fileID: 11439194}
   - 114: {fileID: 11454580}
   - 114: {fileID: 11410642}
+  - 114: {fileID: 11418864}
+  - 114: {fileID: 11422282}
   m_Layer: 5
   m_Name: SlotContainer
   m_TagString: Untagged
@@ -67,6 +69,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa8e5da814189148866d88444f7256a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11418864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35926926e4331744d827f26adafd683d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11420250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,9 +91,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41c398926fc80746b01a1b71bcfe002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ItemValues: {fileID: 0}
+  _ItemBase: {fileID: 0}
   Text: {fileID: 11452802}
   Image: {fileID: 11453276}
+--- !u!114 &11422282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db015bffa19d6f34f92e034295a7b9c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11439194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,8 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.709, g: 0.10023792, b: 0.10023792, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -154,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.83639705, g: 0.83722115, b: 0.9558824, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -265,8 +289,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.52500534, y: -16.9}
-  m_SizeDelta: {x: 51.05, y: 16.2}
+  m_AnchoredPosition: {x: -0.0000018328428, y: -16.9}
+  m_SizeDelta: {x: 50, y: 16.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &22533400
 CanvasGroup:

@@ -7,7 +7,7 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Script {
-    public class SlotContainerList : MonoBehaviour, ISlotContainerList, IOpenUI{
+    public class SlotContainerList : MonoBehaviour, ISlotContainerList, IInteractWithPlayerRaycast{
 
         private List<SlotContainer> slotContainerList = new List<SlotContainer>();
         private ShipManager shipManager;
@@ -16,24 +16,35 @@ namespace Assets.Script {
         private InterfaceManager interfaceManager;
         private TerminalManager terminalManager;
 
-        void Start() {
-            terminalManager = transform.root.GetComponent<TerminalManager>();
-            terminalManager.Add(transform.name, transform.parent.GetComponent<SpriteRenderer>().sprite, this.transform);
 
-            interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
+        void Start() {
+            //terminalManager = transform.root.GetComponent<TerminalManager>();
+            //terminalManager.Add(transform.name, transform.parent.GetComponent<SpriteRenderer>().sprite, this.transform);
+
+            //interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
+            //slotContainerList = new List<SlotContainer>();
+            //UpdateList();
+
+            //shipManager = transform.root.GetComponent<ShipManager>();
+            //shipManager.addContainer(this, unitType); 
+        }
+
+        public void AddToShipManager(ShipManager shipManager) {
+            this.shipManager = shipManager;
+
             slotContainerList = new List<SlotContainer>();
             UpdateList();
 
-            shipManager = transform.root.GetComponent<ShipManager>();
-            shipManager.addContainer(this, unitType); 
+            shipManager.addContainer(this, unitType);
         }
+
 
         public int Count(string itemName) {
             int count = 0;
 
             for (int i = 0; i < slotContainerList.Count; i++) {
-                if (itemName == slotContainerList[i].Item.Name) {
-                    count += slotContainerList[i].Item.stack;
+                if (itemName == slotContainerList[i].ItemBase.itemName) {
+                    count += slotContainerList[i].ItemBase.stack;
                 }
             }
             return count;
@@ -42,14 +53,14 @@ namespace Assets.Script {
         public int Decrease(string itemName, int count) {
 
             for (int i = 0; i < slotContainerList.Count; i++) {
-                if (itemName == slotContainerList[i].Item.Name && slotContainerList[i].Item.stack != 0) {
-                    if (slotContainerList[i].Item.stack >= count) {
-                        slotContainerList[i].Item.stack -= count;
+                if (itemName == slotContainerList[i].ItemBase.itemName && slotContainerList[i].ItemBase.stack != 0) {
+                    if (slotContainerList[i].ItemBase.stack >= count) {
+                        slotContainerList[i].ItemBase.stack -= count;
                         return 0;
                     }
                     else {
-                        count = count - slotContainerList[i].Item.stack;
-                        slotContainerList[i].Item.stack = 0;
+                        count = count - slotContainerList[i].ItemBase.stack;
+                        slotContainerList[i].ItemBase.stack = 0;
                     }
                 }
             }
@@ -65,11 +76,30 @@ namespace Assets.Script {
                 }
             }
 
-            Debug.Log("slotContainerList " + slotContainerList.Count);
+            Debug.Log(gameObject.name +" "+slotContainerList.Count);
+
         }
 
-        public void OpenUI() {
-            interfaceManager.setChildOnUIContainer(this.transform);
+        public void Add(SlotContainer slotContainer) {
+            GameObject SlotContainer = (GameObject)Resources.Load("Prefab/SlotContainer");
+
+            for (int i = 0; i < slotList.childCount; i++) {
+                if (slotList.GetChild(i).childCount == 0) { //slot ist leer
+                    SlotDrop slotDrop = slotList.GetChild(i).GetComponent<SlotDrop>();
+
+                    if (slotDrop.checkAllowedTypes(slotContainer)) {
+                        slotContainer.gameObject.transform.SetParent(slotList.GetChild(i));
+                        break;
+                    }
+                }
+            }
         }
+
+        public void RaycastAction() {
+
+            interfaceManager.ShowUIWithBackpack(GetComponent<UI>(),"ICETEST");
+        }
+
+      
     }
 }

@@ -13,12 +13,8 @@ namespace Assets.Script {
         }
 
         public void Add(string name, Sprite icon, Transform transformContainer) {
-
             TerminalContainer terminalContainer = new TerminalContainer(name,icon,transformContainer);
-
             scrollViewContainerList.Add(terminalContainer);
-            
-
         }
 
         public TerminalContainer getTerminalByIndex(int index) {

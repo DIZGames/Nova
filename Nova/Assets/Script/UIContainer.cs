@@ -1,49 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Script;
+using UnityEngine.UI;
 
 public class UIContainer : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
+    public ContainerDock containerDock1;
+    public Text title;
 
-    private Transform parentTransform;
-    private Transform childTransform;
+    public void ShowUI(IUI dock1, string title) {
 
-	// Update is called once per frame
-	void Update () {
-	
-	}
+        if (gameObject.activeSelf) {
+            this.title.text = "";
+            containerDock1.ResetUI();
 
-    public void setChild(Transform newchildTransform) {
-
-        if (newchildTransform.GetChild(0).gameObject.activeSelf) {
-            if (parentTransform != null) {
-                childTransform.GetChild(0).gameObject.SetActive(false);
-                //childTransform.gameObject.SetActive(false);
-                childTransform.SetParent(parentTransform);
-            }
-
+            gameObject.SetActive(false);
         }
         else {
-            if (parentTransform != null) {
-                childTransform.GetChild(0).gameObject.SetActive(false);
-                //childTransform.gameObject.SetActive(false);
-                childTransform.SetParent(parentTransform);
-            }
+            this.title.text = title;
 
-            //Informationen speichern über kind und vater
-            childTransform = newchildTransform;
-            parentTransform = newchildTransform.parent;
+            containerDock1.SetIUI(dock1);
 
-            //An UIContainer hängen
-            newchildTransform.position = transform.position;
-            newchildTransform.rotation = transform.rotation;
-            newchildTransform.SetParent(transform);
-            newchildTransform.GetChild(0).gameObject.SetActive(true);
-            //newchildTransform.gameObject.SetActive(true);
-  
+            gameObject.SetActive(true);
         }
+    }
+
+    public void ResetUI() {
+        this.title.text = "";
+        containerDock1.ResetUI();
+
+        gameObject.SetActive(false);
     }
 }
