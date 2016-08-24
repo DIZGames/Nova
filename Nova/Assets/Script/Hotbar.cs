@@ -133,9 +133,9 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
                 blockBuilder.transform.rotation = player.transform.rotation;
 
                 EquippedBlockLogic iEquippable = blockBuilder.GetComponent<EquippedBlockLogic>();
-                SpriteRenderer sr = iEquippable.dummyBlock.GetComponent<SpriteRenderer>();
+                SpriteRenderer sr = iEquippable.dummyBlockTransform.GetComponent<SpriteRenderer>();
                 sr.sprite = slotContainer.ItemBase.prefab.GetComponent<SpriteRenderer>().sprite;
-                iEquippable.init();
+                //iEquippable.init();
                 iEquippable.SetItem(slotContainer.ItemBase);
 
                 selectedGameObject = iEquippable;

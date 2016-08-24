@@ -12,7 +12,8 @@ GameObject:
   - 114: {fileID: 11475952}
   - 50: {fileID: 5067976}
   - 114: {fileID: 11469106}
-  m_Layer: 0
+  - 61: {fileID: 6161996}
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -28,7 +29,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 417264}
   - 212: {fileID: 21298532}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EquipmentPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +45,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 401924}
   - 212: {fileID: 21253434}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +61,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 449628}
   - 212: {fileID: 21226440}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,6 +136,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &6161996
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114044}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.01814805, y: 0.02419746}
+  serializedVersion: 2
+  m_Size: {x: 0.6491368, y: 0.35876727}
 --- !u!114 &11469106
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -7,36 +7,25 @@ using UnityEngine;
 
 namespace Assets.Script {
 
-    [RequireComponent(typeof(Collider2D))]
     public class EquippedBlockLogic : MonoBehaviour, IEquippable {
 
-        Transform player;
         Transform shipTransform;
         new Transform transform;
-        new Collider collider;
+        public Transform dummyBlockTransform;
         GameObject shipPrefab;
         ItemBlock itemBlock;
         float boxWidth = 0.2f; // Defines the width of the box in which the mouse position is checked for parts that can be set between Blocks (like Walls)
-        float rayCastLength = 2f;
         int layerMaskBlock;
-        public Transform dummyBlock;
         Vector2 spriteSize;
-        List<Collider2D> collidersInArea = new List<Collider2D>();
-        List<Collider2D> blocksInArea = new List<Collider2D>();
 
         void Start() {
             transform = GetComponent<Transform>();
-            layerMaskBlock = LayerMask.GetMask("Block") | LayerMask.GetMask("BlockFloor");
-            // Muss irgendwann gegen eine bessere Möglichkeit ausgetauscht werden, wie man an den Player kommt
-            player = GameObject.Find("Player").transform;
-            shipPrefab = (GameObject)Resources.Load("Prefab/Ship/Ship");
-            collider = dummyBlock.GetComponent<Collider>();
-        }
 
-        public void init()
-        {
-            //Kann nicht in die Start Methode, da der Sprite dann noch nicht gesetzt ist
-            SpriteRenderer spriteRenderer = dummyBlock.GetComponent<SpriteRenderer>();
+            layerMaskBlock = LayerMask.GetMask("Block") | LayerMask.GetMask("BlockFloor");
+
+            shipPrefab = (GameObject)Resources.Load("Prefab/Ship/Ship");
+
+            SpriteRenderer spriteRenderer = dummyBlockTransform.GetComponent<SpriteRenderer>();
             spriteSize = new Vector2(spriteRenderer.bounds.size.x, spriteRenderer.bounds.size.y);
             Color color = spriteRenderer.color;
             color.a = 0.5f;
@@ -44,24 +33,57 @@ namespace Assets.Script {
 
             //TODO: Collider Punkte für komplexere Formen setzen (z.B. T Form)
             //collider.points = new[] {new Vector2()};
-            //TODO: rayCastLength abhängig vom Sprite berechnen
-            //rayCastLength = 
+
+            // spriteSize ist zu groß, warum auch immer
+            //collider.size = new Vector2(spriteSize.x - 0.01f, spriteSize.y - 0.01f);
         }
+
+        //public void init()
+        //{
+        //    //Kann nicht in die Start Methode, da der Sprite dann noch nicht gesetzt ist
+        //    SpriteRenderer spriteRenderer = dummyBlock.GetComponent<SpriteRenderer>();
+        //    spriteSize = new Vector2(spriteRenderer.bounds.size.x, spriteRenderer.bounds.size.y);
+        //    Color color = spriteRenderer.color;
+        //    color.a = 0.5f;
+        //    spriteRenderer.color = color;
+        //    //TODO: Collider Punkte für komplexere Formen setzen (z.B. T Form)
+        //    //collider.points = new[] {new Vector2()};
+        //    collider.size = new Vector2(spriteSize.x - 0.01f, spriteSize.y - 0.01f);
+
+        //}
 
         void Update()
         {
-            /* Verbesserungsmöglichkeiten:
-             * block position anpassen and block typ, sodass der dummy block nur an den stellen erscheint wo er auch hingesetzt werden kann, 
-             * also ThingOnShip nur auf boden blöcke, wand center blöcke nur an einen anderen block dran
-             * siehe blöcke setzen bei space engineers
-            */ 
+            List<RaycastHit2D> hits = new List<RaycastHit2D>();
+            hits.AddRange(Physics2D.RaycastAll(transform.position, transform.rotation * Vector2.up, spriteSize.y / 2, layerMaskBlock));
+            hits.AddRange(Physics2D.RaycastAll(transform.position, transform.rotation * Vector2.left, spriteSize.y / 2, layerMaskBlock));
+            hits.AddRange(Physics2D.RaycastAll(transform.position, transform.rotation * Vector2.right, spriteSize.x / 2, layerMaskBlock));
+            hits.AddRange(Physics2D.RaycastAll(transform.position, transform.rotation * Vector2.down, spriteSize.x / 2, layerMaskBlock));
 
-            // Raycast in vier richtungen
+            shipTransform = null;
 
-            if(shipTransform != null)
+            float distance = -1;
+            foreach(RaycastHit2D hit in hits)
             {
-                dummyBlock.rotation = shipTransform.rotation;
-                dummyBlock.parent = shipTransform;
+                if (hit.transform == transform)
+                    continue;
+                else if (distance == -1)
+                {
+                    distance = hit.distance;
+                    shipTransform = hit.transform;
+                }
+                else if (hit.distance < distance)
+                {
+                    distance = hit.distance;
+                    shipTransform = hit.transform;
+                }
+
+            }
+
+            if (shipTransform != null)
+            {
+                dummyBlockTransform.rotation = shipTransform.rotation;
+                dummyBlockTransform.parent = shipTransform;
                 Vector3 currentPosLocal = shipTransform.InverseTransformPoint(transform.position);
                 float x = currentPosLocal.x - (int)currentPosLocal.x;
                 float y = currentPosLocal.y - (int)currentPosLocal.y;
@@ -150,14 +172,14 @@ namespace Assets.Script {
                 }
 
                 Vector3 newPos = new Vector3(x, y, transform.position.z);
-                dummyBlock.localPosition = newPos;
+                dummyBlockTransform.localPosition = newPos;
                 
             }
             else
             {
-                dummyBlock.parent = transform;
-                dummyBlock.rotation = transform.rotation;
-                dummyBlock.localPosition = Vector3.zero;
+                dummyBlockTransform.parent = transform;
+                dummyBlockTransform.rotation = transform.rotation;
+                dummyBlockTransform.localPosition = Vector3.zero;
             }
         }
 
@@ -169,14 +191,15 @@ namespace Assets.Script {
             if (itemBlock.stack > 0) {
                 /* momentan wird nur die Position kontrolliert, später müssen auch noch benachbarte blöcke kontrolliert werden, 
                    damit z.B. dünne Wände nicht neben oder zwischen dicken Wänden gesetzt werden können*/
-                // größe des sprites zur berechnung der OverlapArea nehmen
-
-                // etwas kleineren collider als sprite zum kontrollieren ob gebaut werden kann
 
                 bool canBuild = shipTransform != null || itemBlock.createsNewShip;
-                foreach (Collider2D c in collidersInArea)
+
+                RaycastHit2D[] hits = Physics2D.BoxCastAll(dummyBlockTransform.position, new Vector2((spriteSize.x / 2) - 0.01f, (spriteSize.y / 2 - 0.01f)), 
+                    dummyBlockTransform.eulerAngles.z, Vector2.zero);
+                
+                foreach (RaycastHit2D hit in hits)
                 {
-                    GameObject g = c.gameObject;
+                    GameObject g = hit.collider.gameObject;
 
                     if (g.layer == LayerMask.GetMask("Player"))
                         continue;
@@ -249,8 +272,8 @@ namespace Assets.Script {
                 {
                     GameObject blockGObject = Instantiate(itemBlock.prefab);
                     Transform blockTransform = blockGObject.transform;
-                    blockTransform.position = dummyBlock.position;
-                    blockTransform.transform.rotation = dummyBlock.rotation;
+                    blockTransform.position = dummyBlockTransform.position;
+                    blockTransform.transform.rotation = dummyBlockTransform.rotation;
 
                     if (shipTransform == null)
                     {
@@ -259,7 +282,7 @@ namespace Assets.Script {
                     }
                     else
                     {
-                        blockTransform.parent = dummyBlock.parent;
+                        blockTransform.parent = dummyBlockTransform.parent;
                     }
 
 
@@ -271,7 +294,7 @@ namespace Assets.Script {
 
                     if (itemBlock.stack <= 0) {
                         Destroy(transform.gameObject);
-                        Destroy(dummyBlock.gameObject);
+                        Destroy(dummyBlockTransform.gameObject);
                     }
                 }
 
@@ -286,24 +309,6 @@ namespace Assets.Script {
             
         }
 
-        void OnTriggerEnter2D(Collider2D collider)
-        {
-            // Bessere Möglichkeit ein Schiff effizient zu identifizieren?
-            collidersInArea.Add(collider);
-            if (shipTransform == null && collider.transform.parent.name.Contains("Ship"))
-            {
-                shipTransform = collider.transform.parent;
-                blocksInArea.Add(collider);
-            }
-        }
-
-        void OnTriggerExit2D(Collider2D collider)
-        {
-            collidersInArea.Remove(collider);
-            blocksInArea.Remove(collider);
-            if (blocksInArea.Count == 0)
-                shipTransform = null; ;
-        }
 
     }
 }
