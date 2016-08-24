@@ -5,9 +5,6 @@ using System.Text;
 
 namespace Assets.Script.ItemSystem {
     public class ItemConsumableValues : ItemValues {
-        public ItemConsumableValues(ItemBase itemBase) : base(itemBase) {
-        }
-
         public int RestoreHealth {
             get {
                 return ((ItemConsumable)base.itemBase).restoreHealth;

@@ -117,24 +117,20 @@ public class Hotbar : MonoBehaviour, ISlotContainerList {
             }
             else if (slotContainer.Item.Type == ItemType.Block) {
                 GameObject blockBuilder = Instantiate(blockBuilderPrefab);
-                GameObject buildingPoint = blockBuilder.transform.FindChild("BlockBuildingPoint").gameObject;
 
                 float spawnDistance = 1f;
 
                 blockBuilder.transform.position = player.transform.position + player.transform.up * spawnDistance;
                 blockBuilder.transform.rotation = player.transform.rotation;
 
-                EquippedBlockLogic iEquippable = buildingPoint.GetComponent<EquippedBlockLogic>();
+                EquippedBlockLogic iEquippable = blockBuilder.GetComponent<EquippedBlockLogic>();
+                SpriteRenderer sr = iEquippable.dummyBlock.GetComponent<SpriteRenderer>();
+                sr.sprite = slotContainer.Item.Prefab.GetComponent<SpriteRenderer>().sprite;
                 iEquippable.init();
                 iEquippable.setItemValues(slotContainer.Item);
 
-                ItemBlockValues itemBlockValues = (ItemBlockValues)slotContainer.Item;
-                itemBlockValues.currentHitPoints = itemBlockValues.MaxHitPoints;
-
                 selectedGameObject = iEquippable;
 
-                SpriteRenderer sr = iEquippable.dummyBlock.GetComponent<SpriteRenderer>();
-                sr.sprite = slotContainer.Item.Prefab.GetComponent<SpriteRenderer>().sprite;
 
                 player.setOnEquipment(blockBuilder);
 

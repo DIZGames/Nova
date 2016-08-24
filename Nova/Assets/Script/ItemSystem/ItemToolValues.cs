@@ -8,10 +8,6 @@ namespace Assets.Script.ItemSystem
     [System.Serializable]
     public class ItemToolValues : ItemValues
     {
-        public ItemToolValues(ItemBase itemBase) : base(itemBase)
-        {
-        }
-
         public ItemAmmo Ammo
         {
             get {

@@ -30,28 +30,28 @@ public class ShipBuildingUI : MonoBehaviour
     public void ClickNewFloor()
     {
         GameObject newFloor = Instantiate(floorPrefab, Input.mousePosition, Quaternion.identity) as GameObject;
-        newFloor.AddComponent<MovingBlock>();
+        //newFloor.AddComponent<MovingBlock>();
         Global.objectToMove = newFloor.transform;
     }
 
     public void ClickNewSmallWall()
     {
         GameObject newWall = Instantiate(wallSmallPrefab, Input.mousePosition, Quaternion.identity) as GameObject;
-        newWall.AddComponent<MovingBlock>();
+        //newWall.AddComponent<MovingBlock>();
         Global.objectToMove = newWall.transform;
     }
 
     public void ClickNewBigWall()
     {
         GameObject newWallB = Instantiate(wallBigPrefab, Input.mousePosition, Quaternion.identity) as GameObject;
-        newWallB.AddComponent<MovingBlock>();
+        //newWallB.AddComponent<MovingBlock>();
         Global.objectToMove = newWallB.transform;
     }
 
     public void ClickNewThingOnShip()
     {
         GameObject newThing = Instantiate(thingOnShipPrefab, Input.mousePosition, Quaternion.identity) as GameObject;
-        newThing.AddComponent<MovingBlock>();
+        //newThing.AddComponent<MovingBlock>();
         Global.objectToMove = newThing.transform;
     }
 }

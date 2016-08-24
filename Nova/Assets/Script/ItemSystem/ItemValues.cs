@@ -12,10 +12,6 @@ namespace Assets.Script.ItemSystem
         public ItemBase itemBase;
         public int stack;
 
-        public ItemValues(ItemBase itemBase) {
-            this.itemBase = itemBase;
-        }
-
         public string Name
         {
             get

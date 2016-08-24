@@ -6,9 +6,6 @@ using System.Text;
 namespace Assets.Script.ItemSystem {
     public class ItemClothingValues : ItemValues {
 
-        public ItemClothingValues(ItemBase itemBase) : base(itemBase) {
-        }
-
         public int healthUpgrade {
             get {
                 return ((ItemClothing)base.itemBase).healthUpgrade;

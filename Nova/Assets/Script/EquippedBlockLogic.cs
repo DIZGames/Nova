@@ -6,25 +6,31 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Script {
-    
+
+    [RequireComponent(typeof(Collider2D))]
     public class EquippedBlockLogic : MonoBehaviour, IEquippable {
 
         Transform player;
+        Transform shipTransform;
         new Transform transform;
+        new Collider collider;
+        GameObject shipPrefab;
         ItemBlockValues itemBlockValues;
         float boxWidth = 0.2f; // Defines the width of the box in which the mouse position is checked for parts that can be set between Blocks (like Walls)
+        float rayCastLength = 2f;
         int layerMaskBlock;
-        Transform shipTransform;
         public Transform dummyBlock;
         Vector2 spriteSize;
-        float rayCastLength = 2f;
-        
+        List<Collider2D> collidersInArea = new List<Collider2D>();
+        List<Collider2D> blocksInArea = new List<Collider2D>();
 
         void Start() {
             transform = GetComponent<Transform>();
             layerMaskBlock = LayerMask.GetMask("Block") | LayerMask.GetMask("BlockFloor");
             // Muss irgendwann gegen eine bessere Möglichkeit ausgetauscht werden, wie man an den Player kommt
             player = GameObject.Find("Player").transform;
+            shipPrefab = (GameObject)Resources.Load("Prefab/Ship/Ship");
+            collider = dummyBlock.GetComponent<Collider>();
         }
 
         public void init()
@@ -44,17 +50,19 @@ namespace Assets.Script {
 
         void Update()
         {
-
-            RaycastHit2D hit2D = Physics2D.Raycast(player.position, player.up, rayCastLength, layerMaskBlock);
-            if (hit2D.collider != null)
+            /* Verbesserungsmöglichkeiten:
+             * block position anpassen and block typ, sodass der dummy block nur an den stellen erscheint wo er auch hingesetzt werden kann, 
+             * also ThingOnShip nur auf boden blöcke, wand center blöcke nur an einen anderen block dran
+             * siehe blöcke setzen bei space engineers
+            */ 
+            if(shipTransform != null)
             {
-                shipTransform = hit2D.transform;
                 dummyBlock.rotation = shipTransform.rotation;
                 dummyBlock.parent = shipTransform;
                 Vector3 currentPosLocal = shipTransform.InverseTransformPoint(transform.position);
                 float x = currentPosLocal.x - (int)currentPosLocal.x;
                 float y = currentPosLocal.y - (int)currentPosLocal.y;
-                if (IsCenterBlock())
+                if (itemBlockValues.IsCenter())
                 {
                     // Calculate x Position
                     if (x >= 0)
@@ -88,7 +96,7 @@ namespace Assets.Script {
                             y = (int)currentPosLocal.y;
                     }
                 }
-                else if (IsBetweenBlock())
+                else if (itemBlockValues.IsBetween())
                 {
                     // Between
                     if (Mathf.Abs(x) >= (0.5 - boxWidth) && Mathf.Abs(x) <= (0.5 + boxWidth))
@@ -144,8 +152,7 @@ namespace Assets.Script {
             }
             else
             {
-                shipTransform = null;
-                dummyBlock.parent = transform.parent;
+                dummyBlock.parent = transform;
                 dummyBlock.rotation = transform.rotation;
                 dummyBlock.localPosition = Vector3.zero;
             }
@@ -157,50 +164,112 @@ namespace Assets.Script {
 
         public void Action1() {
             if (itemBlockValues.stack > 0) {
+                /* momentan wird nur die Position kontrolliert, später müssen auch noch benachbarte blöcke kontrolliert werden, 
+                   damit z.B. dünne Wände nicht neben oder zwischen dicken Wänden gesetzt werden können*/
+                // größe des sprites zur berechnung der OverlapArea nehmen
+                bool canBuild = shipTransform != null || itemBlockValues.CreatesNewShip;
+                foreach (Collider2D c in collidersInArea)
+                {
+                    GameObject g = c.gameObject;
 
-                GameObject blockGObject = Instantiate(itemBlockValues.Prefab);
-                Transform blockTransform = blockGObject.transform;
+                    if (g.layer == LayerMask.GetMask("Player"))
+                        continue;
 
-                blockTransform.position = dummyBlock.position;
-                blockTransform.transform.rotation = dummyBlock.rotation;
-                blockTransform.parent = dummyBlock.parent;
+                    Block block = g.GetComponent<Block>();
+                    if (block == null)
+                    {
+                        canBuild = false;
+                    }
+                    else
+                    {
+                        if (itemBlockValues.BlockPosition == block.ItemBlockValues.BlockPosition)
+                        {
+                            canBuild = false;
+                        }
+                        else 
+                        {
+                            switch (itemBlockValues.BlockPosition)
+                            {
+                                case BlockPosition.BETWEEN:
+                                    switch (block.ItemBlockValues.BlockPosition)
+                                    {
+                                        case BlockPosition.BETWEEN_FLOOR:
+                                        case BlockPosition.BETWEEN_MIDDLE:
+                                        case BlockPosition.BETWEEN_TOP:
+                                            canBuild = false;
+                                            break;
+                                    }
+                                    break;
+                                case BlockPosition.BETWEEN_TOP:
+                                case BlockPosition.BETWEEN_MIDDLE:
+                                case BlockPosition.BETWEEN_FLOOR:
+                                    switch (block.ItemBlockValues.BlockPosition)
+                                    {
+                                        case BlockPosition.BETWEEN:
+                                            canBuild = false;
+                                            break;
+                                    }
+                                    break;
+                                case BlockPosition.CENTER:
+                                    switch (block.ItemBlockValues.BlockPosition)
+                                    {
+                                        case BlockPosition.CENTER_BOTTOM:
+                                        case BlockPosition.CENTER_MIDDLE:
+                                        case BlockPosition.CENTER_TOP:
+                                            canBuild = false;
+                                            break;
+                                    }
+                                    break;
+                                case BlockPosition.CENTER_TOP:
+                                case BlockPosition.CENTER_MIDDLE:
+                                case BlockPosition.CENTER_BOTTOM:
+                                    switch (block.ItemBlockValues.BlockPosition)
+                                    {
+                                        case BlockPosition.CENTER:
+                                            canBuild = false;
+                                            break;
+                                    }
+                                    break;
+                            }
+                        }
 
-                blockGObject.name = itemBlockValues.Name;
+                    }
 
-                ItemBlockValues newItemBlockValues = ScriptableObject.CreateInstance<ItemBlockValues>();
-                newItemBlockValues.CopyValues(itemBlockValues);
+                    if (!canBuild)
+                        break;
+                }
 
-                blockGObject.GetComponent<Block>().ItemBlockValues = newItemBlockValues;
+                if (canBuild)
+                {
+                    GameObject blockGObject = Instantiate(itemBlockValues.Prefab);
+                    Transform blockTransform = blockGObject.transform;
+                    blockTransform.position = dummyBlock.position;
+                    blockTransform.transform.rotation = dummyBlock.rotation;
 
-                //Collider2D[] objects = Physics2D.OverlapAreaAll(new Vector2(newPos.x - 0.49f, newPos.y + 0.49f), new Vector2(newPos.x + 0.49f, newPos.y - 0.49f));
-                //bool canBuild = newParent != null || createsNewShip;
+                    if (shipTransform == null)
+                    {
+                        GameObject newShip = Instantiate(shipPrefab, blockTransform.position, blockTransform.rotation) as GameObject;
+                        blockTransform.SetParent(newShip.transform);
+                    }
+                    else
+                    {
+                        blockTransform.parent = dummyBlock.parent;
+                    }
 
-                //foreach (Collider2D c in objects)
-                //{
-                //    GameObject g = c.gameObject;
 
-                //    if (g.layer == LayerMask.GetMask("Player"))
-                //        continue;
+                    blockGObject.name = itemBlockValues.Name;
 
-                //    IBlock gBlock = g.GetComponent<IBlock>();
+                    ItemBlockValues newItemBlockValues = ItemBlockValues.CreateNew((ItemBlock)itemBlockValues.itemBase);
 
-                //}
 
-                //if (canBuild)
-                //{
-                //    if (newParent == null)
-                //    {
-                //        GameObject newShip = Instantiate(Global.shipPrefab, transform.position, transform.rotation) as GameObject;
-                //        transform.SetParent(newShip.transform);
-                //    }
-                //    Destroy(this);
-                //}
+                    blockGObject.GetComponent<Block>().ItemBlockValues = newItemBlockValues;
 
-                itemBlockValues.stack--;
+                    itemBlockValues.stack--;
 
-                if (itemBlockValues.stack <= 0) {
-                    Destroy(transform.parent.gameObject);
-                    Destroy(dummyBlock.gameObject);
+                    if (itemBlockValues.stack <= 0) {
+                        Destroy(transform.gameObject);
+                        Destroy(dummyBlock.gameObject);
+                    }
                 }
 
             }
@@ -214,24 +283,23 @@ namespace Assets.Script {
             
         }
 
-        private bool IsCenterBlock()
+        void OnTriggerEnter2D(Collider2D collider)
         {
-            BlockPosition bPosition = itemBlockValues.BlockPosition;
-            return bPosition == BlockPosition.CENTER || bPosition == BlockPosition.CENTER_BOTTOM || bPosition == BlockPosition.CENTER_MIDDLE
-                || bPosition == BlockPosition.CENTER_TOP;
+            // Bessere Möglichkeit ein Schiff effizient zu identifizieren?
+            collidersInArea.Add(collider);
+            if (shipTransform == null && collider.transform.parent.name.Contains("Ship"))
+            {
+                shipTransform = collider.transform.parent;
+                blocksInArea.Add(collider);
+            }
         }
 
-        private bool IsBetweenBlock()
+        void OnTriggerExit2D(Collider2D collider)
         {
-            BlockPosition bPosition = itemBlockValues.BlockPosition;
-            return bPosition == BlockPosition.BETWEEN || bPosition == BlockPosition.BETWEEN_FLOOR || bPosition == BlockPosition.BETWEEN_MIDDLE
-                || bPosition == BlockPosition.BETWEEN_TOP;
-        }
-
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawRay(player.position, player.up * rayCastLength);
+            collidersInArea.Remove(collider);
+            blocksInArea.Remove(collider);
+            if (blocksInArea.Count == 0)
+                shipTransform = null; ;
         }
 
     }

@@ -53,6 +53,7 @@ namespace Assets.Script {
                             break;
                         case ItemType.Block:
                             itemValues = ScriptableObject.CreateInstance<ItemBlockValues>();
+                            //itemValues = ItemBlockValues.CreateNew((ItemBlock)item);
                             break;
                     }
 
