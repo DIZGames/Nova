@@ -55,6 +55,9 @@ namespace Assets.Script {
              * also ThingOnShip nur auf boden blöcke, wand center blöcke nur an einen anderen block dran
              * siehe blöcke setzen bei space engineers
             */ 
+
+            // Raycast in vier richtungen
+
             if(shipTransform != null)
             {
                 dummyBlock.rotation = shipTransform.rotation;
@@ -167,6 +170,9 @@ namespace Assets.Script {
                 /* momentan wird nur die Position kontrolliert, später müssen auch noch benachbarte blöcke kontrolliert werden, 
                    damit z.B. dünne Wände nicht neben oder zwischen dicken Wänden gesetzt werden können*/
                 // größe des sprites zur berechnung der OverlapArea nehmen
+
+                // etwas kleineren collider als sprite zum kontrollieren ob gebaut werden kann
+
                 bool canBuild = shipTransform != null || itemBlockValues.CreatesNewShip;
                 foreach (Collider2D c in collidersInArea)
                 {
