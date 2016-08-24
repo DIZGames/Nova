@@ -11,6 +11,8 @@ namespace Assets.Script.ItemSystem {
         public int restoreEnergy;
         public int restoreOxygen;
 
-
+        public override ItemBase Clone() {
+            return Instantiate(this) as ItemConsumable;
+        }
     }
 }

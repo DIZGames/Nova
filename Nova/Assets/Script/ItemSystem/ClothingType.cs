@@ -7,6 +7,8 @@ namespace Assets.Script.ItemSystem {
     public enum ClothingType {
         Head,
         Body,
-        Mod
+        Mod1,
+        Mod2,
+        Mod3
     }
 }

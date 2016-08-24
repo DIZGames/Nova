@@ -8,27 +8,30 @@ public class ItemList : ScriptableObject {
     [SerializeField]
     private List<ItemBase> itemList;
 
-    public ItemBase getItemByName(string Name) {
+    public ItemBase ItemByName(string Name) {
         for (int i = 0; i < itemList.Count; i++)
         {
             if (Name == itemList[i].name)
             {
-                return itemList[i];
+                ItemBase itemBase = itemList[i].Clone();
+                itemBase.itemName = itemList[i].itemName;
+                return itemBase;
             }
         }
-
         return null;
     }
 
-    public ItemBase getItemByIndex(int index)
+    public ItemBase ItemByIndex(int index)
     {
-        return itemList[index];
+        ItemBase itemBase = itemList[index].Clone();
+        itemBase.itemName = itemList[index].itemName;
+        return itemBase;
+
     }
 
-    public int getCount() {
+    public int Count() {
         return itemList.Count;
     }
-
 
 
 }

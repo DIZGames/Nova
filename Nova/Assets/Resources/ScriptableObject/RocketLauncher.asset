@@ -11,11 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc0f11de17ca514184c12168d0bc1db, type: 3}
   m_Name: RocketLauncher
   m_EditorClassIdentifier: 
-  name: RocketLauncher
+  itemName: RocketLauncher
+  stack: 0
   maxStack: 1
   type: 0
   icon: {fileID: 21300030, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
   prefab: {fileID: 127868, guid: 05c41d2fc0036534497808e14fff26a2, type: 2}
-  BulletSpeed: 23
+  description: Kann 2 Schuss abfeuern
+  BulletSpeed: 150
   FireRate: 34
   Ammo: {fileID: 11400000, guid: b361f847c1972964db10da7978372482, type: 2}
+  loadedProjectiles: 0
+  inStock: 0

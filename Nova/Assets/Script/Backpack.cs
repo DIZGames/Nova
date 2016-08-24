@@ -17,6 +17,11 @@ public class Backpack : MonoBehaviour, ISlotContainerList {
         UpdateList();
     }
 
+    public void AddToShipManager(ShipManager shipManager) {
+        throw new NotImplementedException();
+    }
+
+
     public void UpdateList() {
         backPackList.Clear();
 
@@ -33,8 +38,8 @@ public class Backpack : MonoBehaviour, ISlotContainerList {
         int count = 0;
 
         for (int i = 0; i < backPackList.Count; i++) {
-            if (itemName == backPackList[i].Item.Name) {
-                count += backPackList[i].Item.stack;
+            if (itemName == backPackList[i].ItemBase.itemName) {
+                count += backPackList[i].ItemBase.stack;
             }
         }
         return count;
@@ -43,19 +48,21 @@ public class Backpack : MonoBehaviour, ISlotContainerList {
     public int Decrease(string itemName, int count) {
 
         for (int i = 0; i < backPackList.Count; i++) {
-            if (itemName == backPackList[i].Item.Name && backPackList[i].Item.stack != 0) {
-                if (backPackList[i].Item.stack >= count) {
-                    backPackList[i].Item.stack -= count;
+            if (itemName == backPackList[i].ItemBase.itemName && backPackList[i].ItemBase.stack != 0) {
+                if (backPackList[i].ItemBase.stack >= count) {
+                    backPackList[i].ItemBase.stack -= count;
                     return 0;
                 }
                 else {
-                    count = count - backPackList[i].Item.stack;
-                    backPackList[i].Item.stack = 0;
+                    count = count - backPackList[i].ItemBase.stack;
+                    backPackList[i].ItemBase.stack = 0;
                 }
             }
         }
         return count;
     }
+
+  
 }
 
 

@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd72ace5a401a64d9b4eb3b0c911b00, type: 3}
   m_Name: Head
   m_EditorClassIdentifier: 
-  name: Head
+  itemName: Head
+  stack: 0
   maxStack: 1
   type: 2
   icon: {fileID: 21300028, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
   prefab: {fileID: 143702, guid: 3842db18ffa0f0b47b49e629763c3a80, type: 2}
+  description: 
   healthUpgrade: 10
   armorUpgrade: 20
   energyUpgrade: 30

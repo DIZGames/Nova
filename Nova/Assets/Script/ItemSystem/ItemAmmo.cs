@@ -10,5 +10,9 @@ namespace Assets.Script.ItemSystem {
     public class ItemAmmo : ItemBase{
         public int ClipSize;
         public int Damage;
+
+        public override ItemBase Clone() {
+            return Instantiate(this) as ItemAmmo;
+        }
     }
 }

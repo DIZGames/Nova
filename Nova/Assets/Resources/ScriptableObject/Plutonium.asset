@@ -11,9 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f65c6ffe2022949a41ec8041e40dab, type: 3}
   m_Name: Plutonium
   m_EditorClassIdentifier: 
-  name: Plutonium
+  itemName: Plutonium
+  stack: 0
   maxStack: 8
   type: 4
   icon: {fileID: 21300012, guid: 382d44e828fb38c4d82a328622bd3676, type: 3}
   prefab: {fileID: 183806, guid: 05b99cd5e79db7246acd2f9e06822804, type: 2}
+  description: 
   materialType: 2

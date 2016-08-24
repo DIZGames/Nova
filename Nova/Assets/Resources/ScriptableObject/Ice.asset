@@ -11,9 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f65c6ffe2022949a41ec8041e40dab, type: 3}
   m_Name: Ice
   m_EditorClassIdentifier: 
-  name: Ice
+  itemName: Ice
+  stack: 0
   maxStack: 10
   type: 4
   icon: {fileID: 21300006, guid: 382d44e828fb38c4d82a328622bd3676, type: 3}
   prefab: {fileID: 133130, guid: 611e281f42924ad41b9a7b5df98040d1, type: 2}
+  description: EIS
   materialType: 0

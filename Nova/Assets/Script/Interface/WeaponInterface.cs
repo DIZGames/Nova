@@ -13,24 +13,24 @@ public class WeaponInterface : MonoBehaviour {
     private Text inStock;
 
     [SerializeField]
-    private ItemToolValues _ItemToolValues;
+    private ItemTool _ItemTool;
 
-    public ItemToolValues ItemToolValues {
+    public ItemTool ItemTool {
         get {
-            return _ItemToolValues;
+            return _ItemTool;
         }
         set {
-            _ItemToolValues = value;
-            title.text = _ItemToolValues.Name;
+            _ItemTool = value;
+            title.text = _ItemTool.itemName;
         }
     }
 
     // Update is called once per frame
     void Update () {
 
-        if (ItemToolValues != null) {
-            loadedProjectiles.text = _ItemToolValues.loadedProjectiles.ToString();
-            inStock.text = _ItemToolValues.inStock.ToString();
+        if (ItemTool != null) {
+            loadedProjectiles.text = _ItemTool.loadedProjectiles.ToString();
+            inStock.text = _ItemTool.inStock.ToString();
         }
 
 	}

@@ -7,33 +7,33 @@ using System;
 public class ConsumableLogic : MonoBehaviour, IEquippable {
 
     private Player player;
-    private ItemConsumableValues itemConsumableValues;
+    private ItemConsumable itemConsumable;
 
 	void Start () {
 	
 	}
 
-    public void setItemValues(ItemValues itemValues) {
-        itemConsumableValues = (ItemConsumableValues)itemValues;
+    public void SetItem(ItemBase itemBase) {
+        itemConsumable = (ItemConsumable)itemBase;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    public void Action1() {
-        if (itemConsumableValues.stack > 0) {
-            player.addToCurrentValues(itemConsumableValues.RestoreHealth, itemConsumableValues.RestoreArmor, itemConsumableValues.RestoreEnergy, itemConsumableValues.RestoreOxygen);
+    public void RaycastAction1() {
+        if (itemConsumable.stack > 0) {
+            player.addToCurrentValues(itemConsumable.restoreHealth, itemConsumable.restoreArmor, itemConsumable.restoreEnergy, itemConsumable.restoreOxygen);
 
-            if (itemConsumableValues.stack == 1)
+            if (itemConsumable.stack == 1)
                 Destroy(gameObject);
 
-            itemConsumableValues.stack--;
+            itemConsumable.stack--;
         }
     }
 
-    public void Action2() {
+    public void RaycastAction2() {
        
     }
 
-    public void Action3() {
+    public void RaycastAction3() {
         
     }
 }

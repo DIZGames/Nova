@@ -10,7 +10,7 @@ namespace Assets.Script.RecipeSystem {
         [SerializeField]
         private List<Recipe> recipeList;
 
-        public Recipe getRecipeByName(string Name) {
+        public Recipe RecipeByName(string Name) {
             for (int i = 0; i < recipeList.Count; i++) {
                 if (Name == recipeList[i].name) {
                     return recipeList[i];
@@ -20,11 +20,11 @@ namespace Assets.Script.RecipeSystem {
             return null;
         }
 
-        public Recipe getRecipeByIndex(int index) {
+        public Recipe RecipeByIndex(int index) {
             return recipeList[index];
         }
 
-        public int getCount() {
+        public int Count() {
             return recipeList.Count;
         }
 

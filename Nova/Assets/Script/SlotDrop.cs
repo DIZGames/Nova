@@ -12,10 +12,10 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
     public List<MaterialType> allowedMaterial;
     public List<ClothingType> allowedClothingTypes;
 
-    private bool checkAllowedTypes(SlotContainer slotContainer) {
+    public bool checkAllowedTypes(SlotContainer slotContainer) {
 
         if (slotContainer != null) {
-            ItemType type = slotContainer.Item.Type;
+            ItemType type = slotContainer.ItemBase.type;
 
             if (allowedTypes.Count == 0) {
                 return true;
@@ -30,7 +30,7 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
                                 return true;
                             }
                             else {
-                                ClothingType clothingType = ((ItemClothingValues)slotContainer.Item).clothingType;
+                                ClothingType clothingType = ((ItemClothing)slotContainer.ItemBase).clothingType;
 
                                 for (int j = 0; j < allowedClothingTypes.Count; j++) {
                                     if (allowedClothingTypes[i] == clothingType) {
@@ -41,7 +41,7 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
                             }
                         }
                         //SPEZIALFALL: Material
-                        if (type == ItemType.Clothing)
+                        if (type == ItemType.Material)
                         {
                             if (allowedMaterial.Count == 0)
                             {
@@ -49,7 +49,7 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
                             }
                             else
                             {
-                                MaterialType materialType = ((ItemMaterialValues)slotContainer.Item).MaterialType;
+                                MaterialType materialType = ((ItemMaterial)slotContainer.ItemBase).materialType;
 
                                 for (int j = 0; j < allowedMaterial.Count; j++)
                                 {
@@ -81,30 +81,30 @@ public class SlotDrop : MonoBehaviour, IDropHandler {
                     SlotContainer draggedContainer = eventData.pointerDrag.GetComponent<SlotContainer>();
                     SlotContainer slotContainer = transform.GetChild(0).GetComponent<SlotContainer>();
 
-                    if (draggedContainer.Item.Name == slotContainer.Item.Name && (slotContainer.Item.stack != slotContainer.Item.MaxStack)) {
+                    if (draggedContainer.ItemBase.itemName== slotContainer.ItemBase.itemName && (slotContainer.ItemBase.stack != slotContainer.ItemBase.maxStack)) {
                         //Wenn beide Items den gleichen Namen haben und der Container auf dem Slot nicht MaxStack hat
 
-                        int freeStackOnSlot = slotContainer.Item.MaxStack - slotContainer.Item.stack;
+                        int freeStackOnSlot = slotContainer.ItemBase.maxStack - slotContainer.ItemBase.stack;
 
-                        if (draggedContainer.Item.stack <= freeStackOnSlot) {
-                            slotContainer.Item.stack += draggedContainer.Item.stack;
+                        if (draggedContainer.ItemBase.stack <= freeStackOnSlot) {
+                            slotContainer.ItemBase.stack += draggedContainer.ItemBase.stack;
                             Destroy(eventData.pointerDrag);
                         }
                         else {
-                            draggedContainer.Item.stack -= freeStackOnSlot;
-                            slotContainer.Item.stack += freeStackOnSlot;
+                            draggedContainer.ItemBase.stack -= freeStackOnSlot;
+                            slotContainer.ItemBase.stack += freeStackOnSlot;
                         }
                     }
                     else { //SWAP
 
-                        ItemValues itemValues = slotContainer.Item;
-                        int Stack = slotContainer.Item.stack;
+                        ItemBase itemBase = slotContainer.ItemBase;
+                        int Stack = slotContainer.ItemBase.stack;
 
-                        slotContainer.Item = draggedContainer.Item;
-                        slotContainer.Item.stack = draggedContainer.Item.stack;
+                        slotContainer.ItemBase = draggedContainer.ItemBase;
+                        slotContainer.ItemBase.stack = draggedContainer.ItemBase.stack;
 
-                        draggedContainer.Item = itemValues;
-                        draggedContainer.Item.stack = Stack;
+                        draggedContainer.ItemBase = itemBase;
+                        draggedContainer.ItemBase.stack = Stack;
                     }
                 }
             }

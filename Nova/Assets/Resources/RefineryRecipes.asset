@@ -15,21 +15,10 @@ MonoBehaviour:
   - name: Ironingot
     description: asdasd
     energycosts: 5
-    ingredient1:
-      item: {fileID: 11400000, guid: 1de5b0d17328a93408132953e563f7c5, type: 2}
-      count: 2
-    ingredient2:
-      item: {fileID: 0}
-      count: 0
-    ingredient3:
-      item: {fileID: 0}
-      count: 0
-    ingredient4:
-      item: {fileID: 0}
-      count: 0
-    ingredient5:
-      item: {fileID: 0}
-      count: 0
+    ticksToBuild: 4
+    ingredients:
+    - item: {fileID: 11400000, guid: 1de5b0d17328a93408132953e563f7c5, type: 2}
+      count: 4
     result:
       item: {fileID: 11400000, guid: 27f5ae078f42a79438f8e991593800a3, type: 2}
-      count: 1
+      count: 4

@@ -11,9 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f65c6ffe2022949a41ec8041e40dab, type: 3}
   m_Name: Ironore
   m_EditorClassIdentifier: 
-  name: Ironore
+  itemName: Ironore
+  stack: 0
   maxStack: 9
   type: 4
   icon: {fileID: 21300000, guid: 382d44e828fb38c4d82a328622bd3676, type: 3}
   prefab: {fileID: 179734, guid: f5d9a821a1641e44a894a25b3a238174, type: 2}
+  description: 
   materialType: 3

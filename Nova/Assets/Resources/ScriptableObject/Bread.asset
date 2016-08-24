@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8af7904c481a694f9066ad14e9f04b2, type: 3}
   m_Name: Bread
   m_EditorClassIdentifier: 
-  name: Bread
+  itemName: Bread
+  stack: 0
   maxStack: 10
   type: 1
   icon: {fileID: 21300042, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
   prefab: {fileID: 196184, guid: 9006fa7d3922bef4995659b3790ae9ec, type: 2}
+  description: 
   restoreHealth: 30
   restoreArmor: 30
   restoreEnergy: 30

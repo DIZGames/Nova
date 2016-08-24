@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Script {
-    public class Terminal : MonoBehaviour, IOpenUI, ITerminalContainerList{
+    public class Terminal : MonoBehaviour, IInteractWithPlayerRaycast, ITerminalContainerList{
 
         private TerminalManager terminalManager;
 
@@ -35,7 +35,7 @@ namespace Assets.Script {
             shipManager = transform.root.GetComponent<ShipManager>();
             interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
 
-            shipManager.AddToPing(UpdateEnergyOxygen);
+            //shipManager.AddToPing(UpdateEnergyOxygen);
 
             uiListElement = (GameObject)Resources.Load("Prefab/UIListElement");
             
@@ -58,14 +58,8 @@ namespace Assets.Script {
 
         }
 
-        public void OpenUI() {
-            FillList();
-            //ToggleUpdateEnergyOxygen();
-            interfaceManager.setChildOnUIContainer(this.transform);
-        }
-
         public void OpenInTerminal(ScrollViewContainer scrollViewContainer) {
-            uiContainer.setChild(scrollViewContainer.transform);
+            //uiContainer.setChild(scrollViewContainer.transform);
         }
 
         private void ToggleUpdateEnergyOxygen() {
@@ -78,10 +72,15 @@ namespace Assets.Script {
         }
 
         private void UpdateEnergyOxygen() {
-            energyValue.text = shipManager.Energy.ToString();
-            oxygenValue.text = shipManager.Oxygen.ToString();
-            maxEnergyValue.text = shipManager.MaxEnergy.ToString();
-            maxOxygenValue.text = shipManager.MaxOxygen.ToString();
+            //energyValue.text = shipManager.Energy.ToString();
+            //oxygenValue.text = shipManager.Oxygen.ToString();
+            //maxEnergyValue.text = shipManager.MaxEnergy.ToString();
+            //maxOxygenValue.text = shipManager.MaxOxygen.ToString();
+        }
+
+        public void RaycastAction() {
+            FillList();
+            //interfaceManager.setChildOnUIContainer(this.transform);
         }
     }
 }

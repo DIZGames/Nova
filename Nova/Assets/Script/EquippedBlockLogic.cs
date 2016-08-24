@@ -15,7 +15,7 @@ namespace Assets.Script {
         new Transform transform;
         new Collider collider;
         GameObject shipPrefab;
-        ItemBlockValues itemBlockValues;
+        ItemBlock itemBlock;
         float boxWidth = 0.2f; // Defines the width of the box in which the mouse position is checked for parts that can be set between Blocks (like Walls)
         float rayCastLength = 2f;
         int layerMaskBlock;
@@ -65,7 +65,7 @@ namespace Assets.Script {
                 Vector3 currentPosLocal = shipTransform.InverseTransformPoint(transform.position);
                 float x = currentPosLocal.x - (int)currentPosLocal.x;
                 float y = currentPosLocal.y - (int)currentPosLocal.y;
-                if (itemBlockValues.IsCenter())
+                if (itemBlock.IsCenter())
                 {
                     // Calculate x Position
                     if (x >= 0)
@@ -99,7 +99,7 @@ namespace Assets.Script {
                             y = (int)currentPosLocal.y;
                     }
                 }
-                else if (itemBlockValues.IsBetween())
+                else if (itemBlock.IsBetween())
                 {
                     // Between
                     if (Mathf.Abs(x) >= (0.5 - boxWidth) && Mathf.Abs(x) <= (0.5 + boxWidth))
@@ -161,19 +161,19 @@ namespace Assets.Script {
             }
         }
 
-        public void setItemValues(ItemValues itemValues) {
-            itemBlockValues = (ItemBlockValues)itemValues;
+        public void SetItem(ItemBase itemBase) {
+            itemBlock = (ItemBlock)itemBase;
         }
 
-        public void Action1() {
-            if (itemBlockValues.stack > 0) {
+        public void RaycastAction1() {
+            if (itemBlock.stack > 0) {
                 /* momentan wird nur die Position kontrolliert, später müssen auch noch benachbarte blöcke kontrolliert werden, 
                    damit z.B. dünne Wände nicht neben oder zwischen dicken Wänden gesetzt werden können*/
                 // größe des sprites zur berechnung der OverlapArea nehmen
 
                 // etwas kleineren collider als sprite zum kontrollieren ob gebaut werden kann
 
-                bool canBuild = shipTransform != null || itemBlockValues.CreatesNewShip;
+                bool canBuild = shipTransform != null || itemBlock.createsNewShip;
                 foreach (Collider2D c in collidersInArea)
                 {
                     GameObject g = c.gameObject;
@@ -188,16 +188,16 @@ namespace Assets.Script {
                     }
                     else
                     {
-                        if (itemBlockValues.BlockPosition == block.ItemBlockValues.BlockPosition)
+                        if (itemBlock.position == block.ItemBlock.position)
                         {
                             canBuild = false;
                         }
                         else 
                         {
-                            switch (itemBlockValues.BlockPosition)
+                            switch (itemBlock.position)
                             {
                                 case BlockPosition.BETWEEN:
-                                    switch (block.ItemBlockValues.BlockPosition)
+                                    switch (block.ItemBlock.position)
                                     {
                                         case BlockPosition.BETWEEN_FLOOR:
                                         case BlockPosition.BETWEEN_MIDDLE:
@@ -209,7 +209,7 @@ namespace Assets.Script {
                                 case BlockPosition.BETWEEN_TOP:
                                 case BlockPosition.BETWEEN_MIDDLE:
                                 case BlockPosition.BETWEEN_FLOOR:
-                                    switch (block.ItemBlockValues.BlockPosition)
+                                    switch (block.ItemBlock.position)
                                     {
                                         case BlockPosition.BETWEEN:
                                             canBuild = false;
@@ -217,7 +217,7 @@ namespace Assets.Script {
                                     }
                                     break;
                                 case BlockPosition.CENTER:
-                                    switch (block.ItemBlockValues.BlockPosition)
+                                    switch (block.ItemBlock.position)
                                     {
                                         case BlockPosition.CENTER_BOTTOM:
                                         case BlockPosition.CENTER_MIDDLE:
@@ -229,7 +229,7 @@ namespace Assets.Script {
                                 case BlockPosition.CENTER_TOP:
                                 case BlockPosition.CENTER_MIDDLE:
                                 case BlockPosition.CENTER_BOTTOM:
-                                    switch (block.ItemBlockValues.BlockPosition)
+                                    switch (block.ItemBlock.position)
                                     {
                                         case BlockPosition.CENTER:
                                             canBuild = false;
@@ -247,7 +247,7 @@ namespace Assets.Script {
 
                 if (canBuild)
                 {
-                    GameObject blockGObject = Instantiate(itemBlockValues.Prefab);
+                    GameObject blockGObject = Instantiate(itemBlock.prefab);
                     Transform blockTransform = blockGObject.transform;
                     blockTransform.position = dummyBlock.position;
                     blockTransform.transform.rotation = dummyBlock.rotation;
@@ -263,16 +263,13 @@ namespace Assets.Script {
                     }
 
 
-                    blockGObject.name = itemBlockValues.Name;
+                    blockGObject.name = itemBlock.name;
 
-                    ItemBlockValues newItemBlockValues = ItemBlockValues.CreateNew((ItemBlock)itemBlockValues.itemBase);
+                    blockGObject.GetComponent<Block>().ItemBlock = (ItemBlock) itemBlock.Clone();
 
+                    itemBlock.stack--;
 
-                    blockGObject.GetComponent<Block>().ItemBlockValues = newItemBlockValues;
-
-                    itemBlockValues.stack--;
-
-                    if (itemBlockValues.stack <= 0) {
+                    if (itemBlock.stack <= 0) {
                         Destroy(transform.gameObject);
                         Destroy(dummyBlock.gameObject);
                     }
@@ -281,11 +278,11 @@ namespace Assets.Script {
             }
         }
 
-        public void Action2() {
+        public void RaycastAction2() {
            
         }
 
-        public void Action3() {
+        public void RaycastAction3() {
             
         }
 

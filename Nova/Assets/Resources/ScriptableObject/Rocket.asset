@@ -11,10 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680e5a668ddbff240baf7287f2bc095a, type: 3}
   m_Name: Rocket
   m_EditorClassIdentifier: 
-  name: Rocket
+  itemName: Rocket
+  stack: 0
   maxStack: 8
   type: 5
   icon: {fileID: 21300046, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
   prefab: {fileID: 113178, guid: 1734e5fedc4a12744bca9cbce806d7ad, type: 2}
+  description: Macht booooom
   ClipSize: 2
   Damage: 100

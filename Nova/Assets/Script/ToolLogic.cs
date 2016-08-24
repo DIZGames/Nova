@@ -9,18 +9,18 @@ public class ToolLogic : MonoBehaviour, IEquippable {
 
     [SerializeField]
     private Transform firePoint;
-    private ItemToolValues itemToolValues;
+    private ItemTool itemTool;
     private PlayerInventory inventory;
 
-    public void setItemValues(ItemValues itemValues) {
-        itemToolValues = (ItemToolValues)itemValues;
+    public void SetItem(ItemBase itemBase) {
+        itemTool = (ItemTool)itemBase;
         inventory = GameObject.FindGameObjectWithTag("PlayerInventory").GetComponent<PlayerInventory>();
 
-        itemToolValues.inStock = inventory.Count(itemToolValues.Ammo.name);
+        itemTool.inStock = inventory.Count(itemTool.Ammo.name);
     }
 
-    public void Action1() {
-        if (itemToolValues.loadedProjectiles > 0) {
+    public void RaycastAction1() {
+        if (itemTool.loadedProjectiles > 0) {
             Vector2 mouseposition = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
             Vector2 firePointPosition = new Vector2(firePoint.position.x, firePoint.position.y);
 
@@ -29,34 +29,34 @@ public class ToolLogic : MonoBehaviour, IEquippable {
             // Normalisiert den Vektor
             vectornew.Normalize();
 
-            GameObject t = GameObject.Instantiate(itemToolValues.Ammo.prefab);
+            GameObject t = GameObject.Instantiate(itemTool.Ammo.prefab);
             t.transform.position = firePoint.position;
             t.transform.rotation = firePoint.rotation;
             t.name = "Rocket";
 
-            t.GetComponent<Rigidbody2D>().AddForce(vectornew * itemToolValues.BulletSpeed * Time.deltaTime, ForceMode2D.Impulse);
+            t.GetComponent<Rigidbody2D>().AddForce(vectornew * itemTool.BulletSpeed * Time.deltaTime, ForceMode2D.Impulse);
             //t.GetComponent<Projectile>().damage = currentDamage;
 
-            itemToolValues.loadedProjectiles--;
+            itemTool.loadedProjectiles--;
         }
     }
 
-    public void Action2() {
+    public void RaycastAction2() {
        
     }
 
-    public void Action3() {
-        if (itemToolValues.loadedProjectiles != itemToolValues.Ammo.ClipSize) {
+    public void RaycastAction3() {
+        if (itemTool.loadedProjectiles != itemTool.Ammo.ClipSize) {
 
-            int count = inventory.Count(itemToolValues.Ammo.name);
+            int count = inventory.Count(itemTool.Ammo.name);
 
             if (count > 0) {
-                itemToolValues.loadedProjectiles = itemToolValues.Ammo.ClipSize;
+                itemTool.loadedProjectiles = itemTool.Ammo.ClipSize;
 
-                inventory.Decrease(itemToolValues.Ammo.name,1);
+                inventory.Decrease(itemTool.Ammo.name,1);
                 inventory.UpdateLists();
 
-                itemToolValues.inStock = count - 1;
+                itemTool.inStock = count - 1;
             }
         }
     }

@@ -11,19 +11,18 @@ using UnityEngine.UI;
 namespace Assets.Script {
     public class SlotContainerRecipe : MonoBehaviour, IPointerDownHandler {
         [SerializeField]
-        private Recipe _Recipe;
+        private Recipe recipe;
 
         [SerializeField]
         private Image Image;
 
-
         public Recipe Recipe {
             get {
-                return _Recipe;
+                return recipe;
             }
             set {
-                _Recipe = value;
-                this.Image.sprite = _Recipe.result.item.icon;
+                recipe = value;
+                this.Image.sprite = recipe.result.item.icon;
             }
         }
 
@@ -42,7 +41,7 @@ namespace Assets.Script {
 
         public void OnPointerDown(PointerEventData eventData) {
 
-            ExecuteEvents.ExecuteHierarchy<ISlotContainerRecipeList>(gameObject, null, (x, y) => x.CraftRecipe(this));
+            ExecuteEvents.ExecuteHierarchy<ISlotContainerRecipeList>(gameObject, null, (x, y) => x.ButtonPress(this));
         }
     }
 }
