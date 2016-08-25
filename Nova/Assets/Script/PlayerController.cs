@@ -28,15 +28,23 @@ public class PlayerController : MonoBehaviour {
         Vector3 rayDirection = vectornew;
 
         if (Input.GetButtonDown("Use")) {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position+transform.up/4, rayDirection,1);
+            //RaycastHit2D hit = Physics2D.Raycast(transform.position+transform.up/4, rayDirection,1);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position+transform.up/4, rayDirection,1);
 
             Debug.DrawRay(transform.position + transform.up/4, rayDirection, Color.magenta,1);
 
-            if (hit.collider != null) {
+            //if (hit.collider != null) {
 
+            //    InteractWithPlayerRaycast interactWithPlayerRaycast = hit.collider.gameObject.GetComponent<InteractWithPlayerRaycast>();
+            //    interactWithPlayerRaycast.RaycastAction();
+
+            //}
+
+            foreach(RaycastHit2D hit in hits)
+            {
                 InteractWithPlayerRaycast interactWithPlayerRaycast = hit.collider.gameObject.GetComponent<InteractWithPlayerRaycast>();
-                interactWithPlayerRaycast.RaycastAction();
-
+                if(interactWithPlayerRaycast != null)
+                    interactWithPlayerRaycast.RaycastAction();
             }
         }
     }
