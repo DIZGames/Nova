@@ -84,9 +84,12 @@ namespace Assets.Script {
             {
                 dummyBlockTransform.rotation = shipTransform.rotation;
                 dummyBlockTransform.parent = shipTransform;
+
                 Vector3 currentPosLocal = shipTransform.InverseTransformPoint(transform.position);
                 float x = currentPosLocal.x - (int)currentPosLocal.x;
                 float y = currentPosLocal.y - (int)currentPosLocal.y;
+
+                Vector3 newPos = Vector3.zero;
                 if (itemBlock.IsCenter())
                 {
                     // Calculate x Position
@@ -120,6 +123,7 @@ namespace Assets.Script {
                         else
                             y = (int)currentPosLocal.y;
                     }
+                    newPos = new Vector3(x, y, transform.position.z);
                 }
                 else if (itemBlock.IsBetween())
                 {
@@ -130,6 +134,7 @@ namespace Assets.Script {
                             x = (int)currentPosLocal.x + 0.5f;
                         else
                             x = (int)currentPosLocal.x - 0.5f;
+
                         if (y >= 0)
                         {
                             if (y <= 0.5f)
@@ -145,7 +150,9 @@ namespace Assets.Script {
                             else
                                 y = (int)currentPosLocal.y - 1;
                         }
-                        transform.Rotate(0, 0, 90);
+
+                        dummyBlockTransform.Rotate(0, 0, 90);
+                        newPos = new Vector3(x, y, transform.position.z);
                     }
                     else if (Mathf.Abs(y) >= 0.3 && Mathf.Abs(y) <= 0.7)
                     {
@@ -164,14 +171,20 @@ namespace Assets.Script {
                             else
                                 x = (int)currentPosLocal.x - 1;
                         }
+
                         if (y >= 0)
                             y = (int)currentPosLocal.y + 0.5f;
                         else
                             y = (int)currentPosLocal.y - 0.5f;
+
+                        newPos = new Vector3(x, y, transform.position.z);
+                    }
+                    else
+                    {
+                        dummyBlockTransform.parent = transform;
+                        dummyBlockTransform.rotation = transform.rotation;
                     }
                 }
-
-                Vector3 newPos = new Vector3(x, y, transform.position.z);
                 dummyBlockTransform.localPosition = newPos;
                 
             }
@@ -196,26 +209,31 @@ namespace Assets.Script {
 
                 RaycastHit2D[] hits = Physics2D.BoxCastAll(dummyBlockTransform.position, new Vector2((spriteSize.x / 2) - 0.01f, (spriteSize.y / 2 - 0.01f)), 
                     dummyBlockTransform.eulerAngles.z, Vector2.zero);
-                
-                foreach (RaycastHit2D hit in hits)
+
+                if (hits.Length == 0 && (itemBlock.position == BlockPosition.BETWEEN_MIDDLE || itemBlock.position == BlockPosition.BETWEEN_TOP
+                    || itemBlock.position == BlockPosition.CENTER_MIDDLE || itemBlock.position == BlockPosition.CENTER_TOP))
                 {
-                    GameObject g = hit.collider.gameObject;
-
-                    if (g.layer == LayerMask.GetMask("Player"))
-                        continue;
-
-                    Block block = g.GetComponent<Block>();
-                    if (block == null)
+                    canBuild = false;
+                }
+                else
+                {
+                    foreach (RaycastHit2D hit in hits)
                     {
-                        canBuild = false;
-                    }
-                    else
-                    {
-                        if (itemBlock.position == block.ItemBlock.position)
+                        GameObject g = hit.collider.gameObject;
+
+                        if (g.layer == LayerMask.GetMask("Player"))
+                            continue;
+
+                        Block block = g.GetComponent<Block>();
+                        Debug.Log("itemBlock:" + itemBlock);
+                        Debug.Log("block.ItemBlock:" + block.ItemBlock);
+
+                        if (block == null || block.transform.parent != dummyBlockTransform.parent 
+                            || itemBlock.position == block.ItemBlock.position)
                         {
                             canBuild = false;
                         }
-                        else 
+                        else
                         {
                             switch (itemBlock.position)
                             {
@@ -260,12 +278,12 @@ namespace Assets.Script {
                                     }
                                     break;
                             }
+
                         }
 
+                        if (!canBuild)
+                            break;
                     }
-
-                    if (!canBuild)
-                        break;
                 }
 
                 if (canBuild)
@@ -302,7 +320,6 @@ namespace Assets.Script {
         }
 
         public void RaycastAction2() {
-           
         }
 
         public void RaycastAction3() {
