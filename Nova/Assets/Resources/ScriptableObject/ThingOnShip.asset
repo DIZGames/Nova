@@ -9,18 +9,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fcf7856508d8a864792baca854008678, type: 3}
-  m_Name: ItemBlock
+  m_Name: ThingOnShip
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: ThingOnShip
   stack: 0
-  maxStack: 0
-  type: 0
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
+  maxStack: 99
+  type: 3
+  icon: {fileID: 21300000, guid: da0ebc79784c4ac47a597a1466a8748d, type: 3}
+  prefab: {fileID: 111236, guid: bea867183a593d044ba2e98b0770c69b, type: 2}
   description: 
-  position: 0
+  position: 2
   createsNewShip: 0
-  maxHitPoints: 0
+  maxHitPoints: 11
   Energy: 0
   Oxygen: 0
   currentHitPoints: 0
