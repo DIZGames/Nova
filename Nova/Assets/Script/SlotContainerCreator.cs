@@ -7,12 +7,12 @@ using UnityEngine;
 namespace Assets.Script {
     public class SlotContainerCreator : MonoBehaviour{
 
+        public Transform slotList;
+
         public void CreateSlotContainer(ItemBase itemBase, int stack) {
             GameObject goSlotContainer = (GameObject)Resources.Load("Prefab/SlotContainer");
 
-            IUI iUI = GetComponent<IUI>();
-
-            while (itemBase.maxStack <= stack && iUI.FreeSlot()) {
+            while (itemBase.maxStack <= stack) {
 
                 stack -= itemBase.maxStack;
 
@@ -26,10 +26,10 @@ namespace Assets.Script {
                 slotContainer1.ItemBase = itemBase1;
 
 
-                iUI.Add(slotContainer1);
+                Add(slotContainer1);
             }
 
-            if (stack > 0 && iUI.FreeSlot()) {
+            if (stack > 0 ) {
 
                 GameObject gObject = Instantiate(goSlotContainer);
                 gObject.name = itemBase.name;
@@ -40,12 +40,38 @@ namespace Assets.Script {
 
                 slotContainer.ItemBase = itemBase1;
 
-                iUI.Add(slotContainer);
-
+                Add(slotContainer);
             }
-
-           
         }
 
+        public void DeleteAll() {
+            for (int i = 0; i < slotList.childCount; i++) {
+                if (slotList.GetChild(i).childCount != 0) {
+                    DestroyImmediate(slotList.GetChild(i).GetChild(0).gameObject);
+                }
+            }
+        }
+
+        private void Add(SlotContainer slotContainer) {
+            bool flag = false;
+
+            for (int i = 0; i < slotList.childCount; i++) {
+                if (slotList.GetChild(i).childCount == 0) {
+                    SlotDrop slotDrop = slotList.GetChild(i).GetComponent<SlotDrop>();
+
+                    if (slotDrop.checkAllowedTypes(slotContainer)) {
+                        slotContainer.transform.SetParent(slotDrop.transform);
+                        flag = true;
+                        break;
+                    }
+                    
+
+                }
+            }
+
+            if (flag == false) {
+                DestroyImmediate(slotContainer.gameObject);
+            }
+        }
     }
 }

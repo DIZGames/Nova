@@ -14,15 +14,10 @@ public class Backpack : MonoBehaviour, ISlotContainerList {
 
     void Start () {
         backPackList = new List<SlotContainer>();
-        UpdateList();
+        Refresh();
     }
 
-    public void AddToShipManager(ShipManager shipManager) {
-        throw new NotImplementedException();
-    }
-
-
-    public void UpdateList() {
+    public void Refresh() {
         backPackList.Clear();
 
         for (int i = 0; i < slotList.childCount; i++) {
@@ -30,8 +25,6 @@ public class Backpack : MonoBehaviour, ISlotContainerList {
                 backPackList.Add(slotList.GetChild(i).GetChild(0).GetComponent<SlotContainer>());
             }
         }
-
-        Debug.Log("backPackList " + backPackList.Count);
     }
 
     public int Count(string itemName) {
@@ -45,7 +38,7 @@ public class Backpack : MonoBehaviour, ISlotContainerList {
         return count;
     }
 
-    public int Decrease(string itemName, int count) {
+    public int Remove(string itemName, int count) {
 
         for (int i = 0; i < backPackList.Count; i++) {
             if (itemName == backPackList[i].ItemBase.itemName && backPackList[i].ItemBase.stack != 0) {
@@ -62,7 +55,19 @@ public class Backpack : MonoBehaviour, ISlotContainerList {
         return count;
     }
 
-  
+    public bool TryAdd(SlotContainer slotContainer) {
+        for (int i = 0; i < slotList.childCount; i++) {
+            if (slotList.GetChild(i).childCount == 0) {
+                SlotDrop slotDrop = slotList.GetChild(i).GetComponent<SlotDrop>();
+
+                if (slotDrop.checkAllowedTypes(slotContainer)) {
+                    slotContainer.transform.SetParent(slotDrop.transform);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 
 

@@ -8,19 +8,41 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Script {
-    public class ScrollViewContainer : MonoBehaviour, IPointerDownHandler{
+    public class ScrollViewContainer : MonoBehaviour, IPointerDownHandler {
+
+        private ITest _iTest;
+        public ITest iTest {
+            get {
+                return _iTest;
+            }
+
+            set {
+                _iTest = value;
+                text.text = _iTest.gameObject1.transform.name;
+            }
+        }
 
         [SerializeField]
-        public Image image;
+        private Image buttonImage;
         [SerializeField]
-        public Text text;
-
+        private Image image;
+        [SerializeField]
+        private Text text;
         [SerializeField]
         public Transform transform;
 
         public void OnPointerDown(PointerEventData eventData) {
-            ExecuteEvents.ExecuteHierarchy<ITerminalContainerList>(gameObject, null, (x, y) => x.OpenInTerminal(this));
+            ExecuteEvents.ExecuteHierarchy<IScrollViewContainer>(gameObject, null, (x, y) => x.ButtonPress(_iTest));
 
+        }
+
+        void Update() {
+            if (_iTest.Power) {
+                buttonImage.color = Color.green;
+            }
+            else {
+                buttonImage.color = Color.red;
+            }
         }
     }
 }

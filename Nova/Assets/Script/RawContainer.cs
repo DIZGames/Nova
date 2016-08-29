@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Script.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,13 @@ namespace Assets.Script {
     public class RawContainer : MonoBehaviour, IInteractWithPlayerRaycast {
 
         [SerializeField]
-        private SlotContainerList slotContainerList;
+        private ISlotContainerList slotContainerList;
 
         private InterfaceManager interfaceManager;
 
         void Start() {
             interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
-            slotContainerList.AddToShipManager(transform.root.GetComponent<ShipManager>());
+
         }
 
         public void RaycastAction() {

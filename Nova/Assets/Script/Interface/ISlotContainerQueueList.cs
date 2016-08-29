@@ -17,10 +17,5 @@ namespace Assets.Script.Interface {
 
         void Ping();
 
-        /// <summary>
-        /// Fügt die SlotContainerList zum Shipmanagement hinzu
-        /// </summary>
-        /// <param name=""></param>
-        void AddToShipManager(ShipManager shipManager);
     }
 }

@@ -9,10 +9,5 @@ namespace Assets.Script.Interface {
 
         void ButtonPress(SlotContainerRecipe slotContainerRecipe);
 
-        /// <summary>
-        /// Fügt die SlotContainerList zum Shipmanagement hinzu
-        /// </summary>
-        /// <param name=""></param>
-        void AddToShipManager(ShipManager shipManager);
     }
 }

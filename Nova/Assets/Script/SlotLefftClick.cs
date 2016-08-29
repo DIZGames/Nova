@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Script.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,10 @@ namespace Assets.Script {
             if (modifierHeldDown) {
                 if (eventData.button == PointerEventData.InputButton.Left) {
                   
-
                     ExecuteEvents.ExecuteHierarchy<IExchangeSlotContainer>(gameObject, null, (x, y) => x.Exchange(GetComponent<SlotContainer>()));
+                    ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(gameObject,null, (x,y) => x.Refresh());
                 }
             }
-
-            
         }
 
         void Update() {

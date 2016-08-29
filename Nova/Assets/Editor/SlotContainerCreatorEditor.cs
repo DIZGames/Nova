@@ -12,37 +12,51 @@ public class SlotContainerCreatorEditor : Editor {
     private int itemIndex;
     private int itemValue = 1;
 
+    private SlotContainerCreator slScript;
+
+    void OnEnable() {
+        slScript = (SlotContainerCreator)target;
+    }
+
     public override void OnInspectorGUI() {
-        //target ist das Skript, auf das dieses hier verweist
-        SlotContainerCreator slScript = (SlotContainerCreator)target;
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal();
+
+        slScript.slotList = (Transform)EditorGUILayout.ObjectField("SlotList", slScript.slotList, typeof(Transform), true);
+
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
 
         GUILayout.Label("Add an item:");
-        // inv.setImportantVariables();                                                                                                            //space to the top gui element
-        EditorGUILayout.BeginHorizontal();                                                                                  //starting horizontal GUI elements
         ItemList itemDataBase = (ItemList)Resources.Load("ItemDataBase");
 
-        //ItemDataBaseList inventoryItemList = (ItemDatabase)Resources.Load("ItemDatabase");                            //loading the itemdatabase
         string[] items = new string[itemDataBase.Count()];
 
-
-        //create a string array in length of the itemcount
-        for (int i = 0; i < items.Length; i++)                                                                              //go through the item array
-        {
+        for (int i = 0; i < items.Length; i++) {
             items[i] = itemDataBase.ItemByIndex(i).itemName;
         }
 
-
-        itemIndex = EditorGUILayout.Popup("", itemIndex, items, EditorStyles.popup);                                              //create a popout with all itemnames in it and save the itemID of it
+        itemIndex = EditorGUILayout.Popup("", itemIndex, items, EditorStyles.popup);
         itemValue = EditorGUILayout.IntField("", itemValue, GUILayout.Width(40));
-        GUI.color = Color.yellow;                                                                                            //set the color of all following guielements to green
-        if (GUILayout.Button("Add Item"))                                                                                   //creating button with name "AddItem"
-        {
+        GUI.color = Color.yellow;
+        if (GUILayout.Button("Add Item")) {
             ItemBase item = itemDataBase.ItemByIndex(itemIndex);
 
             slScript.CreateSlotContainer(item, itemValue);
 
         }
         EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Alles löschen")) {
+
+            slScript.DeleteAll();
+
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+
+        
 
     }
 

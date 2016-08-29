@@ -26,7 +26,7 @@ public class SlotContainerDrag : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
         //itemBeingDragged.transform.SetParent(transform.parent.parent.parent.parent);
 
-        ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(startParent.gameObject, null, (x, y) => x.UpdateList());
+        ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(startParent.gameObject, null, (x, y) => x.Refresh());
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -45,6 +45,6 @@ public class SlotContainerDrag : MonoBehaviour, IBeginDragHandler, IDragHandler,
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         GetComponent<LayoutElement>().ignoreLayout = false;
 
-        ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(gameObject, null, (x, y) => x.UpdateList());
+        ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(gameObject, null, (x, y) => x.Refresh());
     }
 }

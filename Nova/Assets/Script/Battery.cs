@@ -8,11 +8,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Script {
-    public class Battery : MonoBehaviour, IInteractWithPlayerRaycast {
+    public class Battery : MonoBehaviour, IInteractWithPlayerRaycast, ITest {
 
         private ShipManager shipManager;
         private InterfaceManager interfaceManager;
-        private TerminalManager terminalManager;
 
         [SerializeField]
         private Text textStoredEnergy;
@@ -20,63 +19,95 @@ namespace Assets.Script {
         private Text textStoredEnergyMax;
 
         [SerializeField]
-        private Toggle toggleLoad;
+        private Toggle toggle;
+
         [SerializeField]
-        private Toggle toggleUnLoad;
+        private Text textStorageSwitch; 
+
+        [SerializeField]
+        private Toggle toggleStorageSwitch;
        
         private int storedEnergy = 0;
         private int storedEnergyMax = 20;
 
-        // Use this for initialization
+        public GameObject gameObject1 {
+            get {
+                return gameObject;
+            }
+        }
+
+        public bool Power {
+            get {
+                return toggle.isOn;
+            }
+
+            set {
+                toggle.isOn = value;
+            }
+        }
+
+        public IUI iUI {
+            get {
+                return GetComponent<IUI>();
+            }
+        }
+
         void Start() {
             shipManager = transform.root.GetComponent<ShipManager>();
-            shipManager.AddToPing(Ping);
-
-            //terminalManager = transform.root.GetComponent<TerminalManager>();
-            //terminalManager.Add("Battery", transform.parent.GetComponent<SpriteRenderer>().sprite, this.transform);
+            shipManager.AddToStorageList(this);
 
             interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
             textStoredEnergyMax.text = storedEnergyMax.ToString();
         }
 
         void Update() {
-            textStoredEnergy.text = storedEnergy.ToString();       
-        }
-
-        private void Ping() {
-            if (toggleLoad.isOn) {
-                if (shipManager.RemoveEnergy(2)) {
-                    if ((storedEnergy + 2) >= storedEnergyMax) {
-                        storedEnergy = storedEnergyMax;
-                        toggleLoad.isOn = false;
-                    }
-                    else {
-                        storedEnergy += 2;
-                    }
-                }
-            }
-
-            if (toggleUnLoad.isOn) {
-                if (storedEnergy >= 2) {
-                    shipManager.AddEnergy(2);
-                    storedEnergy -= 2;
-                }
-                else {
-                    if (storedEnergy == 1) {
-                        shipManager.AddEnergy(1);
-                        storedEnergy -= 1;
-                    }
-                    else {
-                        //0
-                        toggleUnLoad.isOn = false;
-                    }
-                }
-                
-            }
+            //textStoredEnergy.text = storedEnergy.ToString();       
         }
 
         public void RaycastAction() {
             interfaceManager.ShowUI(GetComponent<UI>(), "Battery");
+        }
+
+        public void Ping() {
+
+            if (toggle.isOn) {
+                if (toggleStorageSwitch.isOn ) { // Aufladen
+                    if (shipManager.isProducing == false) {
+                        if (storedEnergyMax > storedEnergy) {
+                            int en = storedEnergyMax - storedEnergy;
+                            int en1 = shipManager.Energy;
+                            if (en1 >= en) {
+                                shipManager.RemoveEnergy(en);
+                                storedEnergy += en;
+                            }
+                            else {
+                                shipManager.RemoveEnergy(en1);
+                                storedEnergy += en1;
+                            }
+                        }
+                    }
+                }
+                else { //Entladen
+                    if (shipManager.isProducing == true) {
+                        if (storedEnergy >= 2) {
+                            shipManager.AddEnergy(2);
+                            storedEnergy -= 2;
+                        }    
+                        else if (storedEnergy == 1) {
+                            shipManager.AddEnergy(1);
+                            storedEnergy -= 1;
+                        }
+                    }      
+                }
+                textStoredEnergy.text = storedEnergy.ToString();
+            }
+        }
+
+        public void ToggleStorage() {
+            if (toggleStorageSwitch.isOn)
+                textStorageSwitch.text = "wird geladen";
+            else
+                textStorageSwitch.text = "wird entladen";
         }
     }
 }

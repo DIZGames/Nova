@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Script.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,27 +9,24 @@ namespace Assets.Script {
     public interface IUI {
 
         /// <summary>
-        /// Versucht einen SlotContainer zu der UI hinzuzufügen
-        /// </summary>
-        /// <param name="slotContainer"></param>
-        void Add(SlotContainer slotContainer);
-
-        /// <summary>
-        /// Gibt true zurück, wenn noch ein Slot frei ist
+        /// Gibt einen Boolean zurück, ob die UI aktiv bzw. inaktiv ist
         /// </summary>
         /// <returns></returns>
-        bool FreeSlot();
+        bool IsActive {
+            get;
+        }
+
+        /// <summary>
+        /// Gibt den SlotContainer - falls vorhanden - zurück
+        /// </summary>
+        ISlotContainerList ISlotContainerList {
+            get;
+        }
 
         /// <summary>
         /// Setzt die UI auf inaktiv
         /// </summary>
         void Hide();
-
-        /// <summary>
-        /// Gibt einen Boolean zurück, ob die UI aktiv bzw. inaktiv ist
-        /// </summary>
-        /// <returns></returns>
-        bool IsActive();
 
         /// <summary>
         /// Bewegt die UI zu dem übergeben Transform

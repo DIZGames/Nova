@@ -40,7 +40,7 @@ public class SlotContainerSplit : MonoBehaviour, IPointerDownHandler {
                 else {
                     SlotContainer.ItemBase.stack = 2 * result + modulo;
                 }
-                ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(gameObject, null, (x, y) => x.UpdateList());
+                ExecuteEvents.ExecuteHierarchy<ISlotContainerList>(gameObject, null, (x, y) => x.Refresh());
             }
         }
     }

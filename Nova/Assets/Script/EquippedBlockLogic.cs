@@ -56,11 +56,17 @@ namespace Assets.Script {
         {
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
             hits.AddRange(Physics2D.RaycastAll(transform.position, transform.rotation * Vector2.up, spriteSize.y / 2, layerMaskBlock));
+            
             hits.AddRange(Physics2D.RaycastAll(transform.position, transform.rotation * Vector2.left, spriteSize.y / 2, layerMaskBlock));
             hits.AddRange(Physics2D.RaycastAll(transform.position, transform.rotation * Vector2.right, spriteSize.x / 2, layerMaskBlock));
             hits.AddRange(Physics2D.RaycastAll(transform.position, transform.rotation * Vector2.down, spriteSize.x / 2, layerMaskBlock));
 
             shipTransform = null;
+
+            //Debug.DrawRay(transform.position, transform.rotation * Vector2.up, Color.green , 1);
+            //Debug.DrawRay(transform.position, transform.rotation * Vector2.left, Color.green, 1);
+            //Debug.DrawRay(transform.position, transform.rotation * Vector2.right, Color.green, 1);
+            //Debug.DrawRay(transform.position, transform.rotation * Vector2.down, Color.green, 1);
 
             float distance = -1;
             foreach(RaycastHit2D hit in hits)
@@ -303,8 +309,7 @@ namespace Assets.Script {
                         blockTransform.parent = dummyBlockTransform.parent;
                     }
 
-
-                    blockGObject.name = itemBlock.name;
+                    blockGObject.name = itemBlock.itemName;
 
                     blockGObject.GetComponent<Block>().ItemBlock = (ItemBlock) itemBlock.Clone();
 

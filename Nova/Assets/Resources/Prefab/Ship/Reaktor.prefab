@@ -97,7 +97,6 @@ GameObject:
   - 212: {fileID: 21267676}
   - 61: {fileID: 6196616}
   - 114: {fileID: 11418034}
-  - 114: {fileID: 11432974}
   m_Layer: 0
   m_Name: Reaktor
   m_TagString: Untagged
@@ -128,9 +127,9 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 224: {fileID: 22440532}
+  - 224: {fileID: 22442964}
   - 114: {fileID: 11473386}
-  - 114: {fileID: 11478492}
+  - 114: {fileID: 11403838}
   m_Layer: 0
   m_Name: Reaktor
   m_TagString: Untagged
@@ -179,10 +178,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.126, y: -0.044, z: 0}
+  m_LocalPosition: {x: -0.55, y: 1.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 22440532}
+  - {fileID: 22442964}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!61 &6196616
@@ -199,6 +198,19 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
+--- !u!114 &11403838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6980633867fd3d4b9f1a3795e34853a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotList: {fileID: 0}
+  uiObject: {fileID: 127136}
 --- !u!114 &11405350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -303,18 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a0e0759deb081499e959fe42f7e7b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformUI: {fileID: 22440532}
---- !u!114 &11432974
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a49518c8e7f879c459e4e139072671d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  transformUI: {fileID: 22442964}
 --- !u!114 &11467982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,19 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 2
---- !u!114 &11478492
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 164512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6980633867fd3d4b9f1a3795e34853a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotList: {fileID: 0}
-  uiObject: {fileID: 127136}
+  toggle: {fileID: 11493678}
 --- !u!114 &11493678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -631,7 +620,7 @@ RectTransform:
   m_AnchoredPosition: {x: 10, y: -10}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!224 &22440532
+--- !u!224 &22442964
 RectTransform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -696,11 +685,11 @@ RectTransform:
   m_Children:
   - {fileID: 22474148}
   - {fileID: 22416760}
-  m_Father: {fileID: 22440532}
+  m_Father: {fileID: 22442964}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: 0}
+  m_AnchoredPosition: {x: 49.999996, y: 0}
   m_SizeDelta: {x: 148.5, y: 135.8}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &22493444

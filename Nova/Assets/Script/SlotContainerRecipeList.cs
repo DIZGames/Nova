@@ -24,12 +24,7 @@ namespace Assets.Script {
         private GameObject goSlotRecipe;
 
         void Start() {
-
-        }
-
-        public void AddToShipManager(ShipManager shipManager) {
-
-            this.shipManager = shipManager;
+            this.shipManager = transform.root.GetComponent<ShipManager>();
             goSlotRecipe = (GameObject)Resources.Load("Prefab/SlotRecipe");
 
             fillList();

@@ -9,16 +9,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Script {
-    public class Refinery : MonoBehaviour, IInteractWithPlayerRaycast {
+    public class Refinery : MonoBehaviour, IInteractWithPlayerRaycast, ITest {
 
         private ShipManager shipManager;
-
-        [SerializeField]
-        private Transform recipeList;
-        [SerializeField]
-        private Transform queueList;
-        [SerializeField]
-        private Transform slotList;
 
         [SerializeField]
         private Toggle toggle;
@@ -28,35 +21,53 @@ namespace Assets.Script {
         private ISlotContainerList slotContainerList;
         private ISlotContainerQueueList slotContainerQueueList;
         private ISlotContainerRecipeList slotContainerRecipeList;
-        
 
-        // Use this for initialization
+        public bool Power {
+            get {
+                return toggle.isOn;
+            }
+
+            set {
+                toggle.isOn = value;
+            }
+        }
+
+        public GameObject gameObject1 {
+            get {
+                return this.gameObject;
+            }
+        }
+
+        public IUI iUI {
+            get {
+                return GetComponent<IUI>();
+            }
+        }
+
         void Start() {
 
             shipManager = transform.root.GetComponent<ShipManager>();
-            shipManager.AddToPing(UpdateQueue);
+            shipManager.AddToConsumerPrio2List(this);
 
             interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
 
-            slotContainerList = slotList.GetComponent<ISlotContainerList>();
-            slotContainerQueueList = queueList.GetComponent<ISlotContainerQueueList>();
-            slotContainerRecipeList = recipeList.GetComponent<ISlotContainerRecipeList>();
+            slotContainerList = GetComponent<ISlotContainerList>();
+            slotContainerQueueList = GetComponent<ISlotContainerQueueList>();
+            slotContainerRecipeList = GetComponent<ISlotContainerRecipeList>();
 
-            slotContainerList.AddToShipManager(shipManager);
-            slotContainerQueueList.AddToShipManager(shipManager);
-            slotContainerRecipeList.AddToShipManager(shipManager);
 
-        }
-
-        private void UpdateQueue() {
-            if (toggle.isOn) {
-                slotContainerQueueList.Ping();
-            }        
         }
 
         public void RaycastAction() {
-            interfaceManager.ShowUI(GetComponent<IUI>(), "Raffinerie");
+            interfaceManager.ShowUIWithBackpack(GetComponent<IUI>(), "Raffinerie");
         }
 
+        public void Ping() {
+            if (toggle.isOn) {
+                if (shipManager.RemoveEnergy(1)) {
+                    slotContainerQueueList.Ping();
+                }     
+            }
+        }
     }
 }
