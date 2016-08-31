@@ -1,11 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
 
 [Serializable]
 class SaveFile
 {
-    public List<GameObject> ships = new List<GameObject>();
+    public List<SaveGameObject> topLevelObjects = new List<SaveGameObject>();
+    public Dictionary<string, string> values = new Dictionary<string, string>();
+
+    public Dictionary<SaveGameObject, SaveGameObject> childObjects = new Dictionary<SaveGameObject, SaveGameObject>();
+
+    [Serializable]
+    public class SaveGameObject{
+        public List<SaveComponent> components = new List<SaveComponent>();
+
+        public string name;
+        public string prefabPath;
+        public int layer;
+        public string tag;
+        public bool isStatic;
+        public bool isActive;
+    }
+
+    [Serializable]
+    public class SaveComponent
+    {
+        public Dictionary<string, string> values = new Dictionary<string, string>();
+    }
 }
