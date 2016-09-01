@@ -1,92 +1,72 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
 using System.IO;
+using FlatBuffers;
+using Nova;
+
 
 public class SaveGameManager  {
 
     static string saveFolder = "Savegames";
 
-    public enum SaveFileFormat{
-        JSON, BINARY
-    }
-
-	public static void Save(List<GameObject> objectsToSave, SaveFileFormat format){
-
-    }
-
-    public static void Save(GameObject objectToSave, SaveFileFormat format)
+    public static string Save(SaveData saveFile, string fileName)
     {
-        SaveFile saveFile = new SaveFile();
-        AddToSaveFile(objectToSave, saveFile);
-        if (format == SaveFileFormat.BINARY)
-            SaveAsBinary(saveFile);
-        else if(format == SaveFileFormat.JSON)
-            SaveAsJSON(saveFile);
-    }
-
-    private static void AddToSaveFile(GameObject gameObject, SaveFile saveFile)
-    {
-        SaveFile.SaveGameObject saveGO = new SaveFile.SaveGameObject();
-        saveGO.name = gameObject.name;
-        saveGO.isStatic = gameObject.isStatic;
-        saveGO.isActive = gameObject.activeSelf;
-        saveGO.layer = gameObject.layer;
-        saveGO.tag = gameObject.tag;
-        GameObject prefab = (GameObject)PrefabUtility.GetPrefabParent(gameObject);
-        if (prefab != null)
+        FlatBufferBuilder fbb = new FlatBufferBuilder(1);
+        Offset<FlatGameObject>[] flatGameObjects = new Offset<FlatGameObject>[saveFile.gameObjects.Count];
+        for(int i = 0; i < saveFile.gameObjects.Count; i++)
         {
-            string path = AssetDatabase.GetAssetPath(prefab);
-            Debug.Log("prefab path:" + path);
-            saveGO.prefabPath = path;
+            GameObject gameObject = saveFile.gameObjects[i];
+            // Überprüfe ob das GameObject mit einem prefab verbunden ist und speichere den Pfad
+            string prefabPathString = null;
+            GameObject prefab = (GameObject)PrefabUtility.GetPrefabParent(gameObject);
+            if (prefab != null)
+            {
+                string path = AssetDatabase.GetAssetPath(prefab);
+                Debug.Log("prefab path:" + path);
+                prefabPathString = path;
+            }
+            StringOffset prefabPath = prefabPathString != null ? fbb.CreateString(prefabPathString) : fbb.CreateString("");
+            StringOffset name = fbb.CreateString(gameObject.name);
+            StringOffset tag = fbb.CreateString(gameObject.tag);
+            Offset<FlatGameObject> offsetGO = FlatGameObject.CreateFlatGameObject(fbb, name, prefabPath, tag, gameObject.layer, gameObject.isStatic, gameObject.activeSelf);
+            flatGameObjects[i] = offsetGO;
         }
-        saveFile.topLevelObjects.Add(saveGO);
-    }
-
-    private static void SaveAsBinary(SaveFile file)
-    {
-        BinaryFormatter bf = new BinaryFormatter();
-        using (var stream = new MemoryStream()) {
-            bf.Serialize(stream, file);
-            System.IO.File.WriteAllBytes(saveFolder + "/save1", stream.ToArray());
-        }
-    }
-
-    private static void SaveAsJSON(SaveFile file)
-    {
-        System.IO.File.WriteAllText(saveFolder + "/save1", JsonUtility.ToJson(file, true));
-    }
-
-    public static void Load(string saveFileName, SaveFileFormat format)
-    {
-        string filePath = saveFolder + "/" + saveFileName;
-        SaveFile file = null;
-        if (format == SaveFileFormat.BINARY)
-            file = LoadFromBinary(filePath);
-        else if (format == SaveFileFormat.JSON)
-            file = LoadFromJSON(filePath);
-        GameObject go = new GameObject();
-        SaveFile.SaveGameObject saveGO = (SaveFile.SaveGameObject)file.topLevelObjects[0];
-        go.name = saveGO.name;
-        go.SetActive(saveGO.isActive);
-        go.isStatic = saveGO.isStatic;
-        go.layer = saveGO.layer;
-        go.tag = saveGO.tag;
-    }
-
-    private static SaveFile LoadFromJSON(string filePath)
-    {
-        return (SaveFile)JsonUtility.FromJson<SaveFile>(filePath);
-    }
-
-    private static SaveFile LoadFromBinary(string filePath)
-    {
-        BinaryFormatter bf = new BinaryFormatter();
-        using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+        VectorOffset vOffset = FlatSaveData.CreateGameObjectsVector(fbb, flatGameObjects);
+        FlatSaveData.StartFlatSaveData(fbb);
+        FlatSaveData.AddGameObjects(fbb, vOffset);
+        Offset<FlatSaveData> offset = FlatSaveData.EndFlatSaveData(fbb);
+        FlatSaveData.FinishFlatSaveDataBuffer(fbb, offset);
+        string filePath = saveFolder + "/" + fileName;
+        using (var stream = new MemoryStream(fbb.DataBuffer.Data, fbb.DataBuffer.Position, fbb.Offset))
         {
-            return (SaveFile)bf.Deserialize(stream);
+            System.IO.File.WriteAllBytes(filePath, stream.ToArray());
         }
+        return filePath;
+    }
 
+    public static SaveData Load(string fileName)
+    {
+        SaveData saveData = new SaveData();
+        ByteBuffer bb = new ByteBuffer(File.ReadAllBytes(saveFolder + "/" + fileName));
+        FlatSaveData fSaveData = FlatSaveData.GetRootAsFlatSaveData(bb);
+        for(int i = 0; i < fSaveData.GameObjectsLength; i++)
+        {
+            GameObject gameObject = FlatGameObjectToGameObject(fSaveData.GetGameObjects(i));
+            saveData.gameObjects.Add(gameObject);
+        }
+        return saveData;
+        
+    }
+
+    private static GameObject FlatGameObjectToGameObject(FlatGameObject fGameObject)
+    {
+        GameObject gameObject = new GameObject();
+        gameObject.name = fGameObject.Name;
+        gameObject.tag = fGameObject.Tag;
+        gameObject.layer = fGameObject.Layer;
+        gameObject.SetActive(fGameObject.IsActive);
+        gameObject.isStatic = fGameObject.IsStatic;
+        return gameObject;
     }
 }

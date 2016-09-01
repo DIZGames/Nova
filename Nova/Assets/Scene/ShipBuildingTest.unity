@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41c398926fc80746b01a1b71bcfe002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ItemBase: {fileID: 2115482155}
+  _ItemBase: {fileID: 0}
   Text: {fileID: 147465556}
   Image: {fileID: 1919345094}
 --- !u!224 &930664481 stripped
@@ -1089,7 +1089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41c398926fc80746b01a1b71bcfe002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ItemBase: {fileID: 2066422337}
+  _ItemBase: {fileID: 0}
   Text: {fileID: 223273742}
   Image: {fileID: 29929390}
 --- !u!1 &1361095877 stripped
@@ -1554,30 +1554,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1882390424}
   m_Script: {fileID: 11500000, guid: e9ebd92e44943f744ac1df4ab691b269, type: 3}
---- !u!114 &1757612376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf7856508d8a864792baca854008678, type: 3}
-  m_Name: BlockFloor(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  itemName: BlockFloor
-  stack: 64
-  maxStack: 64
-  type: 3
-  icon: {fileID: 21300000, guid: 58b32b13a14959d43bd7b0e782117b6a, type: 3}
-  prefab: {fileID: 137608, guid: 6cbb8be2e3c09f0499feed4a4c2027ed, type: 2}
-  description: asdasd
-  position: 3
-  createsNewShip: 1
-  maxHitPoints: 100
-  Energy: 0
-  Oxygen: 0
-  currentHitPoints: 0
 --- !u!1 &1837962897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,7 +1829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41c398926fc80746b01a1b71bcfe002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ItemBase: {fileID: 1757612376}
+  _ItemBase: {fileID: 0}
   Text: {fileID: 1837962899}
   Image: {fileID: 884231881}
 --- !u!1 &1919345092
@@ -2044,30 +2020,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2011016520}
---- !u!114 &2066422337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf7856508d8a864792baca854008678, type: 3}
-  m_Name: BlockThinWall(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  itemName: BlockThinWall
-  stack: 99
-  maxStack: 99
-  type: 3
-  icon: {fileID: 21300000, guid: 9c5033376dd777042a3d118646e80a0e, type: 3}
-  prefab: {fileID: 142982, guid: 5bc64a5c1eb045047b49b01831910afd, type: 2}
-  description: 
-  position: 4
-  createsNewShip: 0
-  maxHitPoints: 100
-  Energy: 0
-  Oxygen: 0
-  currentHitPoints: 0
 --- !u!1 &2080271307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,27 +2081,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!114 &2115482155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf7856508d8a864792baca854008678, type: 3}
-  m_Name: BlockFloor(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  itemName: BlockFloor
-  stack: 35
-  maxStack: 64
-  type: 3
-  icon: {fileID: 21300000, guid: 58b32b13a14959d43bd7b0e782117b6a, type: 3}
-  prefab: {fileID: 137608, guid: 6cbb8be2e3c09f0499feed4a4c2027ed, type: 2}
-  description: asdasd
-  position: 3
-  createsNewShip: 1
-  maxHitPoints: 100
-  Energy: 0
-  Oxygen: 0
-  currentHitPoints: 0

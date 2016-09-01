@@ -1,0 +1,17 @@
+namespace Nova;
+
+// haupt table: hierein kommen alle Daten die nicht zu einem GameObject gehören und alle GameObjects
+table FlatSaveData{
+	gameObjects:[FlatGameObject];
+}
+
+table FlatGameObject {
+  name:string(required);
+  prefabPath:string(required);
+  tag:string(required);
+  layer:int;
+  isStatic:bool;
+  isActive:bool;
+}
+
+root_type FlatSaveData;

@@ -7,11 +7,13 @@ public class SaveLoadGUI : MonoBehaviour {
 
 	public void ClickSave()
     {
-        SaveGameManager.Save(test, SaveGameManager.SaveFileFormat.BINARY);
+        SaveData saveData = new SaveData();
+        saveData.gameObjects.Add(test);
+        SaveGameManager.Save(saveData, "save");
     }
 
     public void ClickLoad()
     {
-        SaveGameManager.Load("save1", SaveGameManager.SaveFileFormat.BINARY);
+        SaveGameManager.Load("save");
     }
 }
