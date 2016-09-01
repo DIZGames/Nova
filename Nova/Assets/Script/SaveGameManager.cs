@@ -10,6 +10,7 @@ public class SaveGameManager  {
 
     static string saveFolder = "Savegames";
 
+    #region Save
     public static string Save(SaveData saveFile, string fileName)
     {
         FlatBufferBuilder fbb = new FlatBufferBuilder(1);
@@ -17,20 +18,7 @@ public class SaveGameManager  {
         for(int i = 0; i < saveFile.gameObjects.Count; i++)
         {
             GameObject gameObject = saveFile.gameObjects[i];
-            // Überprüfe ob das GameObject mit einem prefab verbunden ist und speichere den Pfad
-            string prefabPathString = null;
-            GameObject prefab = (GameObject)PrefabUtility.GetPrefabParent(gameObject);
-            if (prefab != null)
-            {
-                string path = AssetDatabase.GetAssetPath(prefab);
-                Debug.Log("prefab path:" + path);
-                prefabPathString = path;
-            }
-            StringOffset prefabPath = prefabPathString != null ? fbb.CreateString(prefabPathString) : fbb.CreateString("");
-            StringOffset name = fbb.CreateString(gameObject.name);
-            StringOffset tag = fbb.CreateString(gameObject.tag);
-            Offset<FlatGameObject> offsetGO = FlatGameObject.CreateFlatGameObject(fbb, name, prefabPath, tag, gameObject.layer, gameObject.isStatic, gameObject.activeSelf);
-            flatGameObjects[i] = offsetGO;
+            flatGameObjects[i] = GameObjectToFlatGameObject(fbb, gameObject);
         }
         VectorOffset vOffset = FlatSaveData.CreateGameObjectsVector(fbb, flatGameObjects);
         FlatSaveData.StartFlatSaveData(fbb);
@@ -45,6 +33,29 @@ public class SaveGameManager  {
         return filePath;
     }
 
+    private static Offset<FlatGameObject> GameObjectToFlatGameObject(FlatBufferBuilder fbb, GameObject gameObject)
+    {
+        // Überprüfe ob das GameObject mit einem prefab verbunden ist und speichere den Pfad
+        string prefabPathString = null;
+        GameObject prefab = (GameObject)PrefabUtility.GetPrefabParent(gameObject);
+        if (prefab != null)
+        {
+            string path = AssetDatabase.GetAssetPath(prefab);
+            Debug.Log("prefab path:" + path);
+            prefabPathString = path;
+        }
+        StringOffset prefabPath = prefabPathString != null ? fbb.CreateString(prefabPathString) : fbb.CreateString("");
+        StringOffset name = fbb.CreateString(gameObject.name);
+        StringOffset tag = fbb.CreateString(gameObject.tag);
+        List<Offset<FlatGameObject>> children = new List<Offset<FlatGameObject>>();
+        foreach(Transform transformChild in gameObject.transform)
+            children.Add(GameObjectToFlatGameObject(fbb, transformChild.gameObject));
+        VectorOffset childrenOffset = FlatGameObject.CreateChildrenVector(fbb, children.ToArray());
+        return FlatGameObject.CreateFlatGameObject(fbb, name, prefabPath, tag, gameObject.layer, gameObject.isStatic, gameObject.activeSelf, childrenOffset);
+    }
+    #endregion
+
+    #region Load
     public static SaveData Load(string fileName)
     {
         SaveData saveData = new SaveData();
@@ -67,6 +78,12 @@ public class SaveGameManager  {
         gameObject.layer = fGameObject.Layer;
         gameObject.SetActive(fGameObject.IsActive);
         gameObject.isStatic = fGameObject.IsStatic;
+        if (fGameObject.ChildrenLength > 0)
+        {
+            for (int i = 0; i < fGameObject.ChildrenLength; i++)
+                FlatGameObjectToGameObject(fGameObject.GetChildren(i)).transform.parent = gameObject.transform;
+        }
         return gameObject;
     }
+    #endregion
 }

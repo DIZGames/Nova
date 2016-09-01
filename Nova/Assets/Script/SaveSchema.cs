@@ -43,6 +43,9 @@ public sealed class FlatGameObject : Table {
   public int Layer { get { int o = __offset(10); return o != 0 ? bb.GetInt(o + bb_pos) : (int)0; } }
   public bool IsStatic { get { int o = __offset(12); return o != 0 ? 0!=bb.Get(o + bb_pos) : (bool)false; } }
   public bool IsActive { get { int o = __offset(14); return o != 0 ? 0!=bb.Get(o + bb_pos) : (bool)false; } }
+  public FlatGameObject GetChildren(int j) { return GetChildren(new FlatGameObject(), j); }
+  public FlatGameObject GetChildren(FlatGameObject obj, int j) { int o = __offset(16); return o != 0 ? obj.__init(__indirect(__vector(o) + j * 4), bb) : null; }
+  public int ChildrenLength { get { int o = __offset(16); return o != 0 ? __vector_len(o) : 0; } }
 
   public static Offset<FlatGameObject> CreateFlatGameObject(FlatBufferBuilder builder,
       StringOffset name = default(StringOffset),
@@ -50,8 +53,10 @@ public sealed class FlatGameObject : Table {
       StringOffset tag = default(StringOffset),
       int layer = 0,
       bool isStatic = false,
-      bool isActive = false) {
-    builder.StartObject(6);
+      bool isActive = false,
+      VectorOffset children = default(VectorOffset)) {
+    builder.StartObject(7);
+    FlatGameObject.AddChildren(builder, children);
     FlatGameObject.AddLayer(builder, layer);
     FlatGameObject.AddTag(builder, tag);
     FlatGameObject.AddPrefabPath(builder, prefabPath);
@@ -61,13 +66,16 @@ public sealed class FlatGameObject : Table {
     return FlatGameObject.EndFlatGameObject(builder);
   }
 
-  public static void StartFlatGameObject(FlatBufferBuilder builder) { builder.StartObject(6); }
+  public static void StartFlatGameObject(FlatBufferBuilder builder) { builder.StartObject(7); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(0, nameOffset.Value, 0); }
   public static void AddPrefabPath(FlatBufferBuilder builder, StringOffset prefabPathOffset) { builder.AddOffset(1, prefabPathOffset.Value, 0); }
   public static void AddTag(FlatBufferBuilder builder, StringOffset tagOffset) { builder.AddOffset(2, tagOffset.Value, 0); }
   public static void AddLayer(FlatBufferBuilder builder, int layer) { builder.AddInt(3, layer, 0); }
   public static void AddIsStatic(FlatBufferBuilder builder, bool isStatic) { builder.AddBool(4, isStatic, false); }
   public static void AddIsActive(FlatBufferBuilder builder, bool isActive) { builder.AddBool(5, isActive, false); }
+  public static void AddChildren(FlatBufferBuilder builder, VectorOffset childrenOffset) { builder.AddOffset(6, childrenOffset.Value, 0); }
+  public static VectorOffset CreateChildrenVector(FlatBufferBuilder builder, Offset<FlatGameObject>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static void StartChildrenVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<FlatGameObject> EndFlatGameObject(FlatBufferBuilder builder) {
     int o = builder.EndObject();
     builder.Required(o, 4);  // name

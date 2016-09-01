@@ -12,6 +12,7 @@ table FlatGameObject {
   layer:int;
   isStatic:bool;
   isActive:bool;
+  children:[FlatGameObject];
 }
 
 root_type FlatSaveData;
