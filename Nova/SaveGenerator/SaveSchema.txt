@@ -13,6 +13,19 @@ table FlatGameObject {
   isStatic:bool;
   isActive:bool;
   children:[FlatGameObject];
+  components:[FlatComponent];
 }
+
+table ValuePair {
+	name:string(key);
+	value:string;
+}
+
+table FlatComponent {
+	type:string;
+	values:[ValuePair];
+}
+
+
 
 root_type FlatSaveData;
