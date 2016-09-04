@@ -10,7 +10,7 @@ GameObject:
   - 224: {fileID: 22456572}
   - 222: {fileID: 22268464}
   - 114: {fileID: 11413094}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 224: {fileID: 22493444}
   - 222: {fileID: 22207036}
   - 114: {fileID: 11405350}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - 222: {fileID: 22238074}
   - 114: {fileID: 11495464}
   - 225: {fileID: 22576026}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ReaktorUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - 224: {fileID: 22474148}
   - 222: {fileID: 22246654}
   - 114: {fileID: 11495258}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Management
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - 224: {fileID: 22424216}
   - 222: {fileID: 22291104}
   - 114: {fileID: 11467982}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - 212: {fileID: 21267676}
   - 61: {fileID: 6196616}
   - 114: {fileID: 11418034}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Reaktor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 22417640}
   - 114: {fileID: 11493678}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - 224: {fileID: 22442964}
   - 114: {fileID: 11473386}
   - 114: {fileID: 11403838}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Reaktor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - 224: {fileID: 22497132}
   - 222: {fileID: 22226836}
   - 114: {fileID: 11405910}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   - 224: {fileID: 22416760}
   - 222: {fileID: 22266640}
   - 114: {fileID: 11468150}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,6 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotList: {fileID: 0}
   uiObject: {fileID: 127136}
+  shield: {fileID: 0}
 --- !u!114 &11405350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -517,7 +518,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1740470115
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300050, guid: 382d44e828fb38c4d82a328622bd3676, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

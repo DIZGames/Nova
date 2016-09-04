@@ -88,8 +88,12 @@ public class Player : MonoBehaviour {
     }
 
     public void clearOnEquipment() {
-        if (EquipmentPoint.transform.childCount != 0)
-            Destroy(EquipmentPoint.transform.GetChild(0).gameObject);
+        for (int i = 0; i < EquipmentPoint.transform.childCount; i++) {
+            Destroy(EquipmentPoint.transform.GetChild(i).gameObject);
+        }
+
+
+            
     }
 
 

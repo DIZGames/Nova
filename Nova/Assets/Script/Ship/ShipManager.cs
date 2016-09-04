@@ -293,6 +293,31 @@ public class ShipManager : MonoBehaviour {
         _iTestListContainerEnergy.Add(itest);
     }
 
+    #endregion
+
+    #region BlockManagement
+
+    public List<GameObject> TopList = new List<GameObject>();
+
+    public void AddTopList(GameObject gO) {
+        TopList.Add(gO);
+    }
+
+    public void HideTopList() {
+        for (int i = 0; i < TopList.Count; i++) {
+            TopList[i].SetActive(false);
+        }
+
+    }
+
+    public void ShowTopList() {
+        for (int i = 0; i < TopList.Count; i++) {
+            TopList[i].SetActive(true);
+        }
+
+    }
 
     #endregion
+
+
 }

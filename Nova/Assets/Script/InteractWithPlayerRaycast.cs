@@ -10,11 +10,11 @@ namespace Assets.Script {
     public class InteractWithPlayerRaycast : MonoBehaviour{
 
         [SerializeField]
-        private Transform transformUI;
+        private Transform transformImplementingInterface;
         private IInteractWithPlayerRaycast iInteractWithPlayerRaycast;
 
         void Start() {
-            iInteractWithPlayerRaycast = transformUI.GetComponent<IInteractWithPlayerRaycast>();
+            iInteractWithPlayerRaycast = transformImplementingInterface.GetComponent<IInteractWithPlayerRaycast>();
         }
 
         public void RaycastAction() {

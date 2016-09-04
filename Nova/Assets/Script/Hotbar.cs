@@ -134,26 +134,18 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
                 selectedGameObject = iEquippable;
 
                 player.setOnEquipment(go);
-
             }
             else if (slotContainer.ItemBase.type == ItemType.Block) {
-                GameObject blockBuilder = Instantiate(blockBuilderPrefab);
+                GameObject go = Instantiate(blockBuilderPrefab);
 
-                float spawnDistance = 1f;
+                go.transform.position = player.transform.position;
+                go.transform.rotation = player.transform.rotation;
 
-                blockBuilder.transform.position = player.transform.position + player.transform.up * spawnDistance;
-                blockBuilder.transform.rotation = player.transform.rotation;
-
-                EquippedBlockLogic iEquippable = blockBuilder.GetComponent<EquippedBlockLogic>();
-                SpriteRenderer sr = iEquippable.dummyBlockTransform.GetComponent<SpriteRenderer>();
-                sr.sprite = slotContainer.ItemBase.prefab.GetComponent<SpriteRenderer>().sprite;
-                //iEquippable.init();
+                IEquippable iEquippable = go.GetComponent<IEquippable>();
                 iEquippable.SetItem(slotContainer.ItemBase);
-
                 selectedGameObject = iEquippable;
 
-                player.setOnEquipment(blockBuilder);
-
+                player.setOnEquipment(go);
             }
         }
     }
@@ -238,11 +230,9 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
         return count;
     }
 
-
     public void Hide() {
 
     }
-
 
     public void Move(Transform transform) {
         this.transform.SetParent(transform);

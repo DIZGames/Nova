@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21220906}
   - 114: {fileID: 11449316}
   - 58: {fileID: 5891562}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: ThingOnShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 111236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9394101, y: -0.23102582, z: 0}
+  m_LocalPosition: {x: -0.938, y: -0.181, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,9 +41,9 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0.03}
+  m_Offset: {x: 0.005, y: -0.03}
   serializedVersion: 2
-  m_Radius: 0.41644517
+  m_Radius: 0.42657763
 --- !u!114 &11449316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1740470115
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: da0ebc79784c4ac47a597a1466a8748d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

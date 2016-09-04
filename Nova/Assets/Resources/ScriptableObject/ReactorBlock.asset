@@ -18,9 +18,21 @@ MonoBehaviour:
   icon: {fileID: 21300050, guid: 382d44e828fb38c4d82a328622bd3676, type: 3}
   prefab: {fileID: 137698, guid: 78c4fc992ec4b274e9b01d769ffbfc2c, type: 2}
   description: Ein Reaktor!
-  position: 2
+  position: 3
   createsNewShip: 0
   maxHitPoints: 11
   Energy: 0
   Oxygen: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   currentHitPoints: 0
+  upLeft: 0
+  upRight: 0
+  downLeft: 0
+  downRight: 0
+  leftUp: 0
+  leftDown: 0
+  rightUp: 0
+  rightDown: 0
+  forward: 1

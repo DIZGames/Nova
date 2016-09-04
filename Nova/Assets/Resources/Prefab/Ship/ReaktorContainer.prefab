@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11438646}
   - 114: {fileID: 11413936}
   - 114: {fileID: 11486082}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 224: {fileID: 22481186}
   - 222: {fileID: 22257868}
   - 114: {fileID: 11465174}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - 114: {fileID: 11484946}
   - 114: {fileID: 11435732}
   - 114: {fileID: 11461478}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Plutonium(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - 224: {fileID: 22498836}
   - 222: {fileID: 22227712}
   - 114: {fileID: 11422578}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - 114: {fileID: 11499312}
   - 114: {fileID: 11490534}
   - 114: {fileID: 11494264}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Plutonium(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - 114: {fileID: 11408844}
   - 114: {fileID: 11459118}
   - 114: {fileID: 11406614}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - 224: {fileID: 22467524}
   - 222: {fileID: 22248958}
   - 114: {fileID: 11420954}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - 114: {fileID: 11412970}
   - 114: {fileID: 11452338}
   - 114: {fileID: 11461066}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - 114: {fileID: 11427672}
   - 114: {fileID: 11410600}
   - 114: {fileID: 11402394}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   - 114: {fileID: 11431618}
   - 114: {fileID: 11492828}
   - 114: {fileID: 11494996}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - 224: {fileID: 22487286}
   - 222: {fileID: 22280922}
   - 114: {fileID: 11418992}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - 114: {fileID: 11411648}
   - 114: {fileID: 11483902}
   - 114: {fileID: 11411532}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - 114: {fileID: 11471754}
   - 114: {fileID: 11437200}
   - 114: {fileID: 11436016}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ReactorContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - 114: {fileID: 11411706}
   - 114: {fileID: 11424446}
   - 114: {fileID: 11427188}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   - 114: {fileID: 11493048}
   - 114: {fileID: 11406672}
   - 114: {fileID: 11462050}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ GameObject:
   - 114: {fileID: 11418728}
   - 114: {fileID: 11435938}
   - 114: {fileID: 11422974}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - 224: {fileID: 22448616}
   - 222: {fileID: 22230486}
   - 114: {fileID: 11431036}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ GameObject:
   - 114: {fileID: 11497714}
   - 114: {fileID: 11467804}
   - 114: {fileID: 11412322}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Plutonium(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - 114: {fileID: 11438428}
   - 114: {fileID: 11418664}
   - 114: {fileID: 11417756}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   - 114: {fileID: 11437354}
   - 114: {fileID: 11462616}
   - 114: {fileID: 11436390}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   - 114: {fileID: 11499524}
   - 114: {fileID: 11448444}
   - 114: {fileID: 11461860}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Plutonium(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +421,7 @@ GameObject:
   - 114: {fileID: 11494882}
   - 114: {fileID: 11469460}
   - 114: {fileID: 11494482}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +440,7 @@ GameObject:
   - 114: {fileID: 11459652}
   - 114: {fileID: 11488232}
   - 114: {fileID: 11410234}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   - 114: {fileID: 11468988}
   - 114: {fileID: 11469628}
   - 114: {fileID: 11416152}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -476,7 +476,7 @@ GameObject:
   - 224: {fileID: 22401362}
   - 222: {fileID: 22290760}
   - 114: {fileID: 11444318}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ItemSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ GameObject:
   - 114: {fileID: 11451234}
   - 114: {fileID: 11424676}
   - 114: {fileID: 11439122}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   - 114: {fileID: 11499850}
   - 114: {fileID: 11428994}
   - 114: {fileID: 11453580}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,7 @@ GameObject:
   - 224: {fileID: 22420924}
   - 222: {fileID: 22243364}
   - 114: {fileID: 11409586}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ItemSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   - 114: {fileID: 11484830}
   - 114: {fileID: 11418366}
   - 114: {fileID: 11468086}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +567,7 @@ GameObject:
   - 224: {fileID: 22469844}
   - 222: {fileID: 22218782}
   - 114: {fileID: 11499828}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ItemSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ GameObject:
   - 224: {fileID: 22457460}
   - 222: {fileID: 22208628}
   - 114: {fileID: 11455106}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ItemSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -602,7 +602,7 @@ GameObject:
   - 222: {fileID: 22269278}
   - 114: {fileID: 11489800}
   - 225: {fileID: 22514302}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ReactorContainerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -619,7 +619,7 @@ GameObject:
   - 224: {fileID: 22439496}
   - 222: {fileID: 22251050}
   - 114: {fileID: 11473774}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ItemSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,7 +636,7 @@ GameObject:
   - 224: {fileID: 22400186}
   - 222: {fileID: 22290280}
   - 114: {fileID: 11404748}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ItemSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +654,7 @@ GameObject:
   - 212: {fileID: 21245240}
   - 61: {fileID: 6148420}
   - 114: {fileID: 11425104}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ReaktorContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +671,7 @@ GameObject:
   - 224: {fileID: 22475680}
   - 222: {fileID: 22292218}
   - 114: {fileID: 11426712}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,7 @@ GameObject:
   - 114: {fileID: 11400390}
   - 114: {fileID: 11477120}
   - 114: {fileID: 11436402}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Plutonium(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -719,7 +719,7 @@ GameObject:
   - 114: {fileID: 11499476}
   - 114: {fileID: 11417732}
   - 114: {fileID: 11422094}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Plutonium(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -738,7 +738,7 @@ GameObject:
   - 114: {fileID: 11488610}
   - 114: {fileID: 11495842}
   - 114: {fileID: 11473382}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -755,7 +755,7 @@ GameObject:
   - 224: {fileID: 22441760}
   - 222: {fileID: 22214804}
   - 114: {fileID: 11475560}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ItemSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -772,7 +772,7 @@ GameObject:
   - 224: {fileID: 22471764}
   - 222: {fileID: 22256686}
   - 114: {fileID: 11462976}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -796,7 +796,7 @@ GameObject:
   - 114: {fileID: 11436010}
   - 114: {fileID: 11472972}
   - 114: {fileID: 11493344}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Plutonium(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -815,7 +815,7 @@ GameObject:
   - 114: {fileID: 11491382}
   - 114: {fileID: 11423210}
   - 114: {fileID: 11450376}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +834,7 @@ GameObject:
   - 114: {fileID: 11443262}
   - 114: {fileID: 11489886}
   - 114: {fileID: 11414580}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -853,7 +853,7 @@ GameObject:
   - 114: {fileID: 11443972}
   - 114: {fileID: 11462682}
   - 114: {fileID: 11429484}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Slot (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +870,7 @@ GameObject:
   - 224: {fileID: 22465436}
   - 222: {fileID: 22253876}
   - 114: {fileID: 11448570}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +887,7 @@ GameObject:
   - 224: {fileID: 22403476}
   - 222: {fileID: 22254806}
   - 114: {fileID: 11484914}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,6 +1026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotList: {fileID: 22432204}
   uiObject: {fileID: 163768}
+  shield: {fileID: 0}
 --- !u!114 &11404568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2085,6 +2086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825614ca75116fb43b974de14349bf4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotList: {fileID: 0}
 --- !u!114 &11437354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2856,7 +2858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a6ffd76c34cd24ba9547d9e6008c58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotContainerList: {fileID: 0}
 --- !u!114 &11472972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3575,7 +3576,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1740470115
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300058, guid: 382d44e828fb38c4d82a328622bd3676, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
