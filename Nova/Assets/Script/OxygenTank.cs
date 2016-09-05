@@ -11,7 +11,6 @@ namespace Assets.Script {
 
         private ShipManager shipManager;
         private InterfaceManager interfaceManager;
-        private TerminalManager terminalManager;
 
         [SerializeField]
         private Text textStoredOxygen;
@@ -28,10 +27,6 @@ namespace Assets.Script {
 
         void Start() {
             shipManager = transform.root.GetComponent<ShipManager>();
-            shipManager.AddToPing(Ping);
-
-            terminalManager = transform.root.GetComponent<TerminalManager>();
-            terminalManager.Add("OxygenTank", transform.parent.GetComponent<SpriteRenderer>().sprite, this.transform);
 
             interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
 

@@ -18,19 +18,26 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
 
     private Transform standardParent;
 
+    public bool IsActive {
+        get {
+            return uiObject.activeSelf;
+        }
+    }
+
+    public ISlotContainerList ISlotContainerList {
+        get {
+            return this;
+        }
+    }
+
     // Use this for initialization
     void Start() {
         standardParent = transform.parent;
         characterScreenList = new List<SlotContainer>();
-        UpdateList();
+        Refresh();
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
-    public void UpdateList() {
+    public void Refresh() {
         characterScreenList.Clear();
         player.resetMaxValues();
 
@@ -58,7 +65,7 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
         return count;
     }
 
-    public int Decrease(string itemName, int count) {
+    public int Remove(string itemName, int count) {
         for (int i = 0; i < characterScreenList.Count; i++) {
             if (itemName == characterScreenList[i].ItemBase.itemName && characterScreenList[i].ItemBase.stack != 0) {
                 if (characterScreenList[i].ItemBase.stack >= count) {
@@ -74,35 +81,8 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
         return count;
     }
 
-    public void Add(SlotContainer slotContainer) {
-
-        for (int i = 0; i < slotList.childCount; i++) {
-                 
-            SlotDrop slotDrop = slotList.GetChild(i).GetComponent<SlotDrop>();
-
-            if (slotDrop.checkAllowedTypes(slotContainer)) {
-
-                Transform parentSC = slotContainer.transform.parent;
-
-                Transform parent = slotDrop.transform;
-
-                if (slotDrop.transform.childCount != 0) {
-                    slotDrop.transform.GetChild(0).SetParent(parentSC);
-                }
-
-                slotContainer.transform.SetParent(parent);
-
-                UpdateList();      
-            }     
-        }
-    }
-
     public void Hide() {
         uiObject.SetActive(false);
-    }
-
-    public bool IsActive() {
-        return uiObject.activeSelf;
     }
 
     public void Move(Transform transform) {
@@ -120,16 +100,25 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
         uiObject.SetActive(false);
     }
 
-    public bool FreeSlot() {
+    public bool TryAdd(SlotContainer slotContainer) {
         for (int i = 0; i < slotList.childCount; i++) {
-            if (slotList.GetChild(i).childCount == 0) {
+
+            SlotDrop slotDrop = slotList.GetChild(i).GetComponent<SlotDrop>();
+
+            if (slotDrop.checkAllowedTypes(slotContainer)) {
+
+                Transform parentSC = slotContainer.transform.parent;
+
+                Transform parent = slotDrop.transform;
+
+                if (slotDrop.transform.childCount != 0) {
+                    slotDrop.transform.GetChild(0).SetParent(parentSC);
+                }
+
+                slotContainer.transform.SetParent(parent);
                 return true;
             }
         }
         return false;
-    }
-
-    public void AddToShipManager(ShipManager shipManager) {
-        throw new NotImplementedException();
     }
 }

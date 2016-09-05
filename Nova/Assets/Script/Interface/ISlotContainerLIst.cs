@@ -10,7 +10,7 @@ namespace Assets.Script.Interface {
         /// <summary>
         /// Updatet die virtuelle Liste
         /// </summary>
-        void UpdateList();
+        void Refresh();
 
         /// <summary>
         /// Gibt die Anzahl des Items in der virtuellen Liste zurück
@@ -22,13 +22,14 @@ namespace Assets.Script.Interface {
         /// Reduziert den Stack des Items um Count und gibt die Anzahl des Restes zurück
         /// </summary>
         /// <param name="itemname"></param>
-        int Decrease(string itemName, int count);
+        int Remove(string itemName, int count);
 
         /// <summary>
-        /// Fügt die SlotContainerList zum Shipmanagement hinzu
+        /// Versucht einen SlotContainer in die echte Liste zu hängen
         /// </summary>
-        /// <param name=""></param>
-        void AddToShipManager(ShipManager shipManager);
+        /// <param name="slotContainer"></param>
+        bool TryAdd(SlotContainer slotContainer);
+
 
     }
 }

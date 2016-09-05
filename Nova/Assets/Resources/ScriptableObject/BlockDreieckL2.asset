@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf7856508d8a864792baca854008678, type: 3}
+  m_Name: BlockDreieckL2
+  m_EditorClassIdentifier: 
+  itemName: BlockDreieckL2
+  stack: 0
+  maxStack: 10
+  type: 3
+  icon: {fileID: 21300002, guid: a2d1af4b7cb51754282fdc2ba7284918, type: 3}
+  prefab: {fileID: 111158, guid: b93a5164e5a6b45439ad86792e67819b, type: 2}
+  description: 
+  position: 0
+  createsNewShip: 0
+  maxHitPoints: 0
+  Energy: 0
+  Oxygen: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  currentHitPoints: 0
+  upLeft: 0
+  upRight: 0
+  downLeft: 1
+  downRight: 1
+  leftUp: 0
+  leftDown: 1
+  rightUp: 1
+  rightDown: 1
+  forward: 0

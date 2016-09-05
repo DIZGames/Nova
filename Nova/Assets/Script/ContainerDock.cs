@@ -14,7 +14,9 @@ namespace Assets.Script {
         public ToolTip toolTip;
 
         public void TryPlacing(SlotContainer slotContainer) {
-            iUI.Add(slotContainer);
+            ISlotContainerList slotContainerList = iUI.ISlotContainerList;
+            slotContainerList.TryAdd(slotContainer);
+            slotContainerList.Refresh();
         }
 
         public void SetIUI(IUI iUI) {
@@ -35,6 +37,7 @@ namespace Assets.Script {
         public void Exchange(SlotContainer slotContainer) {
             for (int i = 0; i < otherDocks.Count; i++) {
                 otherDocks[i].TryPlacing(slotContainer);
+                Refresh();
             }
             Close();
         }
@@ -51,6 +54,10 @@ namespace Assets.Script {
                 toolTip.gameObject.SetActive(false);
             }
             
+        }
+
+        public void Refresh() {
+            iUI.ISlotContainerList.Refresh();
         }
     }
 }

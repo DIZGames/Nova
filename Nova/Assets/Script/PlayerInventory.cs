@@ -40,7 +40,7 @@ namespace Assets.Script {
             int tempCount = 0;
 
             for (int i = 0; i < interfaceList.Count; i++) {
-                tempCount = interfaceList[i].Decrease(name, count);
+                tempCount = interfaceList[i].Remove(name, count);
                 if (tempCount == 0) {
                     return true;
                 }
@@ -50,7 +50,7 @@ namespace Assets.Script {
 
         public void UpdateLists() {
             for (int i = 0; i < interfaceList.Count; i++) {
-                interfaceList[i].UpdateList();
+                interfaceList[i].Refresh();
             }
         }
     }

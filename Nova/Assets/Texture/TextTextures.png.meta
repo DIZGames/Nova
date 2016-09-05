@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: a031db7d44d410b4c95e61942a4bec9c
-timeCreated: 1469449304
+timeCreated: 1472738717
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -28,7 +28,7 @@ TextureImporter:
     21300042: Bread
     21300044: TestFighter
     21300046: Rocket
-    21300048: BlockYellow
+    21300048: BlockRectangle
     21300050: BlockPurple
     21300052: BlockRed
     21300054: PistolBullet
@@ -499,19 +499,19 @@ TextureImporter:
         - {x: 11, y: -11}
         - {x: 11, y: 8}
         - {x: 7, y: 14}
-    - name: BlockYellow
+    - name: BlockRectangle
       rect:
         serializedVersion: 2
         x: 128
         y: 256
-        width: 64
+        width: 128
         height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.75, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
+      - - {x: -96, y: 32}
+        - {x: -96, y: -32}
         - {x: 32, y: -32}
         - {x: 32, y: 32}
     - name: BlockPurple

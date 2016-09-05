@@ -29,9 +29,21 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
 
     private List<SlotContainer> hotBarList;
 
+    public bool IsActive {
+        get {
+            return uiObject.activeSelf;
+        }
+    }
+
+    public ISlotContainerList ISlotContainerList {
+        get {
+            return this;
+        }
+    }
+
     void Start() {
         hotBarList = new List<SlotContainer>();
-        UpdateList();
+        Refresh();
 
         standardParent = transform.parent;
 }
@@ -122,26 +134,18 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
                 selectedGameObject = iEquippable;
 
                 player.setOnEquipment(go);
-
             }
             else if (slotContainer.ItemBase.type == ItemType.Block) {
-                GameObject blockBuilder = Instantiate(blockBuilderPrefab);
+                GameObject go = Instantiate(blockBuilderPrefab);
 
-                float spawnDistance = 1f;
+                go.transform.position = player.transform.position;
+                go.transform.rotation = player.transform.rotation;
 
-                blockBuilder.transform.position = player.transform.position + player.transform.up * spawnDistance;
-                blockBuilder.transform.rotation = player.transform.rotation;
-
-                EquippedBlockLogic iEquippable = blockBuilder.GetComponent<EquippedBlockLogic>();
-                SpriteRenderer sr = iEquippable.dummyBlockTransform.GetComponent<SpriteRenderer>();
-                sr.sprite = slotContainer.ItemBase.prefab.GetComponent<SpriteRenderer>().sprite;
-                //iEquippable.init();
+                IEquippable iEquippable = go.GetComponent<IEquippable>();
                 iEquippable.SetItem(slotContainer.ItemBase);
-
                 selectedGameObject = iEquippable;
 
-                player.setOnEquipment(blockBuilder);
-
+                player.setOnEquipment(go);
             }
         }
     }
@@ -187,7 +191,7 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
         slotContainer.GetComponent<SlotContainerTooltip>().enabled = flag;
     }
 
-    public void UpdateList() {
+    public void Refresh() {
         hotBarList.Clear();
 
         for (int i = 0; i < slotList.childCount; i++) {
@@ -210,7 +214,7 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
         return count;
     }
 
-    public int Decrease(string itemName, int count) {
+    public int Remove(string itemName, int count) {
         for (int i = 0; i < hotBarList.Count; i++) {
             if (itemName == hotBarList[i].ItemBase.itemName && hotBarList[i].ItemBase.stack != 0) {
                 if (hotBarList[i].ItemBase.stack >= count) {
@@ -226,40 +230,12 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
         return count;
     }
 
-    public void Add(SlotContainer slotContainer) {
-
-        if (selectedSlot != null) {
-            SlotDrop slotDrop = selectedSlot.GetComponent<SlotDrop>();
-
-            if (slotDrop.checkAllowedTypes(slotContainer)) {
-                Transform slotContainerParent = slotContainer.transform.parent;
-                Transform currentContainer;
-
-                if (slotDrop.transform.childCount != 0) {
-                    currentContainer = slotDrop.transform.GetChild(0);
-                    ToggleScriptOfSlotContainer(currentContainer,true);
-                    currentContainer.SetParent(slotContainerParent);
-                }
-
-
-                slotContainer.transform.SetParent(slotDrop.transform);
-                ToggleScriptOfSlotContainer(slotContainer.transform, false);
-                EquipSlotContainer(slotContainer);
-            }
-        }     
-    }
-
     public void Hide() {
 
     }
 
-    public bool IsActive() {
-        return uiObject.activeSelf;
-    }
-
     public void Move(Transform transform) {
         this.transform.SetParent(transform);
-
     }
 
     public void Show() {
@@ -270,16 +246,30 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
         Move(standardParent);
     }
 
-    public bool FreeSlot() {
-        for (int i = 0; i < slotList.childCount; i++) {
-            if (slotList.GetChild(i).childCount == 0) {
+    public bool TryAdd(SlotContainer slotContainer) {
+        if (selectedSlot != null) {
+            SlotDrop slotDrop = selectedSlot.GetComponent<SlotDrop>();
+
+            if (slotDrop.checkAllowedTypes(slotContainer)) {
+                Transform slotContainerParent = slotContainer.transform.parent;
+                Transform currentContainer;
+
+                if (slotDrop.transform.childCount != 0) {
+                    currentContainer = slotDrop.transform.GetChild(0);
+                    ToggleScriptOfSlotContainer(currentContainer, true);
+                    currentContainer.SetParent(slotContainerParent);
+                }
+
+
+                slotContainer.transform.SetParent(slotDrop.transform);
+                ToggleScriptOfSlotContainer(slotContainer.transform, false);
+                EquipSlotContainer(slotContainer);
+
                 return true;
             }
         }
-        return false;
-    }
 
-    public void AddToShipManager(ShipManager shipManager) {
-        throw new NotImplementedException();
+        return false;
+
     }
 }

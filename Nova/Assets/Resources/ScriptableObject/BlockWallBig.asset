@@ -23,4 +23,16 @@ MonoBehaviour:
   maxHitPoints: 1000
   Energy: 0
   Oxygen: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   currentHitPoints: 0
+  upLeft: 1
+  upRight: 1
+  downLeft: 1
+  downRight: 1
+  leftUp: 1
+  leftDown: 1
+  rightUp: 1
+  rightDown: 1
+  forward: 0

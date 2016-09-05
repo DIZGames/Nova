@@ -14,18 +14,21 @@ namespace Assets.Script {
 
         private ShipManager shipManager;
         private GameObject goSlotQueue;
+        private GameObject goSlotContainer;
+
+        [SerializeField]
+        private SlotContainerList slotContainerList;
 
         [SerializeField]
         private ShipManagerUnitType unitType;
-        [SerializeField]
-        private SlotContainerCreator slotContainerCreator;
 
-        public void AddToShipManager(ShipManager shipManager) {
-
-            this.shipManager = shipManager;
+        void Start() {
+            this.shipManager = transform.root.GetComponent<ShipManager>();
 
             goSlotQueue = (GameObject)Resources.Load("Prefab/SlotContainerQueue");
+            goSlotContainer = (GameObject)Resources.Load("Prefab/SlotContainer");
         }
+
 
         public void AddQueue(SlotContainerRecipe slotContainerRecipe) {
 
@@ -44,12 +47,20 @@ namespace Assets.Script {
 
         public void CraftDone(SlotContainerQueue slotContainerQueue) {
 
-            slotContainerCreator.CreateSlotContainer(slotContainerQueue.Recipe.result.item, slotContainerQueue.Recipe.result.count);
+            GameObject go = Instantiate(goSlotContainer);
 
-            Destroy(slotContainerQueue.gameObject);
+            SlotContainer slotContainer = go.GetComponent<SlotContainer>();
 
-            queueList.GetChild(0).SetAsLastSibling();
+            ItemBase itemBase = slotContainerQueue.Recipe.result.item;
+            itemBase.stack = slotContainerQueue.Recipe.result.count;
 
+            slotContainer.ItemBase = itemBase;
+
+            if (slotContainerList.TryAdd(slotContainer)) {
+                Destroy(slotContainerQueue.gameObject);
+
+                queueList.GetChild(0).SetAsLastSibling();
+            }
         }
 
         public void DeleteQueue(Transform transform) {
@@ -67,10 +78,10 @@ namespace Assets.Script {
 
                 if (itemBase != null) {
                     if (shipManager.Decrease(itemBase.name, unitType, 1)) {
-                        slotContainerQueue.RemoveIngredientFromProgress(itemBase);
-                        slotContainerQueue.Progress();
+                        slotContainerQueue.RemoveIngredientFromProgress(itemBase);   
                     }
                 }
+                slotContainerQueue.Progress();
             }
         }
     }
