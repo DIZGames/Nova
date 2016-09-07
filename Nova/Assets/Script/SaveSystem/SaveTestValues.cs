@@ -3,8 +3,10 @@ using System.Collections;
 
 public class SaveTestValues : MonoBehaviour {
 
+    [SaveThis]
     public string newName;
-    public int i;
+    [SaveThis]
+    int i = 99;
 
 
 	// Use this for initialization

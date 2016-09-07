@@ -1,8 +1,78 @@
 namespace Nova;
 
+struct FlatVector2 {
+	a:float;
+	b:float;
+}
+
+struct FlatVector3 {
+	a:float;
+	b:float;
+	c:float;
+}
+
+struct FlatVector4 {
+	a:float;
+	b:float;
+	c:float;
+	d:float;
+}
+
+table StringValuePair {
+	name:string (key);
+	value:string;
+}
+
+table IntValuePair {
+	name:string(key);
+	value:int;
+}
+
+table BoolValuePair {
+	name:string(key);
+	value:bool;
+}
+
+table FloatValuePair {
+	name:string(key);
+	value:float;
+}
+
+table Vector2ValuePair {
+	name:string(key);
+	value:FlatVector2;
+}
+
+table Vector3ValuePair {
+	name:string(key);
+	value:FlatVector3;
+}
+
+table Vector4ValuePair {
+	name:string(key);
+	value:FlatVector4;
+}
+
+table GameObjectValuePair {
+	name:string(key);
+	value:FlatGameObject;
+}
+
+table ComponentValuePair {
+	name:string(key);
+	value:FlatComponent;
+}
+
 // haupt table: hierein kommen alle Daten die nicht zu einem GameObject gehören und alle GameObjects
 table FlatSaveData{
 	gameObjects:[FlatGameObject];
+	stringValues:[StringValuePair];
+	intValues:[IntValuePair];
+	boolValues:[BoolValuePair];
+	floatValues:[FloatValuePair];
+	vector2Values:[Vector2ValuePair];
+	vector3Values:[Vector3ValuePair];
+	vector4Values:[Vector4ValuePair];
 }
 
 table FlatGameObject {
@@ -16,14 +86,26 @@ table FlatGameObject {
   components:[FlatComponent];
 }
 
-table ValuePair {
-	name:string(key);
-	value:string;
-}
-
 table FlatComponent {
 	type:string;
-	values:[ValuePair];
+	stringValues:[StringValuePair];
+	intValues:[IntValuePair];
+	boolValues:[BoolValuePair];
+	floatValues:[FloatValuePair];
+	vector2Values:[Vector2ValuePair];
+	vector3Values:[Vector3ValuePair];
+	vector4Values:[Vector4ValuePair];
+	gameObjects:[GameObjectValuePair];
+	components:[ComponentValuePair];
+}
+
+table value{
+	keyname:string (key);
+	stringValue:string;
+}
+
+table test {
+	values:[value];
 }
 
 

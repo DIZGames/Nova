@@ -13,6 +13,8 @@ public class InterfaceManager : MonoBehaviour {
     public GameObject characterScreen;
     public GameObject hotBar;
 
+    public GameObject saveLoadMenu;
+
     public GameObject playerStat;
     public GameObject weaponStat;
 
@@ -30,6 +32,9 @@ public class InterfaceManager : MonoBehaviour {
 
         if (Input.GetButtonDown("BackPack")) {
             ShowCharacterUI(backPack.GetComponent<UI>(),characterScreen.GetComponent<IUI>(), hotBar.GetComponent<IUI>(), "Character");
+        } else if(Input.GetButtonDown("Cancel")) {
+            backPack.SetActive(false);
+            saveLoadMenu.SetActive(!saveLoadMenu.activeSelf);
         }
 
     }
