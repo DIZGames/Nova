@@ -6,21 +6,18 @@ using UnityEngine;
 public class SaveManager {
 
     private static string saveFolder = "Savegames";
+    private static string fileEnding = ".sav";
+
+
     private static List<GameObject> objectsToSave = new List<GameObject>();
     private static BinaryFormatter bf = new BinaryFormatter();
 
-    //Erzeuge SaveData nur noch hierdrin, siehe "partially" keyword
-    //public static SaveData CreateSaveData()
-    //{
-
-    //}
-
     /// <summary>
-    /// Speichert alle GameObjects in die ein SaveThis Script besitzen
+    /// Speichert alle GameObjects, die ein SaveMe Script besitzen
     /// </summary>
     /// <param name="fileName"></param>
     /// <returns></returns>
-    public static string Save(string fileName)
+    public static string Save(string fileName, SaveFormat format = SaveFormat.BINARY)
     {
         SaveData saveData = new SaveData();
         foreach(GameObject go in objectsToSave)
@@ -34,36 +31,53 @@ public class SaveManager {
     /// <param name="saveFile"></param>
     /// <param name="fileName"></param>
     /// <returns></returns>
-    public static string Save(SaveData saveFile, string fileName)
+    public static string Save(SaveData saveFile, string fileName, SaveFormat format = SaveFormat.BINARY)
     {
-        string filePath = saveFolder + "/" + fileName + ".bin";
-        using (var stream = new MemoryStream())
+        string filePath = saveFolder + "/" + fileName + fileEnding;
+        if (format == SaveFormat.BINARY)
         {
-            bf.Serialize(stream, saveFile);
-            File.WriteAllBytes(filePath, stream.ToArray());
+            using (var stream = new MemoryStream())
+            {
+                bf.Serialize(stream, saveFile);
+                File.WriteAllBytes(filePath, stream.ToArray());
+            }
+
         }
+        else
+            throw new System.Exception("Format not supported");
         return filePath;
     }
 
-    public static SaveData Load(string fileName)
+    public static SaveData Load(string fileName, SaveFormat format = SaveFormat.BINARY)
     {
-        string filePath = saveFolder + "/" + fileName + ".bin";
+        string filePath = saveFolder + "/" + fileName + fileEnding;
         SaveData sd = null;
-        using (var stream = File.OpenRead(filePath))
+        if (format == SaveFormat.BINARY)
         {
-            sd = (SaveData)bf.Deserialize(stream);
+            using (var stream = File.OpenRead(filePath))
+            {
+                sd = (SaveData)bf.Deserialize(stream);
+            }
         }
+        else
+            throw new System.Exception("Format not supported.");
         return sd;
     }
 
-    public static string[] GetAllSaveFiles()
+    public static List<string> GetAllSaveFiles()
     {
-        return Directory.GetFiles(saveFolder);
+        List<string> files = new List<string>();
+        foreach (string file in Directory.GetFiles(saveFolder))
+        {
+            file.Replace(saveFolder + "\\", "").Replace(fileEnding, "");
+            files.Add(file);
+        }
+        return files;
     }
 
     public static void DeleteSaveGame(string fileName)
     {
-        File.Delete(saveFolder + "/" + fileName + ".bin");
+        File.Delete(saveFolder + "/" + fileName + fileEnding);
     }
 
     public static void Add(GameObject go)

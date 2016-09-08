@@ -31,7 +31,6 @@ public class SaveLoadGUI : MonoBehaviour {
             GameObject saveFieldGO = Instantiate<GameObject>(saveFieldPrefab);
             saveFieldGO.transform.SetParent(saveList);
             SaveField saveField = saveFieldGO.GetComponent<SaveField>();
-            saveField.textField.text = filePath.Replace("Savegames\\", "").Replace(".bin", "");
             saveField.dateField.text = File.GetLastWriteTime(filePath).ToString();
             saveField.SetImageColorToDefault();
         }
