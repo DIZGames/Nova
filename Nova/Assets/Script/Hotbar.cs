@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 
 public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
 
-    public Player player;
+    private Player player;
     public InterfaceManager interfaceManager;
 
     public GameObject blockBuilderPrefab;
@@ -44,7 +44,7 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
     void Start() {
         hotBarList = new List<SlotContainer>();
         Refresh();
-
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         standardParent = transform.parent;
 }
 
