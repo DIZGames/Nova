@@ -38,6 +38,8 @@ public class SlotContainerCreatorEditor : Editor {
         }
 
         itemIndex = EditorGUILayout.Popup("", itemIndex, items, EditorStyles.popup);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
         itemValue = EditorGUILayout.IntField("", itemValue, GUILayout.Width(40));
         GUI.color = Color.yellow;
         if (GUILayout.Button("Add Item")) {

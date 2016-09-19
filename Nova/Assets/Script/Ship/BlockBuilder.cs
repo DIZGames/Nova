@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEditor;
 
 namespace Assets.Script {
     public class BlockBuilder : MonoBehaviour, IEquippable {
@@ -274,7 +275,7 @@ namespace Assets.Script {
                             break;
                     }
 
-                    GameObject go = (GameObject)Instantiate(itemBlock.prefab);
+                    GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(itemBlock.prefab);
 
                     go.transform.SetParent(hitTransform.root);
                    
@@ -287,8 +288,8 @@ namespace Assets.Script {
             }
             else { // New Ship
                 if (dummyBlockScript.isNotBlocking && itemBlock.createsNewShip) {
-                    GameObject goShip = Instantiate(shipPrefab);
-                    GameObject go = Instantiate(itemBlock.prefab);
+                    GameObject goShip = (GameObject)PrefabUtility.InstantiatePrefab(shipPrefab);
+                    GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(itemBlock.prefab);
 
                     go.transform.SetParent(goShip.transform, false);
 
