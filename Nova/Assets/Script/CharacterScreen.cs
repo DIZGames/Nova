@@ -11,7 +11,7 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
     private List<SlotContainer> characterScreenList;
     public Transform slotList;
 
-    public Player player;
+    private Player player;
 
     [SerializeField]
     private GameObject uiObject;
@@ -34,6 +34,7 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
     void Start() {
         standardParent = transform.parent;
         characterScreenList = new List<SlotContainer>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         Refresh();
     }
 

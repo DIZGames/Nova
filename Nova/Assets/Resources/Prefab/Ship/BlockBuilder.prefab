@@ -70,27 +70,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79c2ab12f06fc94d9436beb0aa5764c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAttached: 0
-  isNotBlocking: 0
-  isAttachable: 0
+  layerMaskAttachableShipBottom:
+    serializedVersion: 2
+    m_Bits: 2304
+  layerMaskAttachableShipMiddle:
+    serializedVersion: 2
+    m_Bits: 256
+  layerMaskAttachableShipTop:
+    serializedVersion: 2
+    m_Bits: 7168
+  layerMaskAttachableShipOnTop:
+    serializedVersion: 2
+    m_Bits: 3072
+  layerMaskAttachableShip:
+    serializedVersion: 2
+    m_Bits: 2304
+  layerMaskAttachableBetween:
+    serializedVersion: 2
+    m_Bits: 256
   rayLength: 0.26
   colorBuildable: {r: 1, g: 1, b: 1, a: 0.78431374}
   colorNotBuildable: {r: 1, g: 1, b: 1, a: 0.19607843}
-  layerMaskShipBottom:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  layerMaskShipMiddle:
-    serializedVersion: 2
-    m_Bits: 4294967039
-  layerMaskShipTop:
-    serializedVersion: 2
-    m_Bits: 0
-  layerMaskShip:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  layerMaskBetween:
-    serializedVersion: 2
-    m_Bits: 4294967039
+  isDebug: 1
+  isAttached: 0
+  isNotBlocking: 0
+  isAttachable: 0
 --- !u!114 &11409732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,28 +106,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b1cc58a2d28f644b8240922ed320b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipPrefab: {fileID: 0}
-  layerMaskShipBottom:
+  layerMaskAttachShipBottom:
     serializedVersion: 2
     m_Bits: 2304
-  layerMaskShipMiddle:
+  layerMaskAttachShipMiddle:
     serializedVersion: 2
     m_Bits: 256
-  layerMaskShipTop:
+  layerMaskAttachShipTop:
     serializedVersion: 2
     m_Bits: 256
-  layerMaskShipOnTop:
+  layerMaskAttachShipOnTop:
     serializedVersion: 2
-    m_Bits: 1024
-  layerMaskShip:
+    m_Bits: 3072
+  layerMaskAttachShip:
     serializedVersion: 2
     m_Bits: 2304
-  layerMaskBetween:
+  layerMaskAttachBetween:
     serializedVersion: 2
     m_Bits: 256
   dummyBlock: {fileID: 434912}
   dummyBlockScript: {fileID: 11404156}
-  hitTransform: {fileID: 0}
 --- !u!212 &21210080
 SpriteRenderer:
   m_ObjectHideFlags: 1

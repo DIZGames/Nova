@@ -18,21 +18,28 @@ MonoBehaviour:
   icon: {fileID: 21300048, guid: a031db7d44d410b4c95e61942a4bec9c, type: 3}
   prefab: {fileID: 165802, guid: 4b0a66e183b4d0449a385b684625ce13, type: 2}
   description: asdasd
-  position: 0
+  position: 3
   createsNewShip: 0
   maxHitPoints: 200
   Energy: 0
   Oxygen: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
   currentHitPoints: 0
-  upLeft: 1
-  upRight: 1
-  downLeft: 1
-  downRight: 1
-  leftUp: 0
-  leftDown: 0
-  rightUp: 1
-  rightDown: 1
-  forward: 0
+  buildLevel: 0
+  attachedRay:
+    origin: {x: 0, y: 0, z: 0}
+    direction: {x: 0, y: 0, z: 0}
+    distance: 0
+    isMandatory: 0
+  attachableRaysForward:
+  - origin: {x: 0, y: 0, z: 0.5}
+    direction: {x: 0, y: 0, z: 1}
+    distance: 0.5
+    isMandatory: 1
+  - origin: {x: -1, y: 0, z: 0.5}
+    direction: {x: 0, y: 0, z: 1}
+    distance: 0.5
+    isMandatory: 1
+  attachableRaysUp: []
+  attachableRaysDown: []
+  attachableRaysRight: []
+  attachableRaysLeft: []

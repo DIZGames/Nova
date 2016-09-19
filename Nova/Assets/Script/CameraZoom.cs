@@ -16,7 +16,7 @@ namespace Assets.Script {
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0) {
 
-                if (Camera.main.orthographicSize > 0f) {
+                if (Camera.main.orthographicSize > 1f) {
                     Camera.main.orthographicSize -= 0.5f;
                 }
 

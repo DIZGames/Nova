@@ -23,16 +23,31 @@ MonoBehaviour:
   maxHitPoints: 0
   Energy: 0
   Oxygen: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
   currentHitPoints: 0
-  upLeft: 1
-  upRight: 1
-  downLeft: 0
-  downRight: 0
-  leftUp: 1
-  leftDown: 0
-  rightUp: 1
-  rightDown: 0
-  forward: 0
+  buildLevel: 0
+  attachedRay:
+    origin: {x: 0, y: 0, z: 0}
+    direction: {x: 0, y: 0, z: 0}
+    distance: 0
+    isMandatory: 0
+  attachableRaysForward: []
+  attachableRaysUp:
+  - origin: {x: 0.25, y: 0.25, z: 1}
+    direction: {x: 0, y: 1, z: 0}
+    distance: 0.26
+    isMandatory: 0
+  - origin: {x: -0.25, y: 0.25, z: 1}
+    direction: {x: 0, y: 1, z: 0}
+    distance: 0.26
+    isMandatory: 0
+  attachableRaysDown: []
+  attachableRaysRight:
+  - origin: {x: 0.25, y: 0.25, z: 1}
+    direction: {x: 1, y: 0, z: 0}
+    distance: 0.26
+    isMandatory: 0
+  attachableRaysLeft:
+  - origin: {x: -0.25, y: 0.25, z: 1}
+    direction: {x: -1, y: 0, z: 0}
+    distance: 0.26
+    isMandatory: 0

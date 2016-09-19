@@ -9,28 +9,44 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fcf7856508d8a864792baca854008678, type: 3}
-  m_Name: BlockFloor
+  m_Name: BlockTop
   m_EditorClassIdentifier: 
-  itemName: BlockFloor
+  itemName: BlockTop
   stack: 0
-  maxStack: 64
+  maxStack: 10
   type: 3
-  icon: {fileID: 21300000, guid: 71946ac5ede597f4287596d63e493fc4, type: 3}
-  prefab: {fileID: 115452, guid: 6cbb8be2e3c09f0499feed4a4c2027ed, type: 2}
-  description: asdasd
-  position: 4
-  createsNewShip: 1
-  maxHitPoints: 100
+  icon: {fileID: 21300006, guid: 71946ac5ede597f4287596d63e493fc4, type: 3}
+  prefab: {fileID: 142734, guid: ad744012850371a4189dcb1759044cd2, type: 2}
+  description: 
+  position: 2
+  createsNewShip: 0
+  maxHitPoints: 0
   Energy: 0
   Oxygen: 0
   currentHitPoints: 0
-  buildLevel: 1
+  buildLevel: -1
   attachedRay:
     origin: {x: 0, y: 0, z: 0}
     direction: {x: 0, y: 0, z: 0}
     distance: 0
     isMandatory: 0
-  attachableRaysForward: []
+  attachableRaysForward:
+  - origin: {x: 0.45, y: 0, z: 0.1}
+    direction: {x: 0, y: 0, z: 1}
+    distance: 0.5
+    isMandatory: 0
+  - origin: {x: -0.45, y: 0, z: 0.1}
+    direction: {x: 0, y: 0, z: 1}
+    distance: 0.5
+    isMandatory: 0
+  - origin: {x: 0, y: 0.45, z: 0.1}
+    direction: {x: 0, y: 0, z: 1}
+    distance: 0.5
+    isMandatory: 0
+  - origin: {x: 0, y: -0.45, z: 0.1}
+    direction: {x: 0, y: 0, z: 1}
+    distance: 0.5
+    isMandatory: 0
   attachableRaysUp:
   - origin: {x: 0.25, y: 0.25, z: 0}
     direction: {x: 0, y: 1, z: 0}

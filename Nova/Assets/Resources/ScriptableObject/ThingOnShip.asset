@@ -23,9 +23,6 @@ MonoBehaviour:
   maxHitPoints: 11
   Energy: 0
   Oxygen: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
   currentHitPoints: 0
   upLeft: 0
   upRight: 0
@@ -35,4 +32,9 @@ MonoBehaviour:
   leftDown: 0
   rightUp: 0
   rightDown: 0
-  forward: 1
+  buildLevel: 0
+  attachableRaysForward:
+  - origin: {x: 0, y: 0, z: 0.5}
+    direction: {x: 0, y: 0, z: 1}
+    distance: 0.5
+    isMandatory: 0

@@ -9,39 +9,32 @@ namespace Assets.Script {
     public class BlockBuilder : MonoBehaviour, IEquippable {
 
         [SerializeField]
-        private GameObject shipPrefab;
-
+        private LayerMask layerMaskAttachShipBottom;
         [SerializeField]
-        private LayerMask layerMaskShipBottom;
+        private LayerMask layerMaskAttachShipMiddle;
         [SerializeField]
-        private LayerMask layerMaskShipMiddle;
+        private LayerMask layerMaskAttachShipTop;
         [SerializeField]
-        private LayerMask layerMaskShipTop;
+        private LayerMask layerMaskAttachShipOnTop;
         [SerializeField]
-        private LayerMask layerMaskShipOnTop;
-
+        private LayerMask layerMaskAttachShip;
         [SerializeField]
-        private LayerMask layerMaskShip;
-        [SerializeField]
-        private LayerMask layerMaskBetween;
-        private LayerMask layerMask;
+        private LayerMask layerMaskAttachBetween;
 
         [SerializeField]
         private Transform dummyBlock;
-        public BlockDummy dummyBlockScript;
-
         [SerializeField]
-        private Transform hitTransform;
+        private BlockDummy dummyBlockScript;
 
+        private GameObject shipPrefab;
+        private LayerMask layerAttachMask;
+        private Transform hitTransform;
         ItemBlock itemBlock;
         int rotation = 0;
         string orientation;
 
         void Start() {
             shipPrefab = (GameObject)Resources.Load("Prefab/Ship/Ship");
-
-
-            //InvokeRepeating("raycasting",1,1); 
         }
 
         void Update() {
@@ -52,96 +45,85 @@ namespace Assets.Script {
             //raycasting();
         }
 
-        private Vector2 asd2;
-        private Vector2 ASD4;
-
         void raycasting() {
-            dummyBlockScript.isAttached = false;
-            //RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position + transform.up / 4, transform.rotation* Vector2.up, 1);
 
-            //Debug.DrawRay(transform.position + transform.up/3 , transform.rotation * Vector2.up * 1.5f, Color.magenta, 0.1f);
-
-            //foreach (RaycastHit2D hit in hits) {
-            //    InteractWithPlayerRaycast interactWithPlayerRaycast = hit.collider.gameObject.GetComponent<InteractWithPlayerRaycast>();
-            //    if (interactWithPlayerRaycast != null)
-            //        interactWithPlayerRaycast.RaycastAction();
-            //}
-
-            Vector2 asd = new Vector2();
-             ASD4 = new Vector2();
-
+            Vector3 hitVect = new Vector3();
             hitTransform = null;
 
+            Debug.DrawRay(transform.position + transform.up * 1 / 2, transform.rotation  * new Vector3(0, 1, 1), Color.magenta, 0.2f);
 
+            dummyBlock.rotation = transform.rotation;
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up, transform.rotation * Vector2.up * 1, 1.5f, layerMask);
+            //dummyBlock.position = transform.position + transform.up;
+
+            Vector3 vectPos = transform.position + transform.up;
+            vectPos.z = itemBlock.buildLevel;
+            dummyBlock.position = vectPos;
+
+            dummyBlockScript.isAttached = false;
+
+            RaycastHit hit;
+            Physics.Raycast(transform.position + transform.up * 1 / 2, transform.rotation * new Vector3(0, 1, 1), out hit,2, layerAttachMask);
+
             if (hit.collider != null) {
 
                 hitTransform = hit.collider.transform;
-                asd = hit.collider.transform.InverseTransformPoint(hit.point);
-
-                //asd = hit.collider.transform.localPosition;
+                hitVect = hit.collider.transform.InverseTransformPoint(hit.point);
 
                 double x = 0;
                 double y = 0;
 
-                x = Math.Round((double)asd.x, 1);
-                y = Math.Round((double)asd.y, 1);
+                x = Math.Round((double)hitVect.x, 1);
+                y = Math.Round((double)hitVect.y, 1);
 
-                asd.x = (float)x;
-                asd.y = (float)y;
-
-                dummyBlock.rotation = transform.rotation;
-                dummyBlock.position = transform.position + transform.up;
-
-                dummyBlockScript.isAttached = false;
-
-                //Debug.Log("XY: " + asd.x + "   " + asd.y);
-
-                //Debug.Log("Worldspace: " + hit.point);
-
-
-                //dummyBlock.Rotate(0,0,rotation);
-                asd2 = asd;
-                ASD4 = hitTransform.TransformPoint(asd2);
+                hitVect.x = (float)x;
+                hitVect.y = (float)y;
 
                 if ((itemBlock.position == BlockPosition.CENTER || itemBlock.position == BlockPosition.CENTER_BOTTOM)) {
                     //up
-                    if (asd.y > Math.Abs(asd.x)) {//asd.y == 0.5f) {
-                        //Debug.Log("UP");
+                    if (hitVect.y > Math.Abs(hitVect.x)) {
                         orientation = "up";
 
-                        dummyBlock.position = hitTransform.position + hitTransform.TransformVector(Vector2.up);
+                        Vector3 vect = hitTransform.position + hitTransform.TransformVector(Vector2.up);
+                        vect.z = itemBlock.buildLevel;
+                        dummyBlock.position = vect;
+
                         dummyBlock.rotation = hitTransform.rotation;
                         dummyBlock.Rotate(0, 0, rotation);
                     }
 
                     //down
-                    if (asd.y == -0.5f) {
-                        //Debug.Log("DOWN");
+                    if (hitVect.y == -0.5f) {
                         orientation = "down";
 
-                        dummyBlock.position = hitTransform.position + hitTransform.TransformVector(Vector2.down);
+                        Vector3 vect = hitTransform.position + hitTransform.TransformVector(Vector2.down);
+                        vect.z = itemBlock.buildLevel;
+                        dummyBlock.position = vect;
+
                         dummyBlock.rotation = hitTransform.rotation; ;
                         dummyBlock.Rotate(0, 0, rotation);
                     }
 
                     //left
-                    if (asd.x == -0.5f) {
-                        //Debug.Log("LEFT");
+                    if (hitVect.x == -0.5f) {
                         orientation = "left";
 
-                        dummyBlock.position = hitTransform.position + hitTransform.TransformVector(Vector2.left);
+                        Vector3 vect = hitTransform.position + hitTransform.TransformVector(Vector2.left);
+                        vect.z = itemBlock.buildLevel;
+                        dummyBlock.position = vect;
+
                         dummyBlock.rotation = hitTransform.rotation; ;
                         dummyBlock.Rotate(0, 0, rotation);
                     }
 
                     //right
-                    if (asd.x == 0.5f) {
-                        //Debug.Log("RIGHT");
+                    if (hitVect.x == 0.5f) {
                         orientation = "right";
 
-                        dummyBlock.position = hitTransform.position + hitTransform.TransformVector(Vector2.right);
+                        Vector3 vect = hitTransform.position + hitTransform.TransformVector(Vector2.right);
+                        vect.z = itemBlock.buildLevel;
+                        dummyBlock.position = vect;
+
                         dummyBlock.rotation = hitTransform.rotation; ;
                         dummyBlock.Rotate(0, 0, rotation);
                     }
@@ -150,7 +132,10 @@ namespace Assets.Script {
                 if (itemBlock.position == BlockPosition.CENTER_MIDDLE) {
                     orientation = "center";
 
-                    dummyBlock.position = hitTransform.position;
+                    Vector3 vect = hitTransform.position;
+                    vect.z = itemBlock.buildLevel;
+                    dummyBlock.position = vect;
+
                     dummyBlock.rotation = hitTransform.rotation;
                     dummyBlock.Rotate(0, 0, rotation);
                 }
@@ -158,56 +143,73 @@ namespace Assets.Script {
                 if (itemBlock.position == BlockPosition.BETWEEN) {
 
                     //up
-                    if (asd.y > Math.Abs(asd.x)) {
+                    if (hitVect.y > Math.Abs(hitVect.x)) {
                         orientation = "betweenUp";
 
-                        dummyBlock.position = hitTransform.position + hitTransform.TransformVector(Vector2.up) * 1 / 2;
+                        Vector3 vect = hitTransform.position + hitTransform.TransformVector(Vector2.up) * 0.46f;
+                        vect.z = itemBlock.buildLevel;
+                        dummyBlock.position = vect;
+
                         dummyBlock.rotation = hitTransform.rotation;
                     }
                     //down
-                    if (asd.y < -Math.Abs(asd.x)) {
+                    if (hitVect.y < -Math.Abs(hitVect.x)) {
                         orientation = "betweenDown";
 
-                        dummyBlock.position = hitTransform.position + hitTransform.TransformVector(Vector2.down) * 1 / 2;
+                        Vector3 vect = hitTransform.position + hitTransform.TransformVector(Vector2.down) * 0.46f;
+                        vect.z = itemBlock.buildLevel;
+                        dummyBlock.position = vect;
+
                         dummyBlock.rotation = hitTransform.rotation;
                         dummyBlock.Rotate(0, 0, 180);
                     }
                     //right
-                    if (asd.x > Math.Abs(asd.y)) {
+                    if (hitVect.x > Math.Abs(hitVect.y)) {
                         orientation = "betweenRight";
 
-                        dummyBlock.position = hitTransform.position + hitTransform.TransformVector(Vector2.right) * 1 / 2;
+                        Vector3 vect = hitTransform.position + hitTransform.TransformVector(Vector2.right) * 0.46f;
+                        vect.z = itemBlock.buildLevel;
+                        dummyBlock.position = vect;
+
                         dummyBlock.rotation = hitTransform.rotation;
                         dummyBlock.Rotate(0, 0, 270);
                     }
                     //left
-                    if (asd.x < -Math.Abs(asd.y)) {
+                    if (hitVect.x < -Math.Abs(hitVect.y)) {
                         orientation = "betweenLeft";
 
-                        dummyBlock.position = hitTransform.position + hitTransform.TransformVector(Vector2.left) * 1 / 2;
+                        Vector3 vect = hitTransform.position + hitTransform.TransformVector(Vector2.left) * 0.46f;
+                        vect.z = itemBlock.buildLevel;
+                        dummyBlock.position = vect;
+
                         dummyBlock.rotation = hitTransform.rotation;
                         dummyBlock.Rotate(0, 0, 90);
                     }
                 }
 
+                if (itemBlock.position == BlockPosition.CENTER_TOP){
+                    orientation = "top";
+
+                    Vector3 vect = hitTransform.position;
+                    vect.z = itemBlock.buildLevel;
+                    dummyBlock.position = vect;
+
+                    dummyBlock.rotation = hitTransform.rotation;
+                    dummyBlock.Rotate(0, 0, rotation);
+                }
+
                 if (itemBlock.position == BlockPosition.CENTER_ONTOP) {
                     orientation = "ontop";
 
-                    dummyBlock.position = hitTransform.position;
+                    Vector3 vect = hitTransform.position;
+                    vect.z = itemBlock.buildLevel;
+                    dummyBlock.position = vect;
+
                     dummyBlock.rotation = hitTransform.rotation;
                     dummyBlock.Rotate(0, 0, rotation);
-
-                    Debug.Log("ON TOP" + hitTransform.name);
                 }
 
                 dummyBlockScript.isAttached = true;
-            }
-            else {
-                dummyBlock.rotation = transform.rotation;
-                dummyBlock.position = transform.position + transform.up;
-
-                //dummyBlock.Rotate(0, 0, rotation);
-                dummyBlockScript.isAttached = false;
             }
 
             if ((dummyBlockScript.isAttached && dummyBlockScript.isAttachable && dummyBlockScript.isNotBlocking) || (dummyBlockScript.isNotBlocking && itemBlock.createsNewShip))
@@ -217,58 +219,57 @@ namespace Assets.Script {
         }
 
         public void RaycastAction1() {
-            if (dummyBlockScript.isAttached && dummyBlockScript.isAttachable && dummyBlockScript.isNotBlocking) {
 
-                if (hitTransform != null) {
+            if (dummyBlockScript.isAttached && dummyBlockScript.isAttachable && dummyBlockScript.isNotBlocking) {
+                if (hitTransform != null) { 
                     Vector3 vect = new Vector3();
                     switch (orientation) {
                         case "up":
-                            //vect = Vector3.up;
-                            vect = hitTransform.root.InverseTransformVector(hitTransform.up); 
+                            vect = hitTransform.localPosition + hitTransform.root.InverseTransformVector(hitTransform.up);
+                            vect.z = itemBlock.buildLevel;
                             break;
                         case "down":
-                            //vect = Vector3.down;
-                            vect = hitTransform.root.InverseTransformVector(-hitTransform.up);
-                            //vect = -hitTransform.up;
+                            vect = hitTransform.localPosition + hitTransform.root.InverseTransformVector(-hitTransform.up);
+                            vect.z = itemBlock.buildLevel;
                             break;
                         case "left":
-                            //vect = Vector3.left;
-                            vect = hitTransform.root.InverseTransformVector(-hitTransform.right);
-                            //vect = -hitTransform.right;
+                            vect = hitTransform.localPosition + hitTransform.root.InverseTransformVector(-hitTransform.right);
+                            vect.z = itemBlock.buildLevel;
                             break;
                         case "right":
-                            //vect = Vector3.right;
-                            vect = hitTransform.root.InverseTransformVector(hitTransform.right);
-                            //vect = hitTransform.right;
+                            vect = hitTransform.localPosition + hitTransform.root.InverseTransformVector(hitTransform.right);
+                            vect.z = itemBlock.buildLevel;
                             break;
                         case "center":
-                            vect = Vector3.zero;
+                            vect = hitTransform.localPosition + Vector3.zero;
+                            vect.z = itemBlock.buildLevel;
+                            break;
+                        case "top":
+                            vect = hitTransform.localPosition + Vector3.zero;
+                            vect.z = itemBlock.buildLevel;
                             break;
                         case "ontop":
-                            vect = hitTransform.parent.localPosition; ;
+                            vect = hitTransform.localPosition + Vector3.zero;
+                            vect.z = itemBlock.buildLevel;
                             break;
                         case "betweenUp":
-                            vect = hitTransform.root.InverseTransformVector(hitTransform.up)*1/2;
-
-                            //vect = hitTransform.up*1/2; //Vector3.up * 1 / 2;
+                            vect = hitTransform.localPosition + hitTransform.root.InverseTransformVector(hitTransform.up) * 0.46f;
+                            vect.z = itemBlock.buildLevel;
                             rotation = 0;
                             break;
                         case "betweenDown":
-                            vect = -hitTransform.root.InverseTransformVector(hitTransform.up) * 1 / 2;
-                            //vect = -hitTransform.up * 1 / 2;
-                            //vect = Vector3.down * 1 / 2;
+                            vect = hitTransform.localPosition - hitTransform.root.InverseTransformVector(hitTransform.up) * 0.46f;
+                            vect.z = itemBlock.buildLevel;
                             rotation = 180;
                             break;
                         case "betweenRight":
-                            vect = hitTransform.root.InverseTransformVector(hitTransform.right) * 1 / 2;
-                            //vect = hitTransform.right * 1 / 2;
-                            //vect = Vector3.right * 1 / 2;
+                            vect = hitTransform.localPosition + hitTransform.root.InverseTransformVector(hitTransform.right) * 0.46f;
+                            vect.z = itemBlock.buildLevel;
                             rotation = 270;
                             break;
                         case "betweenLeft":
-                            vect = -hitTransform.root.InverseTransformVector(hitTransform.right) * 1 / 2;
-                            //vect = -hitTransform.right * 1 / 2;
-                            //vect = Vector3.left * 1 / 2;
+                            vect = hitTransform.localPosition - hitTransform.root.InverseTransformVector(hitTransform.right) * 0.46f;
+                            vect.z = itemBlock.buildLevel;
                             rotation = 90;
                             break;
                     }
@@ -277,14 +278,14 @@ namespace Assets.Script {
 
                     go.transform.SetParent(hitTransform.root);
                    
-                    go.transform.localPosition = hitTransform.localPosition + vect;
+                    go.transform.localPosition = vect;
                     go.transform.localRotation = hitTransform.localRotation;
                     go.transform.Rotate(0, 0, rotation, Space.Self);
 
                     go.name = (itemBlock.itemName);
                 }
             }
-            else {
+            else { // New Ship
                 if (dummyBlockScript.isNotBlocking && itemBlock.createsNewShip) {
                     GameObject goShip = Instantiate(shipPrefab);
                     GameObject go = Instantiate(itemBlock.prefab);
@@ -297,8 +298,16 @@ namespace Assets.Script {
                     go.transform.position = goShip.transform.position;
                     go.transform.rotation = goShip.transform.rotation;
 
-                    //go.transform.rotation = Quaternion.EulerAngles(0, 0, 0);
-                    //goShip.transform.rotation = Quaternion.EulerAngles(0, 0, 0);
+                    Vector3 vectPos = goShip.transform.position;
+                    vectPos.z = 0;
+                    goShip.transform.position = vectPos;
+
+                    Vector3 vect = go.transform.position;
+                    vect.z = itemBlock.buildLevel;
+                    go.transform.position = vect;
+
+
+
                 }
             }
         }
@@ -327,8 +336,7 @@ namespace Assets.Script {
 
         public void RaycastAction3() {
             Debug.Log(orientation);
-            Debug.Log("Hitpoint:" + asd2);
-            Debug.Log("Hitpoint:" + ASD4);
+
             
         }
     
@@ -339,26 +347,26 @@ namespace Assets.Script {
 
             switch (this.itemBlock.position) {
                 case BlockPosition.CENTER_BOTTOM:
-                    layerMask = layerMaskShipBottom;
+                    layerAttachMask = layerMaskAttachShipBottom;
                     break;
                 case BlockPosition.CENTER_MIDDLE:
-                    layerMask = layerMaskShipMiddle;
+                    layerAttachMask = layerMaskAttachShipMiddle;
                     break;
                 case BlockPosition.CENTER_TOP:
-                    layerMask = layerMaskShipTop;
+                    layerAttachMask = layerMaskAttachShipTop;
                     break;
                 case BlockPosition.CENTER:
-                    layerMask = layerMaskShip;
+                    layerAttachMask = layerMaskAttachShip;
                     break;
                 case BlockPosition.BETWEEN:
-                    layerMask = layerMaskBetween;
+                    layerAttachMask = layerMaskAttachBetween;
                     break;
                 case BlockPosition.CENTER_ONTOP:
-                    layerMask = layerMaskShipOnTop;
+                    layerAttachMask = layerMaskAttachShipOnTop;
                     break;
             }
 
-            dummyBlock.GetComponent<BlockDummy>().SetItem(itemBlock,layerMask);
+            dummyBlock.GetComponent<BlockDummy>().SetItem(itemBlock);
 
         }
 

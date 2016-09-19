@@ -10,9 +10,9 @@ GameObject:
   - 4: {fileID: 438794}
   - 212: {fileID: 21286496}
   - 114: {fileID: 11485394}
-  - 61: {fileID: 6130472}
   - 114: {fileID: 11478414}
   - 114: {fileID: 11458726}
+  - 65: {fileID: 6570374}
   m_Layer: 9
   m_Name: Cockpit
   m_TagString: Untagged
@@ -32,20 +32,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6130472
-BoxCollider2D:
+--- !u!65 &6570374
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150150}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11458726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,7 +102,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1740470115
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300006, guid: 96daccc678c6f1b4d92eedba896cd360, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

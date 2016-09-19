@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 407320}
   - 212: {fileID: 21218240}
   - 114: {fileID: 11466162}
-  - 61: {fileID: 6106544}
-  m_Layer: 9
+  - 65: {fileID: 6595582}
+  m_Layer: 12
   m_Name: BlockWallThin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,20 +30,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6106544
-BoxCollider2D:
+--- !u!65 &6595582
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107064}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.0390625}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.078125}
+  m_Size: {x: 1, y: 0.08, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11466162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1740470115
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 96daccc678c6f1b4d92eedba896cd360, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
