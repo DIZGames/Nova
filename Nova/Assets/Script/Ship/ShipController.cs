@@ -19,6 +19,18 @@ namespace Assets.Script.Ship {
             rb2d = GetComponent<Rigidbody2D>();
         }
 
+        void Update() {
+            Vector3 vect = transform.position;
+            vect.z = 0;
+            transform.position = vect;
+
+            transform.eulerAngles = new Vector3(0,0,transform.rotation.eulerAngles.z);
+
+        }
+
+        void FixedUpdate() {
+            
+        }
 
 
         public void AddThrusterAction(UnityAction actionThruster, int degree) {
