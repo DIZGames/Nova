@@ -1,4 +1,5 @@
 ﻿
+using Assets.Script.Ship;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,15 +16,14 @@ namespace Assets.Script.ItemSystem {
 
         public int currentHitPoints;
 
-        public bool upLeft;
-        public bool upRight;
-        public bool downLeft;
-        public bool downRight;
-        public bool leftUp;
-        public bool leftDown;
-        public bool rightUp;
-        public bool rightDown;
-        public bool forward;
+        [Header("BlockBuilding")]
+        public int buildLevel;
+        public AttachableRay attachedRay; 
+        public List<AttachableRay> attachableRaysForward;
+        public List<AttachableRay> attachableRaysUp;
+        public List<AttachableRay> attachableRaysDown;
+        public List<AttachableRay> attachableRaysRight;
+        public List<AttachableRay> attachableRaysLeft;
 
         public override ItemBase Clone() {
             return Instantiate(this) as ItemBlock;

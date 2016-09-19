@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 449318}
   - 212: {fileID: 21270724}
   - 114: {fileID: 11417610}
-  - 61: {fileID: 6195636}
   - 114: {fileID: 11494776}
+  - 65: {fileID: 6526442}
   m_Layer: 11
   m_Name: Thruster
   m_TagString: Untagged
@@ -31,20 +31,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6195636
-BoxCollider2D:
+--- !u!65 &6526442
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164040}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1, z: 2.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11417610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,7 +89,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -387891481
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300004, guid: 96daccc678c6f1b4d92eedba896cd360, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

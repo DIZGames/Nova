@@ -40,24 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Ship_Bottom
-    uniqueID: 2379112137
-    locked: 0
-  - name: Ship_Middle
-    uniqueID: 1740470115
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: Player
     uniqueID: 771302649
-    locked: 0
-  - name: Ship_Top
-    uniqueID: 3907075815
-    locked: 0
-  - name: Ship_OnTop
-    uniqueID: 2928326885
-    locked: 0
-  - name: PlayerUp
-    uniqueID: 4076042777
-    locked: 0
-  - name: Default
-    uniqueID: 0
     locked: 0

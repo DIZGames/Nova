@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 474654}
   - 212: {fileID: 21255058}
   - 114: {fileID: 11415616}
-  - 60: {fileID: 6049432}
+  - 135: {fileID: 13528900}
   m_Layer: 14
   m_Name: BlockOnTop
   m_TagString: Untagged
@@ -30,28 +30,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!60 &6049432
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137256}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths:
-    - - {x: -0.046875, y: 0.5}
-      - {x: -0.5, y: 0.046875}
-      - {x: -0.5, y: -0.046875}
-      - {x: -0.046875, y: -0.5}
-      - {x: 0.046875, y: -0.5}
-      - {x: 0.5, y: -0.046875}
-      - {x: 0.5, y: 0.046875}
-      - {x: 0.046875, y: 0.5}
 --- !u!114 &11415616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -63,6 +41,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1980e3918e507f47b2af4e4f22299e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &13528900
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.44
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &21255058
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -87,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1366640411
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 64ff0b2df49c0544488fc294d211379a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

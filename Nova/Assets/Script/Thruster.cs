@@ -9,11 +9,11 @@ namespace Assets.Script {
     public class Thruster : MonoBehaviour{
 
         private ShipController shipController;
-        private Rigidbody2D rb2d;
+        private Rigidbody rb;
 
         void Start() {
             shipController = transform.root.GetComponent<ShipController>();
-            rb2d = transform.root.GetComponent<Rigidbody2D>();
+            rb = transform.root.GetComponent<Rigidbody>();
 
 
             Vector3 eulerAngles = transform.rotation.eulerAngles;
@@ -32,7 +32,7 @@ namespace Assets.Script {
             Vector3 asdwer = transform.root.position - transform.position;
             float angle = Vector3.Angle(transform.root.position, transform.position);
 
-            rb2d.AddForce(transform.up * 200);
+            rb.AddForce(transform.up * 200);
 
             
 

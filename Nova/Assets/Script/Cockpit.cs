@@ -21,7 +21,7 @@ namespace Assets.Script {
             shipController = transform.root.GetComponent<ShipController>();
 
             //Destroy(playerController.GetComponent<Rigidbody2D>());
-            playerController.GetComponent<Rigidbody2D>().isKinematic = false;
+            playerController.GetComponent<Rigidbody>().isKinematic = false;
             flag = true;
 
 
@@ -78,7 +78,7 @@ namespace Assets.Script {
             if (Input.GetButtonDown("Use")) {
 
                 //playerController.gameObject.
-                playerController.GetComponent<Rigidbody2D>().isKinematic = false;
+                playerController.GetComponent<Rigidbody>().isKinematic = false;
                 flag = false;
                 //playerController.GetComponent<Rigidbody2D>().WakeUp();
                 this.enabled = false;

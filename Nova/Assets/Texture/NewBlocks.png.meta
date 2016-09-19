@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 96daccc678c6f1b4d92eedba896cd360
-timeCreated: 1474057449
+guid: 71946ac5ede597f4287596d63e493fc4
+timeCreated: 1474058359
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: WallThin2
-    21300002: DoorThin
-    21300004: Thruster
-    21300006: Cockpit
+    21300000: NewBlocks_0
+    21300002: NewBlocks_1
+    21300004: NewBlocks_2
+    21300006: NewBlocks_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,37 +54,37 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: WallThin2
+    - name: NewBlocks_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 123
+        y: 64
         width: 64
-        height: 5
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -32, y: 32}
-        - {x: -32, y: 25}
-        - {x: 32, y: 25}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
         - {x: 32, y: 32}
-    - name: DoorThin
+    - name: NewBlocks_1
       rect:
         serializedVersion: 2
         x: 64
-        y: 123
+        y: 64
         width: 64
-        height: 5
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -32, y: 32}
-        - {x: -32, y: 25}
-        - {x: 32, y: 25}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
         - {x: 32, y: 32}
-    - name: Thruster
+    - name: NewBlocks_2
       rect:
         serializedVersion: 2
         x: 0
@@ -99,7 +99,7 @@ TextureImporter:
         - {x: -32, y: -32}
         - {x: 32, y: -32}
         - {x: 32, y: 32}
-    - name: Cockpit
+    - name: NewBlocks_3
       rect:
         serializedVersion: 2
         x: 64
@@ -110,21 +110,10 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -11, y: 18}
-        - {x: -19, y: 17}
-        - {x: -20, y: 12}
-        - {x: -20, y: -2}
-        - {x: -15, y: -13}
-        - {x: 19, y: -13}
-        - {x: 20, y: -8}
-        - {x: 20, y: 16}
-        - {x: 18, y: 18}
-      - - {x: -21, y: 32}
-        - {x: -32, y: 21}
-        - {x: -32, y: 11}
-        - {x: 32, y: 11}
-        - {x: 32, y: 21}
-        - {x: 21, y: 32}
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
     outline: []
   spritePackingTag: 
   userData: 

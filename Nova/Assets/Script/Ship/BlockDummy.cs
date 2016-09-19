@@ -2,42 +2,42 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using UnityEngine;
 
 namespace Assets {
     public class BlockDummy : MonoBehaviour{
 
-        public bool isAttached;
-        public bool isNotBlocking;
-        public bool isAttachable;
+        [SerializeField]
+        private LayerMask layerMaskAttachableShipBottom;
+        [SerializeField]
+        private LayerMask layerMaskAttachableShipMiddle;
+        [SerializeField]
+        private LayerMask layerMaskAttachableShipTop;
+        [SerializeField]
+        private LayerMask layerMaskAttachableShipOnTop;
+        [SerializeField]
+        private LayerMask layerMaskAttachableShip;
+        [SerializeField]
+        private LayerMask layerMaskAttachableBetween;
 
         [SerializeField]
         private float rayLength;
-
-        private ItemBlock itemBlock;
-
         [SerializeField]
         private Color colorBuildable;
         [SerializeField]
         private Color colorNotBuildable;
+        [SerializeField]
+        private bool isDebug;
 
+        public bool isAttached;
+        public bool isNotBlocking;
+        public bool isAttachable;
+        private ItemBlock itemBlock;
         private SpriteRenderer spriteRenderer;
+        private LayerMask layerMaskAttachable;
 
-        [SerializeField]
-        private LayerMask layerMaskShipBottom;
-        [SerializeField]
-        private LayerMask layerMaskShipMiddle;
-        [SerializeField]
-        private LayerMask layerMaskShipTop;
-        [SerializeField]
-        private LayerMask layerMaskShip;
-        [SerializeField]
-        private LayerMask layerMaskBetween;
-        private LayerMask layerMask;
-        private LayerMask layerMaskAttach;
-
-        Vector2 spriteSize = new Vector2();
 
         public void Buildable(bool flag) {
             if (flag)
@@ -46,251 +46,239 @@ namespace Assets {
                 spriteRenderer.color = colorNotBuildable;
         }
 
-        public void SetItem(ItemBlock itemBlock, LayerMask layerMaskAttach) {
+        //Reflection; works, but doesnt suit the problem -> OBSOLETE
+        private T CopyComponent<T>(T original, GameObject destination) where T : Component
+        {
+            System.Type type = original.GetType();
+            Component copy = destination.AddComponent(type);
+            System.Reflection.FieldInfo[] fields = type.GetFields();
+            System.Reflection.PropertyInfo[] properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
 
-            this.layerMaskAttach = layerMaskAttach;
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                field.SetValue(copy, field.GetValue(original));
+            }
+            foreach (System.Reflection.PropertyInfo property in properties)
+            {
+                property.SetValue(copy, property.GetValue(original,null),null);
+            }
+            return copy as T;
+        }        
+
+        private void CreateColliderOnDummy() {
+            float colliderScale = 0.95f;
+
+            Collider collider = itemBlock.prefab.GetComponent<Collider>();
+
+            if (itemBlock.position == BlockPosition.CENTER | itemBlock.position == BlockPosition.CENTER_BOTTOM | itemBlock.position == BlockPosition.CENTER_MIDDLE | itemBlock.position == BlockPosition.CENTER_TOP | itemBlock.position == BlockPosition.CENTER_ONTOP) {
+                if (collider.GetType() == typeof(BoxCollider)){
+                    BoxCollider prefabCollider = itemBlock.prefab.GetComponent<BoxCollider>();
+
+                    BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
+                    boxCollider.isTrigger = true;
+
+                    boxCollider.size = prefabCollider.size * colliderScale;
+                    boxCollider.center = prefabCollider.center;
+                }
+                if (collider.GetType() == typeof(SphereCollider)) {
+                    SphereCollider prefabCollider = itemBlock.prefab.GetComponent<SphereCollider>();
+
+                    SphereCollider sphereCollider = gameObject.AddComponent<SphereCollider>();
+                    sphereCollider.isTrigger = true;
+
+                    sphereCollider.radius = prefabCollider.radius * colliderScale;
+                    sphereCollider.center = prefabCollider.center;
+                }
+            }
+            if (itemBlock.position == BlockPosition.BETWEEN) {
+                if (collider.GetType() == typeof(BoxCollider)){
+                    BoxCollider prefabCollider = itemBlock.prefab.GetComponent<BoxCollider>();
+
+                    BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
+                    boxCollider.isTrigger = true;
+
+                    Vector3 vect  = prefabCollider.size * colliderScale;
+                    vect.x -= 0.2f;
+                    boxCollider.size = vect;
+                    boxCollider.center = prefabCollider.center * colliderScale;
+                }
+            }
+        }
+
+        public void SetItem(ItemBlock itemBlock) {
 
             this.itemBlock = itemBlock;
 
-            SpriteRenderer spriteRendererItemBlock = itemBlock.prefab.GetComponent<SpriteRenderer>();
-
-            //spriteSize = new Vector2(itemBlock.prefab.GetComponent<BoxCollider2D>().bounds.size.x-0.1f, itemBlock.prefab.GetComponent<BoxCollider2D>().bounds.size.y - 0.1f);
-
-            float shrinkX = 0.3f;
-            float shrinkY =  0.3f;
-
-            if (spriteRendererItemBlock.bounds.size.x < shrinkX)
-                shrinkX = 0f;
-            if (spriteRendererItemBlock.bounds.size.y < shrinkY)
-                shrinkY = 0.01f;
-            
-
-
-            spriteSize = new Vector2(spriteRendererItemBlock.bounds.size.x - shrinkX, spriteRendererItemBlock.bounds.size.y - shrinkY);
-
-
+            CreateColliderOnDummy();
 
             spriteRenderer = GetComponent<SpriteRenderer>();
-
-
-            //spriteRenderer.sortingLayerID = spriteRendererItemBlock.sortingLayerID;
-
-
-
-            //transform.localScale = spriteSize;
-
-
             spriteRenderer.sprite = itemBlock.prefab.GetComponent<SpriteRenderer>().sprite;
-
-            isNotBlocking = false;
-
 
             switch (this.itemBlock.position) {
                 case BlockPosition.CENTER_BOTTOM:
-                    layerMask = layerMaskShipBottom;
+                    layerMaskAttachable = layerMaskAttachableShipBottom;
                     break;
                 case BlockPosition.CENTER_MIDDLE:
-                    layerMask = layerMaskShipMiddle;
+                    layerMaskAttachable = layerMaskAttachableShipMiddle;
                     break;
                 case BlockPosition.CENTER_TOP:
-                    layerMask = layerMaskShipTop;
+                    layerMaskAttachable = layerMaskAttachableShipTop;
+                    break;
+                case BlockPosition.CENTER_ONTOP:
+                    layerMaskAttachable = layerMaskAttachableShipOnTop;
                     break;
                 case BlockPosition.CENTER:
-                    layerMask = layerMaskShip;
+                    layerMaskAttachable = layerMaskAttachableShip;
                     break;
                 case BlockPosition.BETWEEN:
-                    layerMask = layerMaskBetween;
+                    layerMaskAttachable = layerMaskAttachableBetween;
                     break;
             }
-
         }
 
         void Start() {
             //InvokeRepeating("DebugTest", 1, 1);
             //InvokeRepeating("test", 1, 1);
             //InvokeRepeating("test2", 1, 1);
-
         }
 
         void Update() {
-            //DebugTest();
-            test2();
-            test();
+            if(isDebug)
+                DebugCheckAttachable();
+            CheckAttachable();          
         }
 
-        private void DebugTest() {
-            //right
-            //up
-            if(itemBlock.rightUp)
-                Debug.DrawRay(transform.position + transform.TransformVector(new Vector3(0.25f, 0.25f)), transform.rotation * Vector2.right * rayLength, Color.magenta, 0.2f);
-            //down
-            if(itemBlock.rightDown)
-                Debug.DrawRay(transform.position + transform.TransformVector(new Vector3(0.25f, -0.25f)), transform.rotation * Vector2.right * rayLength, Color.magenta, 0.2f);
-
-            //left
-            //up
-            if(itemBlock.leftUp)
-                Debug.DrawRay(transform.position + transform.TransformVector(new Vector3(-0.25f, 0.25f)), transform.rotation * Vector2.left * rayLength, Color.magenta, 0.2f);
-            //down
-            if(itemBlock.leftDown)
-                Debug.DrawRay(transform.position + transform.TransformVector(new Vector3(-0.25f, -0.25f)), transform.rotation * Vector2.left * rayLength, Color.magenta, 0.3f);
-
-            //up
-            //right
-            if(itemBlock.upRight)
-                Debug.DrawRay(transform.position + transform.TransformVector(new Vector3(0.25f, 0.25f)), transform.rotation * Vector2.up * rayLength, Color.magenta, 0.2f);
-            //left
-            if(itemBlock.upLeft)
-                Debug.DrawRay(transform.position + transform.TransformVector(new Vector3(-0.25f, 0.25f)), transform.rotation * Vector2.up * rayLength, Color.magenta, 0.2f);
-
-            //down
-            //right
-            if(itemBlock.downRight)
-                Debug.DrawRay(transform.position + transform.TransformVector(new Vector3(0.25f, -0.25f)), transform.rotation * Vector2.down * rayLength, Color.magenta, 0.2f);
-            //left
-            if (itemBlock.downLeft)
-                Debug.DrawRay(transform.position + transform.TransformVector(new Vector3(-0.25f, -0.25f)), transform.rotation * Vector2.down * rayLength, Color.magenta, 0.2f);
-
-            if (itemBlock.forward) {
-                Debug.DrawRay(transform.position + transform.TransformVector(new Vector3(0f, 0f)), transform.rotation * Vector3.zero, Color.magenta, layerMaskAttach);
-                RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(0f, 0f)), transform.rotation * Vector3.forward, rayLength, layerMaskAttach);
-                if (hit.collider != null) {
-                    //Debug.Log(hit.collider.transform.name);
-
-                    
-                    //Debug.Log("Forward");
-                }
-
-            }
-
-        }
-
-        private void test() {
-            
-           
-
-            if (itemBlock.position == BlockPosition.CENTER || itemBlock.position == BlockPosition.CENTER_BOTTOM) {
-                List<RaycastHit2D> hits = new List<RaycastHit2D>();
-                isAttachable = false;
-                //right
-                //up
-                if (itemBlock.rightUp)
-                    hits.Add(Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(0.25f, 0.25f)), transform.rotation * Vector2.right, rayLength, layerMaskAttach));
-                //down
-                if (itemBlock.rightDown)
-                    hits.Add(Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(0.25f, -0.25f)), transform.rotation * Vector2.right, rayLength, layerMaskAttach));
-
-                //left
-                //up
-                if (itemBlock.leftUp)
-                    hits.Add(Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(-0.25f, 0.25f)), transform.rotation * Vector2.left, rayLength, layerMaskAttach));
-                //down
-                if (itemBlock.leftDown)
-                    hits.Add(Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(-0.25f, -0.25f)), transform.rotation * Vector2.left, rayLength, layerMaskAttach));
-
-                //right
-                if (itemBlock.upRight)
-                    hits.Add(Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(0.25f, 0.25f)), transform.rotation * Vector2.up, rayLength, layerMaskAttach));
-                //links
-                if (itemBlock.upLeft)
-                    hits.Add(Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(-0.25f, 0.25f)), transform.rotation * Vector2.up, rayLength, layerMaskAttach));
-
-                //down
-                //right
-                if (itemBlock.downRight)
-                    hits.Add(Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(0.25f, -0.25f)), transform.rotation * Vector2.down, rayLength, layerMaskAttach));
-                //links
-                if (itemBlock.downLeft)
-                    hits.Add(Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(-0.25f, -0.25f)), transform.rotation * Vector2.down, rayLength, layerMaskAttach));
-
-                if (itemBlock.forward) {
-                    hits.Add(Physics2D.Raycast(transform.position + transform.TransformVector(new Vector3(0f, 0f)), transform.rotation * Vector3.forward, rayLength, layerMaskAttach));
-                    //Debug.Log("FORWARD");
-                }
-                    
-
-
-
-                foreach (RaycastHit2D hit in hits) {
-                    if (hit.collider != null) {
-                        isAttachable = true;
-                        //Debug.Log(hit.collider.transform.name);
-                        break;
-                    }
-                }
-            }
-            else {
-                isAttachable = true;
-            }
-
-           
-
-
-        }
-
-        private void test2() {
-            List<RaycastHit2D> hits = new List<RaycastHit2D>();
-
+        void FixedUpdate() {
             isNotBlocking = true;
+        }
 
-            string test = "";
+        private void DebugCheckAttachable() {
 
-            if (itemBlock.position == BlockPosition.CENTER || itemBlock.position == BlockPosition.CENTER_BOTTOM || itemBlock.position == BlockPosition.CENTER_MIDDLE || itemBlock.position == BlockPosition.CENTER_TOP || itemBlock.position == BlockPosition.CENTER_ONTOP) {
-                hits.AddRange(Physics2D.BoxCastAll(transform.position, spriteSize, transform.eulerAngles.z, Vector3.zero, 200, layerMask));
+            if (itemBlock.attachableRaysUp.Count != 0)
+            {
+                for (int i = 0; i < itemBlock.attachableRaysUp.Count; i++)
+                {
+                    Debug.DrawRay(transform.position + transform.TransformVector(itemBlock.attachableRaysUp[i].origin), transform.rotation * itemBlock.attachableRaysUp[i].direction * itemBlock.attachableRaysUp[i].distance, Color.magenta, 0.2f);
+                }
+            }
 
-                //Debug.Log("Position: " + transform.position + " " + spriteSize.x + ", " + spriteSize.y);
+            if (itemBlock.attachableRaysDown.Count != 0)
+            {
+                for (int i = 0; i < itemBlock.attachableRaysDown.Count; i++)
+                {
+                    Debug.DrawRay(transform.position + transform.TransformVector(itemBlock.attachableRaysDown[i].origin), transform.rotation * itemBlock.attachableRaysDown[i].direction * itemBlock.attachableRaysDown[i].distance, Color.magenta, 0.2f);
+                }
+            }
 
-                
+            if (itemBlock.attachableRaysLeft.Count != 0)
+            {
+                for (int i = 0; i < itemBlock.attachableRaysLeft.Count; i++)
+                {
+                    Debug.DrawRay(transform.position + transform.TransformVector(itemBlock.attachableRaysLeft[i].origin), transform.rotation * itemBlock.attachableRaysLeft[i].direction * itemBlock.attachableRaysLeft[i].distance, Color.magenta, 0.2f);
+                }
+            }
 
-                foreach (RaycastHit2D hit in hits) {
-                    if (hit.collider != null) {
-                        isNotBlocking = false;
+            if (itemBlock.attachableRaysRight.Count != 0)
+            {
+                for (int i = 0; i < itemBlock.attachableRaysRight.Count; i++)
+                {
+                    Debug.DrawRay(transform.position + transform.TransformVector(itemBlock.attachableRaysRight[i].origin), transform.rotation * itemBlock.attachableRaysRight[i].direction * itemBlock.attachableRaysRight[i].distance, Color.magenta, 0.2f);
+                }
+            }
 
-                        test = test + " " + hit.collider.transform.name;
+            if (itemBlock.attachableRaysForward.Count != 0)
+            {
+                for (int i = 0; i < itemBlock.attachableRaysForward.Count; i++)
+                {
+                    Debug.DrawRay(transform.position + transform.TransformVector(itemBlock.attachableRaysForward[i].origin), transform.rotation * itemBlock.attachableRaysForward[i].direction * itemBlock.attachableRaysForward[i].distance, Color.magenta, 0.2f);
+                }
+            }
+            
+        }
 
-                        //Debug.Log(hit.collider.transform.name);
-                        break;
+        private void CheckAttachable() {
+            isAttachable = false;
+            bool allMandatoryAttached = true;
+
+            if (isAttached) {
+                List<RaycastHit> hits = new List<RaycastHit>();
+
+                if (itemBlock.attachableRaysUp.Count != 0 && allMandatoryAttached)
+                {
+                    for (int i = 0; i < itemBlock.attachableRaysUp.Count; i++)
+                    {
+                        RaycastHit hit;
+                        Physics.Raycast(transform.position + transform.TransformVector(itemBlock.attachableRaysUp[i].origin), transform.rotation * itemBlock.attachableRaysUp[i].direction, out hit, itemBlock.attachableRaysUp[i].distance, layerMaskAttachable);
+                        hits.Add(hit);
+                        if (hit.collider == null && itemBlock.attachableRaysUp[i].isMandatory)
+                            allMandatoryAttached = false;
                     }
                 }
 
-               
-            }
-
-            if (itemBlock.position == BlockPosition.BETWEEN) {
-
-                //hits.AddRange(Physics2D.BoxCastAll(transform.position + -transform.up * spriteSize.y / 2, spriteSize, transform.eulerAngles.z, Vector3.zero, 200, layerMask));
-
-                ////Debug.Log("Position: " + transform.position + " " + spriteSize.x + ", " + spriteSize.y);
-
-
-
-                //foreach (RaycastHit2D hita in hits) {
-                //    if (hita.collider != null) {
-                //        isNotBlocking = false;
-
-                //        test = test + " " + hita.collider.transform.name;
-
-                //        //Debug.Log(hit.collider.transform.name);
-                //        break;
-                //    }
-                //}
-
-                Debug.DrawRay(transform.position + -transform.up * spriteSize.y / 2, transform.rotation * Vector3.forward, Color.magenta, 1);
-                RaycastHit2D hit = Physics2D.Raycast(transform.position + -transform.up * spriteSize.y / 2, transform.rotation * Vector3.forward, rayLength, layerMask);
-                if (hit.collider != null) {
-                    //Debug.Log(hit.collider.transform.name);
-                    //Debug.Log("Ray:" + hit.collider.transform.name);
-                    test = test + " " + hit.collider.transform.name;
-                    //Debug.Log("Forward");
-                    isNotBlocking = false;
+                if (itemBlock.attachableRaysDown.Count != 0 && allMandatoryAttached)
+                {
+                    for (int i = 0; i < itemBlock.attachableRaysDown.Count; i++)
+                    {
+                        RaycastHit hit;
+                        Physics.Raycast(transform.position + transform.TransformVector(itemBlock.attachableRaysDown[i].origin), transform.rotation * itemBlock.attachableRaysDown[i].direction, out hit, itemBlock.attachableRaysDown[i].distance, layerMaskAttachable);
+                        hits.Add(hit);
+                        if (hit.collider == null && itemBlock.attachableRaysDown[i].isMandatory)
+                            allMandatoryAttached = false;
+                    }
                 }
 
-            }
+                if (itemBlock.attachableRaysLeft.Count != 0 && allMandatoryAttached)
+                {
+                    for (int i = 0; i < itemBlock.attachableRaysLeft.Count; i++)
+                    {
+                        RaycastHit hit;
+                        Physics.Raycast(transform.position + transform.TransformVector(itemBlock.attachableRaysLeft[i].origin), transform.rotation * itemBlock.attachableRaysLeft[i].direction, out hit, itemBlock.attachableRaysLeft[i].distance, layerMaskAttachable);
+                        hits.Add(hit);
+                        if (hit.collider == null && itemBlock.attachableRaysLeft[i].isMandatory)
+                            allMandatoryAttached = false;
+                    }
+                }
 
-            if (test != "") {
-                //Debug.Log(test);
+                if (itemBlock.attachableRaysRight.Count != 0 && allMandatoryAttached)
+                {
+                    for (int i = 0; i < itemBlock.attachableRaysRight.Count; i++)
+                    {
+                        RaycastHit hit;
+                        Physics.Raycast(transform.position + transform.TransformVector(itemBlock.attachableRaysRight[i].origin), transform.rotation * itemBlock.attachableRaysRight[i].direction, out hit, itemBlock.attachableRaysRight[i].distance, layerMaskAttachable);
+                        hits.Add(hit);
+                        if (hit.collider == null && itemBlock.attachableRaysRight[i].isMandatory)
+                            allMandatoryAttached = false;
+                    }
+                }
+
+                if (itemBlock.attachableRaysForward.Count != 0 && allMandatoryAttached)
+                {
+                    for (int i = 0; i < itemBlock.attachableRaysForward.Count; i++)
+                    {
+                        RaycastHit hit;
+                        Physics.Raycast(transform.position + transform.TransformVector(itemBlock.attachableRaysForward[i].origin), transform.rotation * itemBlock.attachableRaysForward[i].direction, out hit, itemBlock.attachableRaysForward[i].distance, layerMaskAttachable);
+                        hits.Add(hit);
+                        if (hit.collider == null && itemBlock.attachableRaysForward[i].isMandatory)
+                            allMandatoryAttached = false;
+                    }
+                }
+
+                if (allMandatoryAttached) {
+                    foreach (RaycastHit hit in hits)
+                    {
+                        if (hit.collider != null)
+                        {
+                            isAttachable = true;
+                            break;
+                        }
+                    }
+                }   
             }
         }
 
+        private void OnTriggerStay() {
+            isNotBlocking = false;
+            Debug.Log("OnTriggerStay");
+        }
     }
 }
