@@ -13,6 +13,8 @@ public class SaveField : MonoBehaviour {
 
     void Start()
     {
+        if (saveLoadGUI == null)
+            saveLoadGUI = (SaveLoadGUI)GameObject.Find("SaveLoad").GetComponent("SaveLoadGUI");
         saveLoadGUI.saveFields.Add(this);
     }
 

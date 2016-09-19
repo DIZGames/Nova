@@ -64,12 +64,13 @@ public class SaveManager {
         return sd;
     }
 
-    public static List<string> GetAllSaveFiles()
+    public static List<string> GetAllSaveFiles(bool withPath = false)
     {
         List<string> files = new List<string>();
         foreach (string file in Directory.GetFiles(saveFolder))
         {
-            file.Replace(saveFolder + "\\", "").Replace(fileEnding, "");
+            if(!withPath)
+                file.Replace(saveFolder + "\\", "").Replace(fileEnding, "");
             files.Add(file);
         }
         return files;

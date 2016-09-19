@@ -27,11 +27,10 @@ public class SaveComponent {
 
     public SaveComponent(Component c)
     {
+        classType = c.GetType();
         if(c is MonoBehaviour)
         {
             componenType = ComponentType.MONOBEHAVIOUR;
-            classType = c.GetType();
-            Debug.Log(classType.Name);
             MonoBehaviour script = (MonoBehaviour)c;
             var fields = script.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(prop => Attribute.IsDefined(prop, typeof(SaveThis)));
             foreach (var field in fields)
@@ -62,29 +61,36 @@ public class SaveComponent {
         switch (componenType)
         {
             case ComponentType.MONOBEHAVIOUR:
-                MethodInfo method = typeof(GameObject).GetMethod("AddComponent", new Type[] { });
+                MethodInfo method = typeof(GameObject).GetMethod("GetComponent", new Type[] { });
                 MethodInfo generic = method.MakeGenericMethod(classType);
-                MonoBehaviour script = (MonoBehaviour)generic.Invoke(go, null);
-
-                var fields = script.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(prop => Attribute.IsDefined(prop, typeof(SaveThis)));
-                foreach (var field in fields)
+                MonoBehaviour script = generic.Invoke(go, null) as MonoBehaviour;
+                
+                if (script == null)
                 {
-                    if (field.FieldType.Name == "String")
-                        field.SetValue(script, StringFields[field.Name]);
-                    else if (field.FieldType.Name == "Int32")
-                        field.SetValue(script, IntFields[field.Name]);
-                    else if (field.FieldType.Name == "Boolean")
-                        field.SetValue(script, IntFields[field.Name]);
-                    else if (field.FieldType.Name == "Float")
-                        field.SetValue(script, FloatFields[field.Name]);
-                    // GameObject sind ein problem, da es nicht erstellt werden kann sondern in der Welt vorhanden sein muss. Find Methode in der Szene versuchen?
-                    //else if (field.FieldType.Name == "GameObject")
-                    //    field.SetValue(script, GameObjectFields[field.Name].ToGameObject());
-                    // Components sind ein problem, da es nicht erstellt werden kann sondern in der Welt vorhanden sein muss
-                    //else if (field.FieldType.Name == "Component")
-                    //    field.SetValue(script, ComponentFields[field.Name].); e));
+                    generic = method.MakeGenericMethod(classType);
+                    script = generic.Invoke(go, null) as MonoBehaviour;
                 }
-
+                if (script != null)
+                {
+                    var fields = script.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(prop => Attribute.IsDefined(prop, typeof(SaveThis)));
+                    foreach (var field in fields)
+                    {
+                        if (field.FieldType.Name == "String")
+                            field.SetValue(script, StringFields[field.Name]);
+                        else if (field.FieldType.Name == "Int32")
+                            field.SetValue(script, IntFields[field.Name]);
+                        else if (field.FieldType.Name == "Boolean")
+                            field.SetValue(script, IntFields[field.Name]);
+                        else if (field.FieldType.Name == "Float")
+                            field.SetValue(script, FloatFields[field.Name]);
+                        // GameObject sind ein problem, da es nicht erstellt werden kann sondern in der Welt vorhanden sein muss. Find Methode in der Szene versuchen?
+                        //else if (field.FieldType.Name == "GameObject")
+                        //    field.SetValue(script, GameObjectFields[field.Name].ToGameObject());
+                        // Components sind ein problem, da es nicht erstellt werden kann sondern in der Welt vorhanden sein muss
+                        //else if (field.FieldType.Name == "Component")
+                        //    field.SetValue(script, ComponentFields[field.Name].); e));
+                    }
+                }
                 break;
         }
     }

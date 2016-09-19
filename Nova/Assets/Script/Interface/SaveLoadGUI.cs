@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SaveLoadGUI : MonoBehaviour {
 
@@ -9,6 +10,9 @@ public class SaveLoadGUI : MonoBehaviour {
     public InputField inputField;
     public GameObject saveFieldPrefab;
     public Transform saveList;
+    public GameObject saveButton;
+    public bool newScene;
+    public bool showSave;
     private SaveField selectedField;
 
     void Awake()
@@ -18,20 +22,28 @@ public class SaveLoadGUI : MonoBehaviour {
 
     void Start()
     {
+        if (!showSave)
+            saveButton.SetActive(false);
+        Updatelist();
+    }
+
+    void OnEnable()
+    {
         Updatelist();
     }
 
     private void Updatelist()
     {
-        for (int i = 1; i < saveList.childCount; i++)
+        for (int i = showSave ? 1 : 0; i < saveList.childCount; i++)
             Destroy(saveList.GetChild(i).gameObject);
 
-        foreach(string filePath in SaveManager.GetAllSaveFiles())
+        foreach(string fileName in SaveManager.GetAllSaveFiles(true))
         {
             GameObject saveFieldGO = Instantiate<GameObject>(saveFieldPrefab);
             saveFieldGO.transform.SetParent(saveList);
             SaveField saveField = saveFieldGO.GetComponent<SaveField>();
-            saveField.dateField.text = File.GetLastWriteTime(filePath).ToString();
+            saveField.textField.text = fileName.Replace(".sav","").Replace("Savegames\\", "");
+            saveField.dateField.text = File.GetLastWriteTime(fileName).ToString();
             saveField.SetImageColorToDefault();
         }
     }
@@ -50,16 +62,38 @@ public class SaveLoadGUI : MonoBehaviour {
 
     public void ClickDelete()
     {
-        if (selectedField.textField.text != "**** New Game ****")
-            SaveManager.DeleteSaveGame(selectedField.textField.text);
-        Updatelist();
+        if (selectedField != null)
+        {
+            if (selectedField.textField.text != "**** New Game ****")
+                SaveManager.DeleteSaveGame(selectedField.textField.text);
+            SetSelectedField((SaveField)saveFieldPrefab.GetComponent("SaveField"));
+            Updatelist();
+        }
     }
 
     public void ClickLoad()
     {
-        SaveData saveData = SaveManager.Load(selectedField.textField.text);
-        foreach (SaveGameObject sgo in saveData.RootGameObjetcs)
-            sgo.ToGameObject();
+        if (selectedField != null && selectedField.textField.text != "**** New Game ****")
+        {
+            SaveData saveData = SaveManager.Load(selectedField.textField.text);
+            if (newScene)
+            {
+                Global.saveData = saveData;
+                SceneManager.LoadScene("Game");
+            }
+            else
+            {
+                foreach (SaveGameObject sgo in saveData.RootGameObjetcs)
+                    sgo.ToGameObject();
+            }
+
+        }
+
+    }
+
+    public void CliclCancel()
+    {
+        gameObject.SetActive(false);
     }
 
     public void SetSelectedField(SaveField saveField)

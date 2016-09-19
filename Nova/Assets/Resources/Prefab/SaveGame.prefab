@@ -214,6 +214,7 @@ MonoBehaviour:
   selectedColor: {r: 0.9632353, g: 0, b: 0, a: 0.853}
   saveLoadGUI: {fileID: 0}
   textField: {fileID: 11464756}
+  dateField: {fileID: 11453992}
 --- !u!222 &22205880
 CanvasRenderer:
   m_ObjectHideFlags: 1
