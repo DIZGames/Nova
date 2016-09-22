@@ -6,16 +6,16 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(SlotContainerCreator))]
-public class SlotContainerCreatorEditor : Editor {
+[CustomEditor(typeof(SlotContainerEditor))]
+public class SlotContainerEditorEditor : Editor {
 
     private int itemIndex;
     private int itemValue = 1;
 
-    private SlotContainerCreator slScript;
+    private SlotContainerEditor slScript;
 
     void OnEnable() {
-        slScript = (SlotContainerCreator)target;
+        slScript = (SlotContainerEditor)target;
     }
 
     public override void OnInspectorGUI() {

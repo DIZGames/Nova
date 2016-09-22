@@ -46,7 +46,7 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
         Refresh();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         standardParent = transform.parent;
-}
+    }
 
     void Update() {
        

@@ -213,7 +213,14 @@ namespace Assets.Script {
                 dummyBlockScript.isAttached = true;
             }
 
-            if ((dummyBlockScript.isAttached && dummyBlockScript.isAttachable && dummyBlockScript.isNotBlocking) || (dummyBlockScript.isNotBlocking && itemBlock.createsNewShip))
+            //if ((dummyBlockScript.isNotBlocking && itemBlock.createsNewShip && !dummyBlockScript.isAttached))
+            //    dummyBlockScript.Buildable(true);
+            //else
+            //    dummyBlockScript.Buildable(false);
+
+
+            if ((dummyBlockScript.isAttached && dummyBlockScript.isAttachable && dummyBlockScript.isNotBlocking && !itemBlock.createsNewShip
+                ) || (dummyBlockScript.isNotBlocking && itemBlock.createsNewShip && !dummyBlockScript.isAttached))
                 dummyBlockScript.Buildable(true);
             else
                 dummyBlockScript.Buildable(false);

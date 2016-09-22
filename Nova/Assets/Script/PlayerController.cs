@@ -16,14 +16,15 @@ public class PlayerController : MonoBehaviour {
     private bool flag;
 
     [SerializeField]
-    private LayerMask maskOnShip;
-
     private ShipManager OnBoardShip;
+
     void Start () {
         rb = GetComponent<Rigidbody>();
         camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         oldMask = camera.cullingMask;
     }
+
+    bool asd = false;
 
     void Update() {
         //Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -42,15 +43,32 @@ public class PlayerController : MonoBehaviour {
 
         Vector3 rayDirection = vectornew;
 
-        RaycastHit2D hit1 = Physics2D.Raycast(transform.position + transform.up / 4, Vector3.zero, 1,layerMask);
+        RaycastHit hit1;
+        Physics.Raycast(transform.position, Vector3.forward, out hit1,1, layerMask);
 
-        if (hit1.collider != null && gameObject.layer == LayerMask.NameToLayer("Player")) {
+        Debug.DrawRay(transform.position, Vector3.forward, Color.magenta, 1);
+
+        if (hit1.collider != null) {
             OnBoardShip = hit1.collider.transform.root.GetComponent<ShipManager>();
             OnBoardShip.HideTopList();
+
+            Vector3 asd3 = hit1.point;
+            asd3.z = 0; 
+
+            rb.MovePosition(asd3);
+            //rb.useGravity = true;
+
+            //Vector3 asd2 = hit1.point;//hit1.collider.transform.position;
+            //asd2.z = 0;
+            //transform.position = asd2;
+
         }
         else {
             if (OnBoardShip != null) {
                 OnBoardShip.ShowTopList();
+                OnBoardShip = null;
+
+                //rb.useGravity = false;
             }
         }
 
@@ -80,23 +98,13 @@ public class PlayerController : MonoBehaviour {
                 if (interactWithPlayerRaycast != null)
                     interactWithPlayerRaycast.RaycastAction();
             }
-
-            //RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position + transform.up / 4, rayDirection, 1);
-           
-            //foreach (RaycastHit2D hit in hits) {
-            //    InteractWithPlayerRaycast interactWithPlayerRaycast = hit.collider.gameObject.GetComponent<InteractWithPlayerRaycast>();
-            //    if (interactWithPlayerRaycast != null)
-            //        interactWithPlayerRaycast.RaycastAction();
-            //}
         }
     }
 
     void FixedUpdate() {
+
         //Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         Vector3 mousePos = GetWorldPositionOnPlane(Input.mousePosition,0);
-
-        //Debug.Log(mousePos);
 
         //Rotation
         Quaternion rot = Quaternion.LookRotation(transform.position - mousePos, Vector3.forward);
@@ -110,8 +118,26 @@ public class PlayerController : MonoBehaviour {
 
         float v = Input.GetAxis("Vertical");
 
+        if (OnBoardShip != null)
+        {
+            
+
+            Vector3 asd = OnBoardShip.gameObject.GetComponent<Rigidbody>().velocity;
+            float t = asd.magnitude;
+
+            //rb.AddForce(asd, ForceMode.VelocityChange);
+
+            //rb.AddForce(asd, ForceMode.Impulse);
+
+            //rb.velocity += asd;
+
+            //rb.AddForce(asd * t * Time.deltaTime);
+        }
+
+
         if (v > 0) {
             rb.AddForce(vectornew * Time.deltaTime * speed);
+            //rb.AddRelativeForce(vectornew * Time.deltaTime * speed);
         }
         if (v < 0) {
             rb.AddForce(-vectornew * Time.deltaTime * speed);
@@ -127,6 +153,8 @@ public class PlayerController : MonoBehaviour {
         if (h < 0) {
             rb.AddForce(vector2 * Time.deltaTime * speed);
         }
+
+ 
     }
 
     public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z)

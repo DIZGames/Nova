@@ -32,7 +32,7 @@ namespace Assets.Script {
             Vector3 asdwer = transform.root.position - transform.position;
             float angle = Vector3.Angle(transform.root.position, transform.position);
 
-            rb.AddForce(transform.up * 200);
+            rb.AddForce(transform.up * 50);
 
             
 

@@ -4,6 +4,7 @@ using Assets.Script.ItemSystem;
 using Assets.Script;
 using Assets.Script.Interface;
 using System;
+using Assets.Script.Ship;
 
 public class InterfaceManager : MonoBehaviour {
 
@@ -18,14 +19,12 @@ public class InterfaceManager : MonoBehaviour {
     public GameObject playerStat;
     public GameObject weaponStat;
 
-   
-
-    public GameObject reactorBox;
-
     public UIContainer UIContainer;
     public ContainerSplit containerSplit;
     public CharacterUI characterUI;
 
+    public ShipInterface shipInterface;
+ 
     public MessageBox MessageBox;
 
 	void Update () {
@@ -85,6 +84,32 @@ public class InterfaceManager : MonoBehaviour {
 
     public void ShowMessageBox(string text) {
         MessageBox.ShowMessage(text, 3);
+    }
+
+    public void ShowShipInterface(GameObject ship) {
+        if (shipInterface.gameObject.activeSelf) {
+            shipInterface.gameObject.SetActive(false);
+            this.ShowPlayerInterface();
+        } else {
+            shipInterface.SetShip(ship);
+            shipInterface.gameObject.SetActive(true);
+            this.HidePlayerInterface();
+        }
+       
+    }
+
+    public void HidePlayerInterface() {
+        backPack.SetActive(false);
+        characterScreen.SetActive(false);
+        hotBar.SetActive(false);
+        playerStat.SetActive(false);
+    }
+
+    public void ShowPlayerInterface() {
+        backPack.SetActive(true);
+        characterScreen.SetActive(true);
+        hotBar.SetActive(true);
+        playerStat.SetActive(true);
     }
 
 }

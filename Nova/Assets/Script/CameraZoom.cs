@@ -10,14 +10,14 @@ namespace Assets.Script {
         void Update() {
             if (Input.GetAxis("Mouse ScrollWheel") < 0) {
 
-                    Camera.main.orthographicSize += 0.5f;
+                    Camera.main.orthographicSize += 1f;
 
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0) {
 
-                if (Camera.main.orthographicSize > 1f) {
-                    Camera.main.orthographicSize -= 0.5f;
+                if (Camera.main.orthographicSize > 1.5f) {
+                    Camera.main.orthographicSize -= 1f;
                 }
 
                    

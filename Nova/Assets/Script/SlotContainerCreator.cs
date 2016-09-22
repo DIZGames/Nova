@@ -4,17 +4,20 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Script {
-    public class SlotContainerCreator : MonoBehaviour{
-
-        public Transform slotList;
-
-        public void CreateSlotContainer(ItemBase itemBase, int stack) {
+namespace Assets.Script
+{
+    public class SlotContainerCreator : MonoBehaviour
+    {
+        public List<GameObject> CreateSlotContainer(ItemBase itemBase, int stack)
+        {
+            List<GameObject> listGameObjects = new List<GameObject>();
             GameObject goSlotContainer = (GameObject)Resources.Load("Prefab/SlotContainer");
 
-            while (itemBase.maxStack <= stack) {
-
+            while (itemBase.maxStack <= stack)
+            {
                 stack -= itemBase.maxStack;
+
+
 
                 GameObject gObject1 = Instantiate(goSlotContainer);
                 gObject1.name = itemBase.name;
@@ -25,11 +28,11 @@ namespace Assets.Script {
 
                 slotContainer1.ItemBase = itemBase1;
 
-
-                Add(slotContainer1);
+                listGameObjects.Add(slotContainer1.gameObject);
             }
 
-            if (stack > 0 ) {
+            if (stack > 0)
+            {
 
                 GameObject gObject = Instantiate(goSlotContainer);
                 gObject.name = itemBase.name;
@@ -40,38 +43,13 @@ namespace Assets.Script {
 
                 slotContainer.ItemBase = itemBase1;
 
-                Add(slotContainer);
+                listGameObjects.Add(slotContainer.gameObject);
             }
+            return null;
+
         }
 
-        public void DeleteAll() {
-            for (int i = 0; i < slotList.childCount; i++) {
-                if (slotList.GetChild(i).childCount != 0) {
-                    DestroyImmediate(slotList.GetChild(i).GetChild(0).gameObject);
-                }
-            }
-        }
 
-        private void Add(SlotContainer slotContainer) {
-            bool flag = false;
 
-            for (int i = 0; i < slotList.childCount; i++) {
-                if (slotList.GetChild(i).childCount == 0) {
-                    SlotDrop slotDrop = slotList.GetChild(i).GetComponent<SlotDrop>();
-
-                    if (slotDrop.checkAllowedTypes(slotContainer)) {
-                        slotContainer.transform.SetParent(slotDrop.transform);
-                        flag = true;
-                        break;
-                    }
-                    
-
-                }
-            }
-
-            if (flag == false) {
-                DestroyImmediate(slotContainer.gameObject);
-            }
-        }
     }
 }
