@@ -19,7 +19,7 @@ MonoBehaviour:
   prefab: {fileID: 115452, guid: 6cbb8be2e3c09f0499feed4a4c2027ed, type: 2}
   description: asdasd
   position: 4
-  createsNewShip: 1
+  createsNewShip: 0
   maxHitPoints: 100
   Energy: 0
   Oxygen: 0

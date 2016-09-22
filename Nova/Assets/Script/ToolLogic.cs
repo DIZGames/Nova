@@ -53,8 +53,8 @@ public class ToolLogic : MonoBehaviour, IEquippable {
             if (count > 0) {
                 itemTool.loadedProjectiles = itemTool.Ammo.ClipSize;
 
-                inventory.Decrease(itemTool.Ammo.name,1);
-                inventory.UpdateLists();
+                inventory.Remove(itemTool.Ammo.name, 1);
+                inventory.Refresh();
 
                 itemTool.inStock = count - 1;
             }
