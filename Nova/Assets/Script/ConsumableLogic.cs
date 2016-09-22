@@ -4,7 +4,7 @@ using Assets.Script.ItemSystem;
 using Assets.Script;
 using System;
 
-public class ConsumableLogic : MonoBehaviour, IEquippable {
+public class ConsumableLogic : MonoBehaviour, IEquippable, IHasItem {
 
     private Player player;
     private ItemConsumable itemConsumable;
@@ -18,7 +18,7 @@ public class ConsumableLogic : MonoBehaviour, IEquippable {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    public void RaycastAction1() {
+    public void Action1() {
         if (itemConsumable.stack > 0) {
             player.addToCurrentValues(itemConsumable.restoreHealth, itemConsumable.restoreArmor, itemConsumable.restoreEnergy, itemConsumable.restoreOxygen);
 
@@ -29,11 +29,11 @@ public class ConsumableLogic : MonoBehaviour, IEquippable {
         }
     }
 
-    public void RaycastAction2() {
+    public void Action2() {
        
     }
 
-    public void RaycastAction3() {
+    public void Action3() {
         
     }
 }

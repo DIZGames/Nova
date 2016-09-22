@@ -29,38 +29,32 @@ public class SlotContainerEditorEditor : Editor {
         EditorGUILayout.BeginHorizontal();
 
         GUILayout.Label("Add an item:");
-        ItemList itemDataBase = (ItemList)Resources.Load("ItemDataBase");
+        ItemList itemDataBase = (ItemList)Resources.Load("ScriptableObject/Item/ItemDataBase");
 
         string[] items = new string[itemDataBase.Count()];
 
-        for (int i = 0; i < items.Length; i++) {
-            items[i] = itemDataBase.ItemByIndex(i).itemName;
+        for (int i = 0; i < items.Length; i++)
+        {
+            items[i] = itemDataBase.ItemDescByIndex(i);
         }
 
         itemIndex = EditorGUILayout.Popup("", itemIndex, items, EditorStyles.popup);
+
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginHorizontal();
         itemValue = EditorGUILayout.IntField("", itemValue, GUILayout.Width(40));
         GUI.color = Color.yellow;
         if (GUILayout.Button("Add Item")) {
             ItemBase item = itemDataBase.ItemByIndex(itemIndex);
-
             slScript.CreateSlotContainer(item, itemValue);
-
         }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Alles löschen")) {
-
             slScript.DeleteAll();
-
         }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
-
-        
-
     }
-
 }
 

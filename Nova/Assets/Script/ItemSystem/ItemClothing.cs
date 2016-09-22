@@ -11,7 +11,7 @@ namespace Assets.Script.ItemSystem {
         public int energyUpgrade;
         public int oxygenUpgrade;
 
-        public ClothingType clothingType;
+        public ItemTypeClothing clothingType;
 
         public override ItemBase Clone() {
             return Instantiate(this) as ItemClothing;

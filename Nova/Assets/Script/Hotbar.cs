@@ -22,11 +22,7 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
     private GameObject uiObject;
 
     private Transform selectedSlot;
-
-    private int hotbarID;
-
     public IEquippable selectedGameObject;
-
     private List<SlotContainer> hotBarList;
 
     public bool IsActive {
@@ -84,18 +80,18 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
         if (!EventSystem.current.IsPointerOverGameObject()) {
             if (Input.GetButtonDown("Fire1")) {
                 if (selectedGameObject != null)
-                    selectedGameObject.RaycastAction1();
+                    selectedGameObject.Action1();
             }
 
             if (Input.GetButtonDown("Fire2")) {
                 if (selectedGameObject != null)
-                    selectedGameObject.RaycastAction2();
+                    selectedGameObject.Action2();
             }
         }
 
         if (Input.GetButtonDown("Reload")) {
             if (selectedGameObject != null)
-                selectedGameObject.RaycastAction3();
+                selectedGameObject.Action3();
         }
     }
 
@@ -113,9 +109,13 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
                 go.transform.rotation = player.EquipmentPoint.transform.rotation;
                 go.name = slotContainer.ItemBase.itemName;
 
-                IEquippable iEquippable = go.GetComponent<IEquippable>();
-                iEquippable.SetItem(slotContainer.ItemBase);
-                selectedGameObject = iEquippable;
+                IHasItem iHasItem = go.GetComponent<IHasItem>();
+                iHasItem.SetItem(slotContainer.ItemBase);
+                selectedGameObject = go.GetComponent<IEquippable>();
+
+                //IEquippable iEquippable = go.GetComponent<IEquippable>();
+                //iEquippable.SetItem(slotContainer.ItemBase);
+                //selectedGameObject = iEquippable;
 
                 player.setOnEquipment(go);
 
@@ -129,9 +129,13 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
                 go.transform.rotation = player.EquipmentPoint.transform.rotation;
                 go.name = slotContainer.ItemBase.itemName;
 
-                IEquippable iEquippable = go.GetComponent<IEquippable>();
-                iEquippable.SetItem(slotContainer.ItemBase);
-                selectedGameObject = iEquippable;
+                IHasItem iHasItem = go.GetComponent<IHasItem>();
+                iHasItem.SetItem(slotContainer.ItemBase);
+                selectedGameObject = go.GetComponent<IEquippable>();
+
+                //IEquippable iEquippable = go.GetComponent<IEquippable>();
+                //iEquippable.SetItem(slotContainer.ItemBase);
+                //selectedGameObject = iEquippable;
 
                 player.setOnEquipment(go);
             }
@@ -141,9 +145,13 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
                 go.transform.position = player.transform.position;
                 go.transform.rotation = player.transform.rotation;
 
-                IEquippable iEquippable = go.GetComponent<IEquippable>();
-                iEquippable.SetItem(slotContainer.ItemBase);
-                selectedGameObject = iEquippable;
+                IHasItem iHasItem = go.GetComponent<IHasItem>();
+                iHasItem.SetItem(slotContainer.ItemBase);
+                selectedGameObject = go.GetComponent<IEquippable>();
+
+                //IEquippable iEquippable = go.GetComponent<IEquippable>();
+                //iEquippable.SetItem(slotContainer.ItemBase);
+                //selectedGameObject = iEquippable;
 
                 player.setOnEquipment(go);
             }
@@ -199,8 +207,6 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
                 hotBarList.Add(slotList.GetChild(i).GetChild(0).GetComponent<SlotContainer>());
             }
         }
-
-        Debug.Log("hotBarList " + hotBarList.Count);
     }
 
     public int Count(string itemName) {

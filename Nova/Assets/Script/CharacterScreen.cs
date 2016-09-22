@@ -52,7 +52,6 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
                 characterScreenList.Add(slotContainer);
             }
         }
-        Debug.Log("characterScreenList " + characterScreenList.Count);
     }
 
     public int Count(string itemName) {

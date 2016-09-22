@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEditor;
 
 namespace Assets.Script {
-    public class BlockBuilder : MonoBehaviour, IEquippable {
+    public class BlockBuilder : MonoBehaviour, IEquippable, IHasItem {
 
         [SerializeField]
         private LayerMask layerMaskAttachShipBottom;
@@ -226,7 +226,7 @@ namespace Assets.Script {
                 dummyBlockScript.Buildable(false);
         }
 
-        public void RaycastAction1() {
+        public void Action1() {
 
             if (dummyBlockScript.isAttached && dummyBlockScript.isAttachable && dummyBlockScript.isNotBlocking) {
                 if (hitTransform != null) { 
@@ -320,7 +320,7 @@ namespace Assets.Script {
             }
         }
 
-        public void RaycastAction2() {
+        public void Action2() {
 
             switch (rotation) {
                 case 0:
@@ -342,7 +342,7 @@ namespace Assets.Script {
             Debug.Log(rotation);
         }
 
-        public void RaycastAction3() {
+        public void Action3() {
             Debug.Log(orientation);
 
             

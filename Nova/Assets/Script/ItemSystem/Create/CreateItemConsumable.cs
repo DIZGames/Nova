@@ -11,7 +11,7 @@ namespace Assets.Script.ItemSystem.Create {
         public static void CreateMyAsset() {
             ItemConsumable asset = ScriptableObject.CreateInstance<ItemConsumable>();
 
-            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/ItemConsumable.asset");
+            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/Item/Consumable/ItemConsumable.asset");
             AssetDatabase.SaveAssets();
 
             EditorUtility.FocusProjectWindow();

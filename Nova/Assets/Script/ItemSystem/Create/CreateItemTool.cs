@@ -13,7 +13,7 @@ namespace Assets.Script.ItemSystem.Create {
         {
             ItemTool asset = ScriptableObject.CreateInstance<ItemTool>();
 
-            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/ItemTool.asset");
+            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/Item/Tool/ItemTool.asset");
             AssetDatabase.SaveAssets();
 
             EditorUtility.FocusProjectWindow();

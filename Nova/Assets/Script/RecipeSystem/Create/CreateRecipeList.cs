@@ -10,7 +10,7 @@ public class CreateRecipeList {
     {
         RecipeList asset = ScriptableObject.CreateInstance<RecipeList>();
 
-        AssetDatabase.CreateAsset(asset, "Assets/Resources/RecipeDataBase.asset");
+        AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/Recipe/RecipeDataBase.asset");
         AssetDatabase.SaveAssets();
 
         EditorUtility.FocusProjectWindow();

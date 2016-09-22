@@ -15,11 +15,6 @@ namespace Assets.Script {
 
         private InterfaceManager interfaceManager;
 
-        void Start()
-        {
-            
-        }
-
         private Transform cockPitTransform;
 
         public void RaycastAction() {
@@ -32,6 +27,7 @@ namespace Assets.Script {
             shipController = transform.root.GetComponent<ShipController>();
 
             playerController.GetComponent<Rigidbody>().isKinematic = false;
+            playerController.GetComponent<Collider>().enabled = false;
             flag = true;
 
             cockPitTransform = transform.parent;
@@ -43,9 +39,7 @@ namespace Assets.Script {
             playerController.transform.rotation = cockPitTransform.rotation;
 
             playerController.transform.SetParent(shipController.transform);
-
         }
-
 
         void Update() {
             if (flag) {
@@ -71,12 +65,8 @@ namespace Assets.Script {
                 shipController.Left();
             }
 
-
-
             if (Input.GetButtonDown("Inertia")) {
                 shipController.ToggleDamper();
-
-                Debug.Log("ASd");
             }
 
             //ShipRotation
@@ -94,30 +84,12 @@ namespace Assets.Script {
                 interfaceManager.ShowShipInterface(transform.root.gameObject);
 
                 playerController.GetComponent<Rigidbody>().isKinematic = false;
+                playerController.GetComponent<Collider>().enabled = true;
                 flag = false;
                 this.enabled = false;
                 playerController.enabled = true;
                 playerController.transform.SetParent(null);
             }
-
-            ////ShipRotation
-            //Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //Quaternion newRotation = Quaternion.LookRotation(transform.root.forward, mousePos - transform.position);
-
-            //newRotation.x = 0.0f;
-            //newRotation.y = 0.0f;
-
-            //transform.root.rotation = Quaternion.Slerp(transform.root.rotation, newRotation, Time.deltaTime * 0.4f);
-
-            //if (Input.GetButtonDown("Use")) {
-
-            //    playerController.GetComponent<Rigidbody>().isKinematic = false;
-            //    flag = false;
-            //    this.enabled = false;
-            //    playerController.enabled = true;               
-            //    playerController.transform.SetParent(null);
-            //}
         }
-
     }
 }

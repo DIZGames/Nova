@@ -41,13 +41,11 @@ public class Reaktor : MonoBehaviour, IInteractWithPlayerRaycast, ITest {
         }
     }
 
-
-
-
     // Use this for initialization
     void Start () {
         shipManager = transform.root.GetComponent<ShipManager>();       
-        shipManager.AddToEnergyList(this);
+        if(shipManager != null)
+            shipManager.AddToEnergyList(this);
 
         interfaceManager = GameObject.FindGameObjectWithTag("InterfaceManager").GetComponent<InterfaceManager>();
     }

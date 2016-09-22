@@ -27,14 +27,14 @@ namespace Assets.Script {
         [SerializeField]
         private Transform terminalShield;
 
-        [SerializeField]
-        private Text energyValue;
-        [SerializeField]
-        private Text oxygenValue;
-        [SerializeField]
-        private Text maxEnergyValue;
-        [SerializeField]
-        private Text maxOxygenValue;
+        //[SerializeField]
+        //private Text energyValue;
+        //[SerializeField]
+        //private Text oxygenValue;
+        //[SerializeField]
+        //private Text maxEnergyValue;
+        //[SerializeField]
+        //private Text maxOxygenValue;
 
         private ITest currentITest = null;
 

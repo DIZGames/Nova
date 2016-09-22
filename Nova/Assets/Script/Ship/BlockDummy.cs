@@ -1,4 +1,5 @@
-﻿using Assets.Script.ItemSystem;
+﻿using Assets.Script;
+using Assets.Script.ItemSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,6 @@ namespace Assets {
         [SerializeField]
         private LayerMask layerMaskAttachableBetween;
 
-        [SerializeField]
-        private float rayLength;
         [SerializeField]
         private Color colorBuildable;
         [SerializeField]
@@ -278,7 +277,8 @@ namespace Assets {
 
         private void OnTriggerStay() {
             isNotBlocking = false;
-            Debug.Log("OnTriggerStay");
         }
+
+     
     }
 }

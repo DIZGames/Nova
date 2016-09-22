@@ -8,9 +8,6 @@ using UnityEngine;
 namespace Assets.Script {
     public class ReactorContainer : MonoBehaviour, IInteractWithPlayerRaycast, ITest {
 
-        [SerializeField]
-        private ISlotContainerList slotContainerList;
-
         private InterfaceManager interfaceManager;
         private ShipManager shipManager;
 

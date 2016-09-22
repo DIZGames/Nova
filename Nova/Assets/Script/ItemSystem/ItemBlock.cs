@@ -28,20 +28,5 @@ namespace Assets.Script.ItemSystem {
         public override ItemBase Clone() {
             return Instantiate(this) as ItemBlock;
         }
-
-        //public bool IsCenter()
-        //{
-        //    return position == BlockPosition.CENTER || position == BlockPosition.CENTER_BOTTOM
-        //        || position == BlockPosition.CENTER_MIDDLE || position == BlockPosition.CENTER_TOP;
-        //}
-
-        //public bool IsBetween()
-        //{
-        //    return position == BlockPosition.BETWEEN || position == BlockPosition.BETWEEN_FLOOR
-        //        || position == BlockPosition.BETWEEN_MIDDLE || position == BlockPosition.BETWEEN_TOP;
-        //}
-
-
     }
-
 }

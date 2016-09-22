@@ -17,7 +17,6 @@ public class Player : MonoBehaviour {
     public GameObject Head;
     public GameObject Body;
 
-
 	void Start () {
         currentHealth = 100;
         currentArmor = 100;
@@ -28,10 +27,6 @@ public class Player : MonoBehaviour {
         maxArmor = 100;
         maxEnergy = 100;
         maxOxygen = 100;
-	}
-	
-	void Update () {
-	
 	}
 
     public void addToCurrentValues(int health, int armor, int energy, int oxygen) {
@@ -95,6 +90,5 @@ public class Player : MonoBehaviour {
 
             
     }
-
 
 }

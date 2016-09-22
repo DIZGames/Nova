@@ -45,10 +45,12 @@ namespace Assets.Script {
 
         public ItemBase GetIngredientForProgress() {
 
-            for (int i = 0; i < ingredientsUnique.Count; i++) {
-                return ingredientsUnique[i];      
-            }
-            return null;
+            return ingredientsUnique[0];
+
+            //for (int i = 0; i < ingredientsUnique.Count; i++) {
+            //    return ingredientsUnique[i];      
+            //}
+            //return null;
         }
 
         public void RemoveIngredientFromProgress(ItemBase itemBase) {

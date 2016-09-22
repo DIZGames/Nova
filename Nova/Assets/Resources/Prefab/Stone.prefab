@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21292506}
   - 114: {fileID: 11445586}
   - 65: {fileID: 6574154}
+  - 114: {fileID: 114000013349352624}
   m_Layer: 0
   m_Name: Stone
   m_TagString: Untagged
@@ -54,6 +55,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a46e8b904604884c9ddef29b3a23497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemSpawner: {fileID: 114000013349352624}
+  itemBase: {fileID: 11400000, guid: 1de5b0d17328a93408132953e563f7c5, type: 2}
+  itemCount: 5
 --- !u!212 &21292506
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -98,3 +102,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 173990}
   m_IsPrefabParent: 1
+--- !u!114 &114000013349352624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 173990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e11db5a408c951e40a80f5109c329c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 493892}

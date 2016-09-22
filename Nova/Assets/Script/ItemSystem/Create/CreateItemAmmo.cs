@@ -13,7 +13,7 @@ namespace Assets.Script.ItemSystem.Create {
         {
             ItemAmmo asset = ScriptableObject.CreateInstance<ItemAmmo>();
 
-            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/ItemAmmo.asset");
+            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/Item/Ammo/ItemAmmo.asset");
             AssetDatabase.SaveAssets();
 
             EditorUtility.FocusProjectWindow();

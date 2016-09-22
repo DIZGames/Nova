@@ -12,7 +12,7 @@ namespace Assets.Script.ItemSystem.Create {
         public static void CreateMyAsset() {
             ItemMaterial asset = ScriptableObject.CreateInstance<ItemMaterial>();
 
-            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/ItemMaterial .asset");
+            AssetDatabase.CreateAsset(asset, "Assets/Resources/ScriptableObject/Item/Material/ItemMaterial .asset");
             AssetDatabase.SaveAssets();
 
             EditorUtility.FocusProjectWindow();
