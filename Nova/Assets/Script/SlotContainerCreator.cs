@@ -17,8 +17,6 @@ namespace Assets.Script
             {
                 stack -= itemBase.maxStack;
 
-
-
                 GameObject gObject1 = Instantiate(goSlotContainer);
                 gObject1.name = itemBase.name;
 

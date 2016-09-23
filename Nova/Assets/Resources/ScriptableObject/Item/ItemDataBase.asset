@@ -35,6 +35,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08ceb6a2fa6cdd2418086695f8e23039, type: 2}
   - {fileID: 11400000, guid: 8e65119652cf7f4478cc4383d6b15ae0, type: 2}
   - {fileID: 11400000, guid: 366f3ed130f41e14192775bcc5f39e31, type: 2}
+  - {fileID: 11400000, guid: 57f9a4eaa044ba3428c3e6605fb24cb4, type: 2}
   listItemClothing:
   - {fileID: 11400000, guid: 837551212bf850a409e56af07041782c, type: 2}
   - {fileID: 11400000, guid: db9c60495774efc42b41bc7c0d281001, type: 2}

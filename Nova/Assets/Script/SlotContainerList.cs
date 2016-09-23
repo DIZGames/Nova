@@ -17,7 +17,9 @@ namespace Assets.Script {
 
         void Start() {
             this.shipManager = transform.root.GetComponent<ShipManager>();
-            this.shipManager.addContainer(this, unitType);
+            if (shipManager != null) {
+                this.shipManager.addContainer(this, unitType);
+            }
 
             slotContainerList = new List<SlotContainer>();
             Refresh();

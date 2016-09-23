@@ -27,16 +27,14 @@ namespace Assets.Script {
         [SerializeField]
         private BlockDummy dummyBlockScript;
 
+        [SerializeField]
         private GameObject shipPrefab;
+
         private LayerMask layerAttachMask;
         private Transform hitTransform;
         ItemBlock itemBlock;
         int rotation = 0;
         string orientation;
-
-        void Start() {
-            shipPrefab = (GameObject)Resources.Load("Prefab/Ship/Ship");
-        }
 
         void Update() {
             raycasting();
