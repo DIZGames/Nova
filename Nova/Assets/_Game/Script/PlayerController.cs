@@ -22,12 +22,9 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         if (isLocalPlayer){
             ((CameraController)Camera.main.GetComponent<CameraController>()).Player = gameObject;
-            GameObject hotbar = GameObject.Find("Hotbar");
-            if (hotbar != null)
-                ((Hotbar)hotbar.GetComponent<Hotbar>()).Player = gameObject.GetComponent<Player>();
-            GameObject playerInterface = GameObject.Find("PlayerStatusUI");
+            GameObject playerInterface = GameObject.Find("PlayerInterface");
             if (playerInterface != null)
-                ((PlayerInterface)playerInterface.GetComponent<PlayerInterface>()).Player = gameObject.GetComponent<Player>();
+                ((PlayerInventory)playerInterface.GetComponent<PlayerInventory>()).Player = gameObject.GetComponent<Player>();
         }
 
     }

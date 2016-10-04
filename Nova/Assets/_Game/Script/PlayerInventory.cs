@@ -11,7 +11,10 @@ namespace Assets.Script {
         public List<GameObject> List;
         private List<ISlotContainerList> interfaceList;
 
+        public Player Player { set; get; }
+
         void Start() {
+            Player = GameObject.Find("PlayerInterface").GetComponent<PlayerInterface>().Player;
 
             interfaceList = new List<ISlotContainerList>();
 

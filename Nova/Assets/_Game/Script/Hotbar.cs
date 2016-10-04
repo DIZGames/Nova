@@ -41,6 +41,7 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
         hotBarList = new List<SlotContainer>();
         Refresh();
         standardParent = transform.parent;
+        Player = GameObject.Find("PlayerInterface").GetComponent<PlayerInterface>().Player;
     }
 
     void Update() {

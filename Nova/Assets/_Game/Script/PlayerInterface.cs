@@ -25,6 +25,7 @@ public class PlayerInterface : MonoBehaviour {
     public Player Player { set; get; }
 
     void Start() {
+        Player = GameObject.Find("PlayerInterface").GetComponent<PlayerInterface>().Player;
     }
 
 	void Update () {

@@ -34,7 +34,7 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
     void Start() {
         standardParent = transform.parent;
         characterScreenList = new List<SlotContainer>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player = GameObject.Find("PlayerInterface").GetComponent<PlayerInterface>().Player;
         Refresh();
     }
 
