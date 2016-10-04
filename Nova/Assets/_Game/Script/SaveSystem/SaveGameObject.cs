@@ -10,7 +10,7 @@ public class SaveGameObject
 {
     public string Name { set; get; }
     public string Tag { set; get; }
-    public string Prefab { set; get; }
+    public string prefabId { set; get; }
     public int Layer { set; get; }
     public bool IsStatic { set; get; }
     public bool IsActive { set; get; }
@@ -32,7 +32,6 @@ public class SaveGameObject
         if (saveMe == null)
         {
             saveMe = gameObject.GetComponent<SaveMe>();
-            //Prefab = saveMe.Prefab;
         }
 
         if (saveMe == null)
@@ -43,8 +42,7 @@ public class SaveGameObject
         Layer = gameObject.layer;
         IsActive = gameObject.activeSelf;
         IsStatic = gameObject.isStatic;
-
-        
+        prefabId = saveMe.prefabId;
 
         Transform t = gameObject.transform;
         LocalPosition = new SaveVector3(t.localPosition.x, t.localPosition.y, t.localPosition.z);
@@ -71,8 +69,8 @@ public class SaveGameObject
     public GameObject ToGameObject()
     {
         GameObject go;
-        if (Prefab != null && Prefab != "")
-            go = GameObject.Instantiate((GameObject)Resources.Load(Prefab));
+        if (!string.IsNullOrEmpty(prefabId))
+            go = GameObject.Instantiate(SaveManager.getPrefab(prefabId));
         else 
             go = new GameObject();
         go.name = Name;
@@ -91,7 +89,7 @@ public class SaveGameObject
         if (_children != null) {
             foreach (SaveGameObject child in _children)
             {
-                if((Prefab != null || Prefab != "") && transform.FindChild(child.Name))
+                if((prefabId != null || prefabId != "") && transform.FindChild(child.Name))
                 {
 
                 }

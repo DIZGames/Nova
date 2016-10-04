@@ -379,6 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveChildren: 1
+  prefabId: 64903126-bd96-4a8b-a448-c15f86c1b462
 --- !u!114 &114000011316869332
 MonoBehaviour:
   m_ObjectHideFlags: 1

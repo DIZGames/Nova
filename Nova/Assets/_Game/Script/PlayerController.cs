@@ -15,18 +15,21 @@ public class PlayerController : MonoBehaviour {
     private ShipManager OnBoardShip;
 
     void Start () {
+        PlayerNetwork playerNetwork = GetComponent<PlayerNetwork>();
+        if (playerNetwork != null)
+            isLocalPlayer = playerNetwork.isLocalPlayer;
+
         rb = GetComponent<Rigidbody>();
         if (isLocalPlayer){
             ((CameraController)Camera.main.GetComponent<CameraController>()).Player = gameObject;
             GameObject hotbar = GameObject.Find("Hotbar");
             if (hotbar != null)
                 ((Hotbar)hotbar.GetComponent<Hotbar>()).Player = gameObject.GetComponent<Player>();
+            GameObject playerInterface = GameObject.Find("PlayerStatusUI");
+            if (playerInterface != null)
+                ((PlayerInterface)playerInterface.GetComponent<PlayerInterface>()).Player = gameObject.GetComponent<Player>();
         }
-        PlayerNetwork playerNetwork = GetComponent<PlayerNetwork>();
-        if(playerNetwork != null)
-        {
-            isLocalPlayer = playerNetwork.isLocalPlayer;
-        }
+
     }
 
     void Update() {

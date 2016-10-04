@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 [Serializable]
 public class SaveData {
+    public string saveName { get; set; }
+
     Dictionary<string, bool> _boolFields = null;
     Dictionary<string, int> _intFields = null;
     Dictionary<string, float> _floatFields = null;
@@ -10,7 +12,10 @@ public class SaveData {
 
     List<SaveGameObject> _rootgameObjects = null;
 
-
+    public SaveData(string saveName)
+    {
+        this.saveName = saveName;
+    }
 
     public Dictionary<string, bool> BoolFields
     {

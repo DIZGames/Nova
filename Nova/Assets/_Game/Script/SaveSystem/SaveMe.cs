@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class SaveMe : MonoBehaviour {
 
     public bool saveChildren = true;
-    public GameObject Prefab { get; set; }
+    public string prefabId;
 
     void Reset()
     {
         #if UNITY_EDITOR
-        Prefab = (GameObject)UnityEditor.PrefabUtility.GetPrefabParent(gameObject);
-        Debug.Log(gameObject);
+        if(string.IsNullOrEmpty(prefabId))
+            prefabId = Guid.NewGuid().ToString();
         #endif
     }
 

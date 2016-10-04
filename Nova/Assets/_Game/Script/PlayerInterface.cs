@@ -22,23 +22,22 @@ public class PlayerInterface : MonoBehaviour {
     [SerializeField]
     private Text maxOxygen;
 
-    private Player player;
+    public Player Player { set; get; }
 
     void Start() {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
 	void Update () {
 
-        currentHealth.text = player.currentHealth.ToString();
-        currentArmor.text = player.currentArmor.ToString();
-        currentEnergy.text = player.currentEnergy.ToString();
-        currentOxygen.text = player.currentOxygen.ToString();
+        currentHealth.text = Player.currentHealth.ToString();
+        currentArmor.text = Player.currentArmor.ToString();
+        currentEnergy.text = Player.currentEnergy.ToString();
+        currentOxygen.text = Player.currentOxygen.ToString();
 
-        maxHealth.text = player.maxHealth.ToString();
-        maxArmor.text = player.maxArmor.ToString();
-        maxEnergy.text = player.maxEnergy.ToString();
-        maxOxygen.text = player.maxOxygen.ToString();
+        maxHealth.text = Player.maxHealth.ToString();
+        maxArmor.text = Player.maxArmor.ToString();
+        maxEnergy.text = Player.maxEnergy.ToString();
+        maxOxygen.text = Player.maxOxygen.ToString();
 
 	}
 }

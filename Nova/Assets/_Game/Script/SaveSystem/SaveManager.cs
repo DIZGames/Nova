@@ -6,23 +6,31 @@ using System.Linq;
 
 public class SaveManager {
 
-    private static string saveFolder = Application.dataPath + "/Savegames"; 
+    private static string saveFolder = "/Savegames"; 
     private static string fileEnding = ".sav";
-    private static Dictionary<string, Object> prefabs = new Dictionary<string, Object>();
+    private static Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
 
     private static List<GameObject> objectsToSave = new List<GameObject>();
 
     static SaveManager() {
         try
         {
-            foreach (Object o in Resources.LoadAll("", typeof(GameObject)).Cast<GameObject>())
+            foreach (GameObject go in Resources.LoadAll("", typeof(GameObject)).Cast<GameObject>())
             {
-                Debug.Log(o.name);
-                prefabs.Add(o.name, o);
+                SaveMe saveMe = go.GetComponent<SaveMe>();
+                if (saveMe != null && !string.IsNullOrEmpty(saveMe.prefabId))
+                {
+                    Debug.Log(go.name);
+                    prefabs.Add(saveMe.prefabId, go);
+                }
             }
         } catch(System.ArgumentException e)
         {
             Debug.Log(e.Message);
+        }
+        finally
+        {
+            Resources.UnloadUnusedAssets();
         }
     }
     /// <summary>
@@ -30,12 +38,15 @@ public class SaveManager {
     /// </summary>
     /// <param name="fileName"></param>
     /// <returns></returns>
-    public static string Save(string fileName, SaveFormat format = SaveFormat.BINARY)
+    public static string Save(string saveName, string fileName = null, SaveFormat format = SaveFormat.BINARY)
     {
         if (!Directory.Exists(saveFolder))
             Directory.CreateDirectory(saveFolder);
 
-        SaveData saveData = new SaveData();
+        if (fileName == null)
+            fileName = saveName.Replace(" ", "_");
+
+        SaveData saveData = new SaveData(saveName);
 
         foreach (GameObject go in objectsToSave)
             saveData.RootGameObjetcs.Add(new SaveGameObject(go));
@@ -85,11 +96,15 @@ public class SaveManager {
     public static List<string> GetAllSaveFiles(bool withPath = false)
     {
         List<string> files = new List<string>();
-        foreach (string file in Directory.GetFiles(saveFolder))
+
+        if (Directory.Exists(saveFolder))
         {
-            if(!withPath)
-                file.Replace(saveFolder + "\\", "").Replace(fileEnding, "");
-            files.Add(file);
+            foreach (string file in Directory.GetFiles(saveFolder))
+            {
+                if(!withPath)
+                    file.Replace(saveFolder + "\\", "").Replace(fileEnding, "");
+                files.Add(file);
+            }
         }
         return files;
     }
@@ -97,6 +112,11 @@ public class SaveManager {
     public static void DeleteSaveGame(string fileName)
     {
         File.Delete(saveFolder + "/" + fileName + fileEnding);
+    }
+
+    public static GameObject getPrefab(string id)
+    {
+        return prefabs[id];
     }
 
     public static void Add(GameObject go)
