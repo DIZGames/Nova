@@ -6,8 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scene/MainMenu.unity
+    path: Assets/_Game/Scene/MainMenu.unity
   - enabled: 1
-    path: Assets/Scene/Game.unity
-  - enabled: 1
-    path: Assets/Scene/Scene Markus.unity
+    path: Assets/_Game/Scene/Game.unity

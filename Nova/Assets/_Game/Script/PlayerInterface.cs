@@ -25,20 +25,20 @@ public class PlayerInterface : MonoBehaviour {
     public Player Player { set; get; }
 
     void Start() {
-        Player = GameObject.Find("PlayerInterface").GetComponent<PlayerInterface>().Player;
     }
 
 	void Update () {
+        if(Player != null)
+        {
+            currentHealth.text = Player.currentHealth.ToString();
+            currentArmor.text = Player.currentArmor.ToString();
+            currentEnergy.text = Player.currentEnergy.ToString();
+            currentOxygen.text = Player.currentOxygen.ToString();
 
-        currentHealth.text = Player.currentHealth.ToString();
-        currentArmor.text = Player.currentArmor.ToString();
-        currentEnergy.text = Player.currentEnergy.ToString();
-        currentOxygen.text = Player.currentOxygen.ToString();
-
-        maxHealth.text = Player.maxHealth.ToString();
-        maxArmor.text = Player.maxArmor.ToString();
-        maxEnergy.text = Player.maxEnergy.ToString();
-        maxOxygen.text = Player.maxOxygen.ToString();
-
+            maxHealth.text = Player.maxHealth.ToString();
+            maxArmor.text = Player.maxArmor.ToString();
+            maxEnergy.text = Player.maxEnergy.ToString();
+            maxOxygen.text = Player.maxOxygen.ToString();
+        }
 	}
 }

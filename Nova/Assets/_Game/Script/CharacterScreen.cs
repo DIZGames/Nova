@@ -11,7 +11,7 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
     private List<SlotContainer> characterScreenList;
     public Transform slotList;
 
-    private Player player;
+    private Player _player;
 
     [SerializeField]
     private GameObject uiObject;
@@ -34,22 +34,23 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
     void Start() {
         standardParent = transform.parent;
         characterScreenList = new List<SlotContainer>();
-        player = GameObject.Find("PlayerInterface").GetComponent<PlayerInterface>().Player;
-        Refresh();
     }
 
     public void Refresh() {
-        characterScreenList.Clear();
-        player.resetMaxValues();
+        if(Player != null)
+        {
+            characterScreenList.Clear();
+            Player.resetMaxValues();
 
-        for (int i = 0; i < slotList.childCount; i++) {
-            if (slotList.GetChild(i).childCount != 0) {
-                SlotContainer slotContainer = slotList.GetChild(i).GetChild(0).GetComponent<SlotContainer>();
-                ItemClothing itemClothing = (ItemClothing)slotContainer.ItemBase;
+            for (int i = 0; i < slotList.childCount; i++) {
+                if (slotList.GetChild(i).childCount != 0) {
+                    SlotContainer slotContainer = slotList.GetChild(i).GetChild(0).GetComponent<SlotContainer>();
+                    ItemClothing itemClothing = (ItemClothing)slotContainer.ItemBase;
 
-                player.addToMaxValues(itemClothing.healthUpgrade, itemClothing.armorUpgrade, itemClothing.energyUpgrade, itemClothing.oxygenUpgrade);
+                    Player.addToMaxValues(itemClothing.healthUpgrade, itemClothing.armorUpgrade, itemClothing.energyUpgrade, itemClothing.oxygenUpgrade);
 
-                characterScreenList.Add(slotContainer);
+                    characterScreenList.Add(slotContainer);
+                }
             }
         }
     }
@@ -120,5 +121,15 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
             }
         }
         return false;
+    }
+
+    public Player Player
+    {
+        set
+        {
+            _player = value;
+            Refresh();
+        }
+        get { return _player; }
     }
 }

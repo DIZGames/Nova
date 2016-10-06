@@ -15,6 +15,8 @@ public class SaveLoadGUI : MonoBehaviour {
     public bool showSave;
     private SaveField selectedField;
 
+    //TODO verwaltung von savegames, namen statt dateinamen benutzen
+
     void Awake()
     {
         saveFields = new List<SaveField>();

@@ -114,4 +114,11 @@ public class InterfaceManager : MonoBehaviour {
         playerStat.SetActive(true);
     }
 
+    public void SetPlayer(Player player)
+    {
+        ((CharacterScreen)characterScreen.GetComponent<CharacterScreen>()).Player = player;
+        ((Hotbar)hotBar.GetComponent<Hotbar>()).Player = player;
+        ((PlayerInterface)playerStat.GetComponent<PlayerInterface>()).Player = player;
+    }
+
 }

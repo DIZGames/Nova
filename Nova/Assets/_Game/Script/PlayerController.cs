@@ -22,9 +22,8 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         if (isLocalPlayer){
             ((CameraController)Camera.main.GetComponent<CameraController>()).Player = gameObject;
-            GameObject playerInterface = GameObject.Find("PlayerInterface");
-            if (playerInterface != null)
-                ((PlayerInventory)playerInterface.GetComponent<PlayerInventory>()).Player = gameObject.GetComponent<Player>();
+            InterfaceManager interfaceM = GameObject.Find("Interface").GetComponent<InterfaceManager>();
+            interfaceM.SetPlayer(gameObject.GetComponent<Player>());
         }
 
     }

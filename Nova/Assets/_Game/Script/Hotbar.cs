@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Assets.Script;
 using System;
 using Assets.Script.ItemSystem;
@@ -10,7 +9,7 @@ using UnityEngine.EventSystems;
 
 public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
 
-    private Player _player;
+    public Player Player { get; set; }
     public InterfaceManager interfaceManager;
 
     public GameObject blockBuilderPrefab;
@@ -41,7 +40,6 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
         hotBarList = new List<SlotContainer>();
         Refresh();
         standardParent = transform.parent;
-        Player = GameObject.Find("PlayerInterface").GetComponent<PlayerInterface>().Player;
     }
 
     void Update() {
@@ -96,64 +94,71 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
     }
 
     private void EquipSlotContainer(SlotContainer slotContainer) {
-        Player.clearOnEquipment();
-        interfaceManager.showWeaponStat(false);
-        selectedGameObject = null;
+        if (Player != null)
+        {
+            Player.clearOnEquipment();
+            interfaceManager.showWeaponStat(false);
+            selectedGameObject = null;
 
-        if (slotContainer != null && slotContainer.ItemBase != null) {
+            if (slotContainer != null && slotContainer.ItemBase != null)
+            {
 
-            if (slotContainer.ItemBase.type == ItemType.Tool) {
-                GameObject go = Instantiate(slotContainer.ItemBase.prefab);
+                if (slotContainer.ItemBase.type == ItemType.Tool)
+                {
+                    GameObject go = Instantiate(slotContainer.ItemBase.prefab);
 
-                go.transform.position = Player.EquipmentPoint.transform.position;
-                go.transform.rotation = Player.EquipmentPoint.transform.rotation;
-                go.name = slotContainer.ItemBase.itemName;
+                    go.transform.position = Player.EquipmentPoint.transform.position;
+                    go.transform.rotation = Player.EquipmentPoint.transform.rotation;
+                    go.name = slotContainer.ItemBase.itemName;
 
-                IHasItem iHasItem = go.GetComponent<IHasItem>();
-                iHasItem.SetItem(slotContainer.ItemBase);
-                selectedGameObject = go.GetComponent<IEquippable>();
+                    IHasItem iHasItem = go.GetComponent<IHasItem>();
+                    iHasItem.SetItem(slotContainer.ItemBase);
+                    selectedGameObject = go.GetComponent<IEquippable>();
 
-                //IEquippable iEquippable = go.GetComponent<IEquippable>();
-                //iEquippable.SetItem(slotContainer.ItemBase);
-                //selectedGameObject = iEquippable;
+                    //IEquippable iEquippable = go.GetComponent<IEquippable>();
+                    //iEquippable.SetItem(slotContainer.ItemBase);
+                    //selectedGameObject = iEquippable;
 
-                Player.setOnEquipment(go);
+                    Player.setOnEquipment(go);
 
-                interfaceManager.SetItemTool(slotContainer.ItemBase);
-                interfaceManager.showWeaponStat(true);
-            }
-            else if (slotContainer.ItemBase.type == ItemType.Consumable) {
-                GameObject go = Instantiate(slotContainer.ItemBase.prefab);
+                    interfaceManager.SetItemTool(slotContainer.ItemBase);
+                    interfaceManager.showWeaponStat(true);
+                }
+                else if (slotContainer.ItemBase.type == ItemType.Consumable)
+                {
+                    GameObject go = Instantiate(slotContainer.ItemBase.prefab);
 
-                go.transform.position = Player.EquipmentPoint.transform.position;
-                go.transform.rotation = Player.EquipmentPoint.transform.rotation;
-                go.name = slotContainer.ItemBase.itemName;
+                    go.transform.position = Player.EquipmentPoint.transform.position;
+                    go.transform.rotation = Player.EquipmentPoint.transform.rotation;
+                    go.name = slotContainer.ItemBase.itemName;
 
-                IHasItem iHasItem = go.GetComponent<IHasItem>();
-                iHasItem.SetItem(slotContainer.ItemBase);
-                selectedGameObject = go.GetComponent<IEquippable>();
+                    IHasItem iHasItem = go.GetComponent<IHasItem>();
+                    iHasItem.SetItem(slotContainer.ItemBase);
+                    selectedGameObject = go.GetComponent<IEquippable>();
 
-                //IEquippable iEquippable = go.GetComponent<IEquippable>();
-                //iEquippable.SetItem(slotContainer.ItemBase);
-                //selectedGameObject = iEquippable;
+                    //IEquippable iEquippable = go.GetComponent<IEquippable>();
+                    //iEquippable.SetItem(slotContainer.ItemBase);
+                    //selectedGameObject = iEquippable;
 
-                Player.setOnEquipment(go);
-            }
-            else if (slotContainer.ItemBase.type == ItemType.Block) {
-                GameObject go = Instantiate(blockBuilderPrefab);
+                    Player.setOnEquipment(go);
+                }
+                else if (slotContainer.ItemBase.type == ItemType.Block)
+                {
+                    GameObject go = Instantiate(blockBuilderPrefab);
 
-                go.transform.position = Player.transform.position;
-                go.transform.rotation = Player.transform.rotation;
+                    go.transform.position = Player.transform.position;
+                    go.transform.rotation = Player.transform.rotation;
 
-                IHasItem iHasItem = go.GetComponent<IHasItem>();
-                iHasItem.SetItem(slotContainer.ItemBase);
-                selectedGameObject = go.GetComponent<IEquippable>();
+                    IHasItem iHasItem = go.GetComponent<IHasItem>();
+                    iHasItem.SetItem(slotContainer.ItemBase);
+                    selectedGameObject = go.GetComponent<IEquippable>();
 
-                //IEquippable iEquippable = go.GetComponent<IEquippable>();
-                //iEquippable.SetItem(slotContainer.ItemBase);
-                //selectedGameObject = iEquippable;
+                    //IEquippable iEquippable = go.GetComponent<IEquippable>();
+                    //iEquippable.SetItem(slotContainer.ItemBase);
+                    //selectedGameObject = iEquippable;
 
-                Player.setOnEquipment(go);
+                    Player.setOnEquipment(go);
+                }
             }
         }
     }
@@ -277,11 +282,5 @@ public class Hotbar : MonoBehaviour, ISlotContainerList, IUI {
 
         return false;
 
-    }
-
-    public Player Player
-    {
-        set { _player = (Player)value; }
-        get { return _player; }
     }
 }

@@ -13,6 +13,7 @@ public class SaveManager {
     private static List<GameObject> objectsToSave = new List<GameObject>();
 
     static SaveManager() {
+        //TODO Prefabs laden wenn savegame geladen wird anstatt alle im speicher zu halten?
         try
         {
             foreach (GameObject go in Resources.LoadAll("", typeof(GameObject)).Cast<GameObject>())
@@ -20,7 +21,6 @@ public class SaveManager {
                 SaveMe saveMe = go.GetComponent<SaveMe>();
                 if (saveMe != null && !string.IsNullOrEmpty(saveMe.prefabId))
                 {
-                    Debug.Log(go.name);
                     prefabs.Add(saveMe.prefabId, go);
                 }
             }
@@ -33,6 +33,7 @@ public class SaveManager {
             Resources.UnloadUnusedAssets();
         }
     }
+
     /// <summary>
     /// Speichert alle GameObjects, die ein SaveMe Script besitzen
     /// </summary>
