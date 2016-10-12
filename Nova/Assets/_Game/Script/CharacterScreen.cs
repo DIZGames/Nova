@@ -34,10 +34,11 @@ public class CharacterScreen : MonoBehaviour, ISlotContainerList, IUI {
     void Start() {
         standardParent = transform.parent;
         characterScreenList = new List<SlotContainer>();
+        Refresh();
     }
 
     public void Refresh() {
-        if(Player != null)
+        if(Player != null && characterScreenList != null)
         {
             characterScreenList.Clear();
             Player.resetMaxValues();

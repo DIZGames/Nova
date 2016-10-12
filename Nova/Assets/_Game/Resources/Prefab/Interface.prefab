@@ -6496,7 +6496,7 @@ MonoBehaviour:
   saveFieldPrefab: {fileID: 118508}
   saveList: {fileID: 22400074}
   saveButton: {fileID: 101226}
-  newScene: 0
+  newScene: 1
   showSave: 1
 --- !u!114 &11455758
 MonoBehaviour:

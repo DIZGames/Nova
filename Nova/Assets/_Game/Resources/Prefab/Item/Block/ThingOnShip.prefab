@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 414876}
   - 212: {fileID: 21220906}
-  - 114: {fileID: 11449316}
   - 135: {fileID: 13552596}
   m_Layer: 9
   m_Name: ThingOnShip
@@ -31,17 +30,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11449316
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 111236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a49518c8e7f879c459e4e139072671d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &13552596
 SphereCollider:
   m_ObjectHideFlags: 1

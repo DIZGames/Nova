@@ -44,8 +44,8 @@ public class SaveComponent {
                     BoolFields.Add(field.Name, (bool)value);
                 else if (field.FieldType.Name == "Float")
                     FloatFields.Add(field.Name, (float)value);
-                else if (field.FieldType.Name == "GameObject")
-                    GameObjectFields.Add(field.Name, new SaveGameObject((GameObject)value));
+                //else if (field.FieldType.Name == "GameObject")
+                //    GameObjectFields.Add(field.Name, new SaveGameObject((GameObject)value));
                 else if (field.FieldType.Name == "Component")
                     ComponentFields.Add(field.Name, new SaveComponent((Component)value));
             }

@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000010332767018}
   - 212: {fileID: 212000011553899840}
   - 65: {fileID: 65000012657510086}
+  - 114: {fileID: 114000010474128182}
   m_Layer: 8
   m_Name: ShipStarter
   m_TagString: Untagged
@@ -53,6 +54,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114000010474128182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013355533170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66955cbc070c57648817bba4f3daee0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChild: 1
+  saveChildren: 1
+  prefabId: 418edd4c-b358-4a0c-b406-4ba1d0138c31
 --- !u!212 &212000011553899840
 SpriteRenderer:
   m_ObjectHideFlags: 1

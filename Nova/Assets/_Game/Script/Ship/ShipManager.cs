@@ -221,7 +221,7 @@ public class ShipManager : MonoBehaviour {
         int savedEnergy = tempEnergy - energy;
         int savedOxygen = tempOyxgen - oxygen;
 
-        Debug.Log(producedEnergy+" "+ consumedEnergy+ " "+ producedOxygen+ " "+ consumedOxygen+ " "+ energy + " " + oxygen);
+        //Debug.Log(producedEnergy+" "+ consumedEnergy+ " "+ producedOxygen+ " "+ consumedOxygen+ " "+ energy + " " + oxygen);
 
         energy = 0;
         oxygen = 0;

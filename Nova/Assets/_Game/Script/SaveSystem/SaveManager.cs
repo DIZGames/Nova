@@ -6,7 +6,7 @@ using System.Linq;
 
 public class SaveManager {
 
-    private static string saveFolder = "/Savegames"; 
+    private static string saveFolder = "Savegames"; 
     private static string fileEnding = ".sav";
     private static Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
 
@@ -103,7 +103,7 @@ public class SaveManager {
             foreach (string file in Directory.GetFiles(saveFolder))
             {
                 if(!withPath)
-                    file.Replace(saveFolder + "\\", "").Replace(fileEnding, "");
+                    file.Replace(saveFolder + "/", "").Replace(fileEnding, "");
                 files.Add(file);
             }
         }
