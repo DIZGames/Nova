@@ -3572,7 +3572,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11455512}
-        m_MethodName: CliclCancel
+        m_MethodName: ClicklCancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

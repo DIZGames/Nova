@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21270724}
   - 114: {fileID: 11494776}
   - 65: {fileID: 6526442}
+  - 114: {fileID: 114000011505293970}
   m_Layer: 11
   m_Name: Thruster
   m_TagString: Untagged
@@ -98,3 +99,17 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 164040}
   m_IsPrefabParent: 1
+--- !u!114 &114000011505293970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66955cbc070c57648817bba4f3daee0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 1
+  prefabId: 351d08f4-dff9-416b-8150-0018d2278d34
+  uid: 

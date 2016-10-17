@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 451796}
   - 212: {fileID: 21215470}
   - 65: {fileID: 6517504}
+  - 114: {fileID: 114000012465898692}
   m_Layer: 10
   m_Name: Top
   m_TagString: Untagged
@@ -86,3 +87,17 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 142734}
   m_IsPrefabParent: 1
+--- !u!114 &114000012465898692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66955cbc070c57648817bba4f3daee0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 1
+  prefabId: 6855dc38-73b0-4a20-9997-0668f2e8a718
+  uid: 
