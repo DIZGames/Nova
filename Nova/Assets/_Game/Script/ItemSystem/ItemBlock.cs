@@ -18,7 +18,7 @@ namespace Assets.Script.ItemSystem {
 
         [Header("BlockBuilding")]
         public int buildLevel;
-        public AttachableRay attachedRay; 
+        //public AttachableRay attachedRay; 
         public List<AttachableRay> attachableRaysForward;
         public List<AttachableRay> attachableRaysUp;
         public List<AttachableRay> attachableRaysDown;
