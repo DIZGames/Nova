@@ -8,17 +8,13 @@ public class BlockSpawner : MonoBehaviour {
     [SerializeField]
     private ItemBlock itemBlock;
     [SerializeField]
-    private GameObject blockBuilderPrefab;
+    private GameObject gBlockSetter;
+
 
     public void spawnBlock() {
+        GameObject go = Instantiate(gBlockSetter);
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        GameObject go = Instantiate(blockBuilderPrefab);
-
-        IHasItem iHasItem = go.GetComponent<IHasItem>();
-        iHasItem.SetItem(itemBlock);
-
-        go.transform.position = mousePos;
+        BlockSetter blockSetter = go.GetComponent<BlockSetter>();
+        blockSetter.SetItem(itemBlock);
     }
 }

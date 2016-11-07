@@ -558,7 +558,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemBlock: {fileID: 11400000, guid: 6c51640ea280241468d5b51265bdc4c5, type: 2}
-  blockBuilderPrefab: {fileID: 0}
+  gBlockSetter: {fileID: 1000012730163372, guid: 72c202f25fba6b840b1552fd04694346,
+    type: 2}
 --- !u!1 &396688870
 GameObject:
   m_ObjectHideFlags: 0
