@@ -90,7 +90,7 @@ MonoBehaviour:
   layerMaskAttachableBetween:
     serializedVersion: 2
     m_Bits: 256
-  colorBuildable: {r: 1, g: 1, b: 1, a: 0.78431374}
+  colorBuildable: {r: 1, g: 1, b: 1, a: 0.791}
   colorNotBuildable: {r: 1, g: 1, b: 1, a: 0.19607843}
   isDebug: 1
   isAttached: 0

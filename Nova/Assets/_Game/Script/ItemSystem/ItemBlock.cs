@@ -8,8 +8,6 @@ using UnityEngine;
 namespace Assets.Script.ItemSystem {
     public class ItemBlock : ItemBase{
 
-        public BlockPosition position;
-        public bool createsNewShip; 
         public int maxHitPoints;
         public int Energy;
         public int Oxygen;
@@ -18,6 +16,8 @@ namespace Assets.Script.ItemSystem {
 
         [Header("BlockBuilding")]
         public int buildLevel;
+        public bool createsNewShip;
+        public BlockPosition position;
         //public AttachableRay attachedRay; 
         public List<AttachableRay> attachableRaysForward;
         public List<AttachableRay> attachableRaysUp;

@@ -83,6 +83,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6693a8fe56567c45b6337d472a9ddd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMaskAttachableShipBottom:
+    serializedVersion: 2
+    m_Bits: 2304
+  layerMaskAttachableShipMiddle:
+    serializedVersion: 2
+    m_Bits: 0
+  layerMaskAttachableShipTop:
+    serializedVersion: 2
+    m_Bits: 0
+  layerMaskAttachableShipOnTop:
+    serializedVersion: 2
+    m_Bits: 0
+  layerMaskAttachableShip:
+    serializedVersion: 2
+    m_Bits: 0
+  layerMaskAttachableBetween:
+    serializedVersion: 2
+    m_Bits: 0
+  colorBuildable: {r: 1, g: 1, b: 1, a: 0.7882353}
+  colorNotBuildable: {r: 1, g: 1, b: 1, a: 0.19607843}
+  isDebug: 1
+  isAttached: 0
+  isNotBlocking: 0
+  isAttachable: 0
 --- !u!114 &114000012694382176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -94,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e412eed0ea51b842ad53036a0d17159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockDummy: {fileID: 114000011744916616}
+  dummyBlock: {fileID: 114000011744916616}
 --- !u!212 &212000012665326282
 SpriteRenderer:
   m_ObjectHideFlags: 1

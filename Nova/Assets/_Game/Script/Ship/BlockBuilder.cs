@@ -36,6 +36,9 @@ namespace Assets.Script {
         string orientation;
 
         void Update() {
+           
+
+
             raycasting();
         }
 
@@ -62,6 +65,8 @@ namespace Assets.Script {
 
             RaycastHit hit;
             Physics.Raycast(transform.position + transform.up * 1 / 2, transform.rotation * new Vector3(0, 1, 1), out hit,2, layerAttachMask);
+
+            
 
             if (hit.collider != null) {
 
